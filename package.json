@@ -1,0 +1,17 @@
+{
+  "name": "ghg-town-3d",
+  "version": "0.8.0",
+  "private": true,
+  "description": "GHG Town 3D (เมืองคาร์บอน) — a 3D training town for organizational carbon footprint (CFO) calculation and verification, guided by the GCC mascot team",
+  "type": "module",
+  "scripts": {
+    "build": "node src/tools/build.mjs",
+    "serve": "node src/tools/serve.mjs"
+  },
+  "devDependencies": {
+    "terser": "5.31.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
