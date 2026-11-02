@@ -91,26 +91,34 @@ GHG3.core = {
       setTimeout(() => this._redrawText(), 2600);
     }
     if (typeof this._afterBoot === 'function') this._afterBoot();
-    E.raf = requestAnimationFrame(() => this._loop());
+    // compile every shader up front, so nothing hitches the first time it comes into view
+    try { renderer.compile(scene, cam); } catch (err) { /* compiled lazily instead */ }
+    E.raf = requestAnimationFrame((t) => this._loop(t));
   },
 
-  _loop() {
+  _loop(ts) {
     const E = this._E;
     if (!E || !E.alive) return;
-    E.raf = requestAnimationFrame(() => this._loop());
-    const now = performance.now() / 1000;
+    E.raf = requestAnimationFrame((t) => this._loop(t));
+    // frame clock from the display (rAF timestamp), not performance.now(): steady steps = smooth walking
+    const now = (ts != null ? ts : performance.now()) / 1000;
     let dt = E.last ? now - E.last : 0.016;
     E.last = now;
     if (dt > 0.05) dt = 0.05;
+    if (dt < 0.001) dt = 0.001;
+    // light smoothing of the step: one late frame no longer makes the camera jump
+    E.dtS = E.dtS ? E.dtS + (dt - E.dtS) * 0.3 : dt;
     if (!E.w) return;
-    this._step(dt);
+    this._step(E.dtS);
     E.renderer.render(E.scene, E.cam);
+    // site-visit film photo: read the frame right after it is drawn
+    if (E.snapReq != null && typeof this._fmSnap === 'function') this._fmSnap();
   },
 
   _step(dt) {
     const E = this._E;
     E.time += dt;
-    const order = ['_tickTour', '_tickPlayer', '_tickGuide', '_tickCrowd', '_tickAnimals', '_tickTraffic', '_tickAnims', '_tickFx', '_tickWeather', '_tickCam', '_tickLights', '_tickHud', '_tickAudio'];
+    const order = ['_tickTour', '_tickPlayer', '_tickFilm', '_tickGuide', '_tickCrowd', '_tickAnimals', '_tickTraffic', '_tickAnims', '_tickFx', '_tickWeather', '_tickCam', '_tickLights', '_tickHud', '_tickAudio'];
     for (const k of order) if (typeof this[k] === 'function') this[k](dt);
   },
 
@@ -315,16 +323,19 @@ GHG3.core = {
       for (let i = 0; i <= n; i++) { g.fillRect(i * s - 1.5, 0, 3, H); g.fillRect(0, i * s - 1.5, W, 3); }
     });
     tx('grass', 512, 512, (g, W, H) => {
-      g.fillStyle = '#6E9442'; g.fillRect(0, 0, W, H);
-      blots(g, W, H, 18, 30, 110, 'rgba(40,70,20,0.22)');
-      blots(g, W, H, 12, 30, 90, 'rgba(170,190,90,0.18)');
-      for (let i = 0; i < 9000; i++) {
-        const x = R() * W, y = R() * H, l = 3 + R() * 7;
+      // v0.8.1: clumps and short blades in every direction (no streaks along the tiling axis), a few dry patches
+      g.fillStyle = '#6A9140'; g.fillRect(0, 0, W, H);
+      blots(g, W, H, 22, 40, 130, 'rgba(38,66,20,0.2)');
+      blots(g, W, H, 16, 30, 100, 'rgba(160,185,85,0.16)');
+      blots(g, W, H, 8, 20, 60, 'rgba(126,112,52,0.1)');
+      for (let i = 0; i < 16000; i++) {
+        const x = R() * W, y = R() * H, l = 2 + R() * 4.5, a = R() * Math.PI * 2;
         const c = R();
-        g.strokeStyle = c < 0.33 ? 'rgba(52,88,30,0.55)' : (c < 0.66 ? 'rgba(130,170,70,0.45)' : 'rgba(95,130,50,0.5)');
+        g.strokeStyle = c < 0.3 ? 'rgba(48,82,28,0.42)' : (c < 0.62 ? 'rgba(128,166,70,0.36)' : (c < 0.9 ? 'rgba(92,128,48,0.4)' : 'rgba(170,180,90,0.3)'));
         g.lineWidth = 1;
-        g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R() - 0.5) * 3, y - l); g.stroke();
+        g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
       }
+      speck(g, W, H, 6000, 1, 2, ['rgba(30,50,15,0.25)', 'rgba(180,200,110,0.2)']);
     });
     tx('dirt', 512, 512, (g, W, H) => {
       g.fillStyle = '#8A6C4D'; g.fillRect(0, 0, W, H);
@@ -704,7 +715,26 @@ GHG3.core = {
     const u0 = (o && o.u0) || 0, v0 = (o && o.v0) || 0;
     const p = (sr, su) => [C[0] + R[0] * hr * sr + U[0] * hu * su, C[1] + R[1] * hr * sr + U[1] * hu * su, C[2] + R[2] * hr * sr + U[2] * hu * su];
     const n = [R[1] * U[2] - R[2] * U[1], R[2] * U[0] - R[0] * U[2], R[0] * U[1] - R[1] * U[0]];
-    this._quad(A, p(-1, -1), p(1, -1), p(1, 1), p(-1, 1), n, [u0, v0, u0 + (2 * hr) / tw, v0 + (2 * hu) / th], col, o && o.both);
+    const u1 = u0 + (2 * hr) / tw;
+    if (o && o.ao && !o.both) {
+      // contact shading (v0.8.1): a band that darkens toward the ground; the face is split at the band top
+      const H = 2 * hu, a = Math.min(o.ao, H), sa = -1 + (2 * a) / H;
+      this._quadG(A, p(-1, -1), p(1, -1), p(1, sa), p(-1, sa), n, [u0, v0, u1, v0 + a / th], this._shade(col, 0.62), col);
+      if (sa < 0.999) this._quad(A, p(-1, sa), p(1, sa), p(1, 1), p(-1, 1), n, [u0, v0 + a / th, u1, v0 + H / th], col, false);
+      return;
+    }
+    this._quad(A, p(-1, -1), p(1, -1), p(1, 1), p(-1, 1), n, [u0, v0, u1, v0 + (2 * hu) / th], col, o && o.both);
+  },
+  // quad with a vertical colour gradient: c0, c1 (bottom) get colB, c2, c3 (top) get colT
+  _quadG(A, c0, c1, c2, c3, nrm, uv, colB, colT) {
+    const k = A.vc;
+    const b = this._lc(colB), t = this._lc(colT);
+    A.p.push(c0[0], c0[1], c0[2], c1[0], c1[1], c1[2], c2[0], c2[1], c2[2], c3[0], c3[1], c3[2]);
+    A.n.push(nrm[0], nrm[1], nrm[2], nrm[0], nrm[1], nrm[2], nrm[0], nrm[1], nrm[2], nrm[0], nrm[1], nrm[2]);
+    A.u.push(uv[0], uv[1], uv[2], uv[1], uv[2], uv[3], uv[0], uv[3]);
+    A.c.push(b[0], b[1], b[2], b[0], b[1], b[2], t[0], t[1], t[2], t[0], t[1], t[2]);
+    A.i.push(k, k + 1, k + 2, k, k + 2, k + 3);
+    A.vc += 4;
   },
 
   // axis-aligned (optionally y-rotated) box with base at y. o: {ry, top (bucket|false), sides (bucket), bot, skip:'px nx pz nz', u0, v0, tw, th, topCol, both}
@@ -718,7 +748,9 @@ GHG3.core = {
     const topB = o.top === undefined ? b : o.top;
     const skip = o.skip || '';
     const at = (lx, ly, lz) => { const r = rot(lx, 0, lz); return [x + r[0], cy + ly, z + r[2]]; };
-    const fo = { u0: o.u0, v0: o.v0, tw: o.tw, th: o.th, both: o.both };
+    // grounded boxes get contact shading on their sides (not lights, glass or road paint)
+    const aoOk = !o.noAO && y < 0.5 && h > 0.12 && sideB !== 'glow' && sideB !== 'glass' && sideB !== 'paint' && sideB !== 'ruGlow';
+    const fo = { u0: o.u0, v0: o.v0, tw: o.tw, th: o.th, both: o.both, ao: aoOk ? Math.min(1.3, h * 0.6) : 0 };
     if (skip.indexOf('pz') < 0) this._face(sideB, at(0, 0, hd), rot(1, 0, 0), [0, 1, 0], hw, hh, col, fo);
     if (skip.indexOf('nz') < 0) this._face(sideB, at(0, 0, -hd), rot(-1, 0, 0), [0, 1, 0], hw, hh, col, fo);
     if (skip.indexOf('px') < 0) this._face(sideB, at(hw, 0, 0), rot(0, 0, -1), [0, 1, 0], hd, hh, col, fo);

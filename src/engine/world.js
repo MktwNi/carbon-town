@@ -2140,10 +2140,83 @@ Object.assign(GHG3.world, {
       }
     }
   },
+  // organic canopy (v0.8.1): a lumpy, smooth-shaded sphere, cached; seams welded so normals stay soft
+  _wLumpGeo(hi) {
+    const E = this._E;
+    const T = E.T;
+    E.wLump = E.wLump || {};
+    const key = hi ? 'h' : 'l';
+    if (E.wLump[key]) return E.wLump[key];
+    const g = this._wWeld(new T.SphereGeometry(1, hi ? 16 : 7, hi ? 11 : 4));
+    const P = g.attributes.position;
+    const R = this._rng(hi ? 515 : 616);
+    const bumps = [];
+    for (let i = 0; i < (hi ? 11 : 7); i++) { const u = R() * 2 - 1, t = R() * Math.PI * 2, r = Math.sqrt(1 - u * u); bumps.push([Math.cos(t) * r, u, Math.sin(t) * r, 0.09 + R() * 0.12]); }
+    for (let i = 0; i < P.count; i++) {
+      const x = P.getX(i), y = P.getY(i), z = P.getZ(i);
+      let s = 0.92;
+      for (const b of bumps) { const d = x * b[0] + y * b[1] + z * b[2]; if (d > 0.55) s += b[3] * Math.pow((d - 0.55) / 0.45, 2); }
+      P.setXYZ(i, x * s, (y < -0.25 ? y * 0.78 : y) * s, z * s);
+    }
+    g.computeVertexNormals();
+    E.wLump[key] = g;
+    return g;
+  },
+  _wWeld(g) {
+    const T = this._E.T;
+    const P = g.attributes.position;
+    const map = new Map(), remap = new Array(P.count), pos = [];
+    for (let i = 0; i < P.count; i++) {
+      const k = Math.round(P.getX(i) * 1e4) + ',' + Math.round(P.getY(i) * 1e4) + ',' + Math.round(P.getZ(i) * 1e4);
+      let j = map.get(k);
+      if (j == null) { j = pos.length / 3; map.set(k, j); pos.push(P.getX(i), P.getY(i), P.getZ(i)); }
+      remap[i] = j;
+    }
+    const src = g.index ? Array.from(g.index.array) : Array.from({ length: P.count }, (v, i) => i);
+    const idx = [];
+    for (let t = 0; t < src.length; t += 3) {
+      const a = remap[src[t]], b = remap[src[t + 1]], c = remap[src[t + 2]];
+      if (a !== b && b !== c && a !== c) idx.push(a, b, c);
+    }
+    const out = new T.BufferGeometry();
+    out.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    out.setIndex(idx);
+    g.dispose();
+    return out;
+  },
+  // canopy blob with baked light: shaded underneath, sunlit crown, a little leafy speckle
+  _wBlob(A, x, y, z, sx, sy, sz, col, hi, spin) {
+    const E = this._E;
+    const T = E.T;
+    const g = this._wLumpGeo(hi);
+    if (!E._wbM) { E._wbM = new T.Matrix4(); E._wbN = new T.Matrix3(); E._wbQ = new T.Quaternion(); E._wbE = new T.Euler(); E._wbV = new T.Vector3(); E._wbS = new T.Vector3(); E._wbP = new T.Vector3(); }
+    E._wbE.set(0, (spin || 0) * 2.39996, 0);
+    E._wbQ.setFromEuler(E._wbE);
+    E._wbM.compose(E._wbP.set(x, y, z), E._wbQ, E._wbS.set(sx, sy, sz));
+    E._wbN.getNormalMatrix(E._wbM);
+    const base = this._lc(col);
+    const P = g.attributes.position, N = g.attributes.normal, I = g.index.array;
+    const k0 = A.vc;
+    const v = E._wbV;
+    for (let i = 0; i < P.count; i++) {
+      const ly = P.getY(i);
+      v.set(P.getX(i), ly, P.getZ(i)).applyMatrix4(E._wbM);
+      A.p.push(v.x, v.y, v.z);
+      v.set(N.getX(i), N.getY(i), N.getZ(i)).applyMatrix3(E._wbN).normalize();
+      A.n.push(v.x, v.y, v.z);
+      A.u.push(0, 0);
+      const h = Math.max(0, Math.min(1, (ly + 0.9) / 1.8));
+      const sp = 0.92 + 0.16 * (((i * 7919 + (spin || 0) * 104729) % 1000) / 1000);
+      const f = (0.56 + 0.52 * h * h * (3 - 2 * h)) * sp;
+      A.c.push(base[0] * f, base[1] * f, base[2] * f);
+    }
+    for (let t = 0; t < I.length; t++) A.i.push(k0 + I[t]);
+    A.vc += P.count;
+  },
   _wTreeGeo(kind, hi) {
     const R = this._rng(kind.length * 977 + (hi ? 1 : 2));
-    const ico = hi ? 1 : 0;
-    const blob = (A, x, y, z, sx, sy, sz, col) => this.ico(A, x, y, z, sx, sy, sz, col, ico);
+    let bn = 0;
+    const blob = (A, x, y, z, sx, sy, sz, col) => this._wBlob(A, x, y, z, sx, sy, sz, col, hi, ++bn);
     const trunk = (A, h, r, col) => { this.cyl(A, 0, 0, 0, r, h * 0.55, col, hi ? 8 : 5); this.cyl(A, 0, h * 0.55, 0, r * 0.72, h * 0.45, col, hi ? 8 : 5); };
     const G = ['#4A7A2F', '#56853A', '#3F6B29', '#5F8E40', '#4F7F33'];
     return this._bake((A) => {
@@ -2307,7 +2380,29 @@ Object.assign(GHG3.world, {
     if (E.wGeoC[key]) return E.wGeoC[key];
     const GL = '#26343D', TY = '#1B1B1B', HUB = '#B9BEC3', DK = '#2B2B2B';
     const R = this._rng(key.length * 131 + color.charCodeAt(1) * 7);
-    const wheel = (A, x, y, z, r, w) => { this.cylR(A, x, y, z, r, w, TY, 0, 0, Math.PI / 2, 7); this.cylR(A, x + Math.sign(x) * 0.02, y, z, r * 0.55, w + 0.02, HUB, 0, 0, Math.PI / 2, 5); };
+    const wheel = (A, x, y, z, r, w) => { this.cylR(A, x, y, z, r, w, TY, 0, 0, Math.PI / 2, 14); this.cylR(A, x + Math.sign(x) * 0.02, y, z, r * 0.58, w + 0.02, HUB, 0, 0, Math.PI / 2, 10); };
+    // greenhouse (v0.8.1): sloped windscreen / rear window and side glass from the beltline (yb) up to the roof (yt)
+    const cabin = (A, zb0, zb1, zt0, zt1, yb, yt, wb, wt, roof) => {
+      const B = [[-wb, yb, zb0], [wb, yb, zb0], [wb, yb, zb1], [-wb, yb, zb1]];
+      const U = [[-wt, yt, zt0], [wt, yt, zt0], [wt, yt, zt1], [-wt, yt, zt1]];
+      const ctr = [0, (yb + yt) / 2, (zb0 + zb1 + zt0 + zt1) / 4];
+      const nrm = (a, b, c) => {
+        const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+        const n = [uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx], l = Math.hypot(n[0], n[1], n[2]) || 1;
+        return [n[0] / l, n[1] / l, n[2] / l];
+      };
+      const q = (a, b, c, d, col) => {
+        let n = nrm(a, b, c);
+        const f = [(a[0] + b[0] + c[0] + d[0]) / 4 - ctr[0], (a[1] + b[1] + c[1] + d[1]) / 4 - ctr[1], (a[2] + b[2] + c[2] + d[2]) / 4 - ctr[2]];
+        if (n[0] * f[0] + n[1] * f[1] + n[2] * f[2] < 0) { const t = a; a = b; b = t; const t2 = c; c = d; d = t2; n = nrm(a, b, c); }
+        this._quad(A, a, b, c, d, n, [0, 0, 1, 1], col, false);
+      };
+      q(B[2], B[3], U[3], U[2], GL);
+      q(B[0], B[1], U[1], U[0], GL);
+      q(B[1], B[2], U[2], U[1], GL);
+      q(B[3], B[0], U[0], U[3], GL);
+      q(U[0], U[1], U[2], U[3], roof);
+    };
     const lights = (A, w, yh, zf, zr) => {
       for (const s of [-1, 1]) {
         this.box(A, s * (w / 2 - 0.25), yh, zf, 0.34, 0.14, 0.04, '#F4F6F7');
@@ -2328,22 +2423,20 @@ Object.assign(GHG3.world, {
     };
     const geo = this._bake((A) => {
       if (kind === 'car' || kind === 'van') {
-        const L = kind === 'van' ? 4.9 : 4.5, W = kind === 'van' ? 1.85 : 1.76, Hc = kind === 'van' ? 1.95 : 1.45;
-        this.box(A, 0, 0.3, 0, W, 0.62, L, color);
-        this.box(A, 0, 0.92, kind === 'van' ? -0.25 : -0.25, W - 0.16, Hc - 0.98, kind === 'van' ? L - 1.0 : 2.35, GL);
-        this.box(A, 0, Hc - 0.08, kind === 'van' ? -0.25 : -0.3, W - 0.22, 0.08, kind === 'van' ? L - 1.1 : 1.85, color);
-        for (const s of [-1, 1]) this.box(A, s * (W / 2 - 0.1), 0.92, -0.3, 0.06, Hc - 1.0, 0.12, color);
-        this.box(A, 0, 0.28, L / 2 - 0.05, W - 0.06, 0.3, 0.12, DK);
-        this.box(A, 0, 0.28, -L / 2 + 0.05, W - 0.06, 0.3, 0.12, DK);
-        lights(A, W, 0.72, L / 2 + 0.0, -L / 2 + 0.0);
+        const van = kind === 'van';
+        const L = van ? 4.9 : 4.5, W = van ? 1.85 : 1.76;
+        this.box(A, 0, 0.3, 0, W, 0.54, L - 0.12, color, { noAO: true });
+        this.box(A, 0, 0.27, L / 2 - 0.1, W - 0.04, 0.32, 0.22, DK, { noAO: true });
+        this.box(A, 0, 0.27, -L / 2 + 0.1, W - 0.04, 0.32, 0.22, DK, { noAO: true });
+        if (van) cabin(A, -L / 2 + 0.12, 1.5, -L / 2 + 0.2, 0.95, 0.84, 1.94, W / 2 - 0.04, W / 2 - 0.1, color);
+        else cabin(A, -1.45, 1.05, -0.95, 0.32, 0.84, 1.42, W / 2 - 0.06, W / 2 - 0.17, color);
+        lights(A, W, 0.66, L / 2 - 0.0, -L / 2 + 0.0);
         for (const sx of [-1, 1]) for (const sz of [-1, 1]) wheel(A, sx * (W / 2 - 0.05), 0.32, sz * (L / 2 - 0.85), 0.32, 0.22);
-        for (const s of [-1, 1]) this.box(A, s * (W / 2 + 0.06), 1.0, 0.75, 0.1, 0.1, 0.16, color);
+        for (const s of [-1, 1]) this.box(A, s * (W / 2 + 0.06), 0.96, van ? 1.35 : 0.98, 0.1, 0.1, 0.16, color, { noAO: true });
       } else if (kind === 'pickup' || kind === 'song') {
         const L = 5.3, W = 1.85;
-        this.box(A, 0, 0.38, 0, W, 0.62, L, color);
-        this.box(A, 0, 1.0, 0.95, W - 0.14, 0.62, 1.7, GL);
-        this.box(A, 0, 1.6, 0.9, W - 0.2, 0.08, 1.5, color);
-        this.box(A, 0, 0.98, 1.95, W - 0.1, 0.12, 0.6, color);
+        this.box(A, 0, 0.38, 0, W, 0.62, L, color, { noAO: true });
+        cabin(A, 0.12, 1.75, 0.35, 1.22, 1.0, 1.66, W / 2 - 0.07, W / 2 - 0.13, color);
         for (const s of [-1, 1]) this.box(A, s * (W / 2 - 0.05), 1.0, -1.25, 0.08, 0.36, 2.7, color);
         this.box(A, 0, 1.0, -2.6, W - 0.1, 0.36, 0.08, color);
         this.box(A, 0, 0.32, L / 2 - 0.05, W - 0.06, 0.28, 0.12, DK);

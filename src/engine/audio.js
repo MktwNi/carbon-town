@@ -81,7 +81,20 @@ GHG3.audio = {
     hf.connect(hg); hg.connect(A.amb);
     for (const f of [49, 98.6, 147.2]) { const o = ctx.createOscillator(); o.type = f < 60 ? 'sawtooth' : 'square'; o.frequency.value = f; const og = ctx.createGain(); og.gain.value = f < 60 ? 0.6 : 0.18; o.connect(og); og.connect(hf); o.start(); }
     A.hum = { g: hg };
+    // v1.0 site-visit film: drone rotor whine (aerial shot only)
+    const df = ctx.createBiquadFilter(); df.type = 'bandpass'; df.frequency.value = 820; df.Q.value = 1.4;
+    const dg = ctx.createGain(); dg.gain.value = 0;
+    df.connect(dg); dg.connect(A.fx);
+    for (const f of [186, 188.7, 372.5]) { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; const og = ctx.createGain(); og.gain.value = f > 300 ? 0.25 : 0.5; o.connect(og); og.connect(df); o.start(); }
+    const dn = this._auBed(A.pink, [['bandpass', 1400, 0.7]]);
+    dn.g.disconnect(); dn.g.connect(dg); dn.g.gain.value = 0.9;
+    A.drone = { g: dg };
     if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+  },
+  _auDrone(on) {
+    const A = this._E && this._E.au;
+    if (!A || !A.ctx || !A.drone) return;
+    this._auSet(A.drone.g.gain, on ? 0.075 : 0, on ? 0.5 : 0.25);
   },
   // 3 s seamless noise loop (the tail is cross-faded into the head)
   _auNoise(ctx, kind) {
@@ -293,6 +306,23 @@ GHG3.audio = {
     } else if (name === 'cert') {
       [523.3, 659.3, 784, 1046.5].forEach((f, i) => tone(f, t0 + i * 0.12, 0.9 - i * 0.1, 0.14, 'triangle'));
       [523.3, 659.3, 784].forEach((f) => tone(f, t0 + 0.55, 1.4, 0.07));
+    } else if (name === 'whoosh' || name === 'shutter' || name === 'scan') {
+      if (name === 'scan') {
+        tone(620, t0, 0.22, 0.06, 'sine', 1240); tone(930, t0 + 0.2, 0.3, 0.05, 'sine', 1860);
+        return;
+      }
+      const burst = (t, d, f, q, vol, f2) => {
+        const src = ctx.createBufferSource(); src.buffer = A.white;
+        const bf = ctx.createBiquadFilter(); bf.type = 'bandpass'; bf.Q.value = q;
+        bf.frequency.setValueAtTime(f, t);
+        if (f2) bf.frequency.exponentialRampToValueAtTime(f2, t + d * 0.85);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + Math.min(0.01, d * 0.2)); g.gain.exponentialRampToValueAtTime(0.0008, t + d);
+        src.connect(bf); bf.connect(g); g.connect(A.fx);
+        src.start(t, Math.random() * 2, d + 0.05);
+      };
+      if (name === 'whoosh') { burst(t0, 0.55, 380, 0.8, 0.22, 2600); burst(t0 + 0.12, 0.45, 1800, 1.1, 0.08, 500); }
+      else { burst(t0, 0.035, 3200, 0.9, 0.5); burst(t0 + 0.075, 0.05, 2200, 0.8, 0.42); tone(140, t0, 0.09, 0.12, 'sine', 70); }
     } else if (name === 'hop') {
       const src = ctx.createBufferSource(); src.buffer = A.pink;
       const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 0.9;

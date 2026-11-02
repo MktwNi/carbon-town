@@ -40,6 +40,7 @@ GHG3.play = {
     this._pInitMystery();
     this._pInitBeacon();
     if (typeof this._initAudio === 'function') this._initAudio();
+    if (typeof this._initFilm === 'function') this._initFilm();
     this._pCineCam(0, true);
     this._ui({ eReady: true, eMode: 'intro', eDistrict: '', eInside: '', eNear: null, eTravel: false, eTarget: null, eDist: 0, eArrived: null, eGate: false, eFinale: false, eFly: false, eFast: false,
       eExplore: false, eMystery: null, eMysteryD: 0, eSeek: null, eAim: 0, eFound: null, eHint: null });
@@ -659,7 +660,8 @@ GHG3.play = {
     E.gc.arrT = E.time;
     E.gc.pointT = 5 + Math.random() * 3;
     this._pRedrawPins();
-    this._ui({ eTravel: false, eArrived: tr.id, eTarget: null, eDist: 0, eMode: 'stop' });
+    const patch = { eTravel: false, eArrived: tr.id, eTarget: null, eDist: 0, eMode: 'stop' };
+    if (typeof this._fmArrive === 'function') this._fmArrive(tr.id, patch); else this._ui(patch);
   },
 
   _tickTour(dt) {
@@ -720,7 +722,8 @@ GHG3.play = {
       if (F.t > 0.9) {
         E.found = null;
         this._pRedrawPins();
-        this._ui({ eArrived: F.id, eTravel: false, eTarget: null, eMode: 'stop' });
+        const patch = { eArrived: F.id, eTravel: false, eTarget: null, eMode: 'stop' };
+        if (typeof this._fmArrive === 'function') this._fmArrive(F.id, patch); else this._ui(patch);
       }
     }
     if (!(E.drag && E.drag.moved)) {
@@ -969,7 +972,18 @@ GHG3.play = {
     const P = E.player;
     if (!P) return;
     const K = E.keys;
-    const can = E.ctl === 'walk' && !E.travel && !E.fly;
+    const can = E.ctl === 'walk' && !E.travel && !E.fly && !E.film;
+    const LQ = E.lookQ;
+    if (LQ && E.film) { LQ.yaw = 0; LQ.pitch = 0; }
+    if (LQ && (LQ.yaw || LQ.pitch)) {
+      const kq = 1 - Math.exp(-dt * 28);
+      const ay = LQ.yaw * kq, ap = LQ.pitch * kq;
+      LQ.yaw = Math.abs(LQ.yaw - ay) < 1e-5 ? 0 : LQ.yaw - ay;
+      LQ.pitch = Math.abs(LQ.pitch - ap) < 1e-5 ? 0 : LQ.pitch - ap;
+      if (E.ctl === 'fly') { LQ.yaw = 0; LQ.pitch = 0; }
+      else if (E.travel) { E.lookOff.yaw += ay; E.lookOff.pitch = this._cl(E.lookOff.pitch + ap, -0.9, 0.9); }
+      else { P.yaw += ay; P.pitch = this._cl(P.pitch + ap, -1.25, 1.25); }
+    }
     let fwd = 0, str = 0, turn = 0;
     if (can) {
       fwd = (K.KeyW || K.ArrowUp ? 1 : 0) - (K.KeyS || K.ArrowDown ? 1 : 0);
@@ -1052,6 +1066,12 @@ GHG3.play = {
     const P = E.player;
     if (!P) return;
     const cam = E.cam;
+    // v1.0 site-visit film owns the camera while it plays (except the fades on the live view)
+    if (E.film && typeof this._fmCam === 'function') {
+      const own = this._fmCam(dt);
+      this._fmHud();
+      if (own) return;
+    }
     let fov = 70, near = 0.25, far = 4500;
     if (E.ctl === 'intro' || E.ctl === 'finale') {
       this._pCineCam(dt, false);
@@ -1093,17 +1113,8 @@ GHG3.play = {
       cam.fov = E.fovCur; cam.near = near; cam.far = far;
       cam.updateProjectionMatrix();
     }
-    // keep the activity + guide visible beside the question card (card sits on the right)
-    const st = this.state || {};
-    const firstPerson = E.ctl !== 'overview' && E.ctl !== 'intro' && E.ctl !== 'finale' && E.ctl !== 'fly';
-    let cardOpen = false;
-    if (st.eArrived != null && (st.view || 'map') === 'map') {
-      const GC = window.GHGTownContent;
-      const so = GC && GC.stops ? GC.stops.find((x) => x.id === st.eArrived) : null;
-      const nl = so && so.guide ? so.guide.length : 0;
-      cardOpen = !!(st.answers && st.answers[st.eArrived] != null) || (st.line || 0) >= nl;
-    }
-    const wantOff = firstPerson && cardOpen && E.w > 900 ? Math.min(240, E.w * 0.16) : 0;
+    // v0.9: the question card is centred over a dimmed view, so the camera no longer shifts aside for it
+    const wantOff = 0;
     E.vOff = this._damp(E.vOff || 0, wantOff, 3.5, dt);
     if (Math.abs(E.vOff) > 0.5) cam.setViewOffset(E.w, E.h, E.vOff, 0, E.w, E.h);
     else if (cam.view && cam.view.enabled) { cam.clearViewOffset(); E.vOff = 0; }
@@ -1391,8 +1402,10 @@ GHG3.play = {
   _pSpawn(em, D, big) {
     const E = this._E;
     const add = !!D.add;
-    const list = add ? E.partsA : E.parts;
-    const cap = add ? E.bbFire.n : E.bbSmoke.n;
+    // v1.0 gas puffs have their own pool, so the town's smoke can never crowd them out
+    const gasP = em.type === 'gas' && !!E.partsG;
+    const list = add ? E.partsA : (gasP ? E.partsG : E.parts);
+    const cap = add ? E.bbFire.n : (gasP ? E.bbGasP.n : E.bbSmoke.n);
     if (list.length >= cap) return;
     const spread = em.spread != null ? em.spread : D.spread;
     const a = Math.random() * Math.PI * 2, rr = Math.sqrt(Math.random()) * spread;
@@ -1405,7 +1418,8 @@ GHG3.play = {
       vx: (Math.random() - 0.5) * rise * 0.18, vy: rise * (big && em.type === 'smoke' ? 1.35 : 1), vz: (Math.random() - 0.5) * rise * 0.18,
       age: 0, life: (em.life || D.life) * (0.8 + Math.random() * 0.4) * (big && em.type === 'smoke' ? 1.8 : 1), s0: size * (big && em.type === 'smoke' ? 0.75 : 1), grow: big && em.type === 'smoke' ? 3.4 : D.grow, a0: (em.alpha || D.alpha), y0: em.pos[1],
       r: col[0] * j, g: col[1] * j, b: col[2] * j, al: 0, sw: size, sh: size,
-      rot: Math.random() * 6.28, rv: (Math.random() - 0.5) * 0.6, fire: em.type === 'fire', ember: false, wind: em.type !== 'fire', wk: big ? 2.4 : 1
+      rot: Math.random() * 6.28, rv: (Math.random() - 0.5) * 0.6, fire: em.type === 'fire', ember: false, wind: em.type !== 'fire', wk: big ? 2.4 : 1,
+      gas: em.type === 'gas'
     });
     if (em.type === 'fire' && Math.random() < 0.22 && E.partsA.length < E.bbFire.n) {
       const c3 = this._lc('#FF9A3C');
@@ -1466,6 +1480,8 @@ GHG3.play = {
           const c0 = k < 0.35 ? k / 0.35 : 1, c1 = k < 0.35 ? 0 : (k - 0.35) / 0.65;
           p.r = 1.0 - 0.45 * c1; p.g = 0.62 - 0.36 * c0 - 0.2 * c1; p.b = 0.14 - 0.11 * c0 - 0.02 * c1;
         }
+        // gas puffs (v1.0) thin out right in front of the camera instead of filling the view
+        if (p.gas) { const dc = Math.hypot(p.x - cam.x, p.y - cam.y, p.z - cam.z); if (dc < 5) al *= Math.max(0, (dc - 1) / 4); }
         p.al = al;
       }
     };
@@ -1473,6 +1489,7 @@ GHG3.play = {
     upd(E.partsA);
     this._pBBWrite(E.bbSmoke, E.parts);
     this._pBBWrite(E.bbFire, E.partsA);
+    if (E.partsG) { upd(E.partsG); this._pBBWrite(E.bbGasP, E.partsG); }
   },
   _pTickGas(dt) {
     const E = this._E;
@@ -1495,7 +1512,9 @@ GHG3.play = {
         let mine = 0;
         for (const q of list) if (q.aid === id) mine++;
         if (mine >= (arrived ? 4 : 2)) continue;
-        const secret = (E.exploreOn || (E.gasHide && E.gasHide[id])) && !E.pinStatus[id];
+        // in the site-visit film the labels follow the question card (only a gas that is the answer stays "?")
+        const inFilm = !!E.film && E.film.id === id;
+        const secret = ((E.exploreOn && !inFilm) || (E.gasHide && E.gasHide[id])) && !E.pinStatus[id];
         const gk = secret ? '?' : a.gas[(Math.random() * a.gas.length) | 0];
         const row = E.gasRow[gk] != null ? E.gasRow[gk] : 0;
         const sp = a.spread || 1;
@@ -1519,6 +1538,8 @@ GHG3.play = {
       p.y += p.vy * dt;
       p.x += Math.sin(p.age * 1.6 + p.ph) * 0.14 * dt;
       p.al = Math.min(1, k / 0.12) * (1 - this._sm((k - 0.6) / 0.4));
+      // site-visit film: the drone camera flies through the labels; fade the ones right in front of it
+      if (E.film) { const cp = E.cam.position; p.al *= this._cl((Math.hypot(p.x - cp.x, p.y - cp.y, p.z - cp.z) - 4) / 6, 0, 1); }
     }
     this._pBBWrite(E.bbGas, walk ? list : []);
   },
@@ -2204,7 +2225,7 @@ GHG3.play = {
     for (const sp of E.mq) {
       const id = sp.userData.id;
       const a = E.anchors[id];
-      let show = on && !E.pinStatus[id] && id !== E.at && !(E.found && E.found.id === id) && (this.state || {}).eFound !== id;
+      let show = on && !E.film && !E.pinStatus[id] && id !== E.at && !(E.found && E.found.id === id) && (this.state || {}).eFound !== id;
       if (!show) { sp.visible = false; continue; }
       sp.position.set(a.pin[0], a.pin[1] + 0.45 + Math.sin(E.time * 1.6 + id * 1.7) * 0.18, a.pin[2]);
       const d = cam.position.distanceTo(sp.position);
@@ -2382,6 +2403,7 @@ GHG3.play = {
     const E = this._E;
     if (!E || !E.player) return;
     if (typeof this._uiCanvasDown === 'function') this._uiCanvasDown();
+    if (E.film) return;
     const ae = document.activeElement;
     if (ae && ae !== document.body && typeof ae.blur === 'function') ae.blur();
     try { E.canvas.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
@@ -2462,13 +2484,11 @@ GHG3.play = {
     if (E.ctl === 'intro' || E.ctl === 'finale') { const C = E.ctl === 'finale' && E.fin ? E.fin : E.cine; C.th -= dx * 0.002; return; }
     if (E.ctl === 'fly') return;
     const sens = 0.0042 * (E.cam.fov / 70);
-    if (E.travel) {
-      E.lookOff.yaw -= dx * sens;
-      E.lookOff.pitch = this._cl(E.lookOff.pitch - dy * sens, -0.9, 0.9);
-    } else {
-      P.yaw -= dx * sens;
-      P.pitch = this._cl(P.pitch - dy * sens, -1.25, 1.25);
-    }
+    // queued and eased in per frame (_tickPlayer): uneven mouse / trackpad events no longer jerk the view
+    const LQ = E.lookQ || (E.lookQ = { yaw: 0, pitch: 0 });
+    LQ.yaw -= dx * sens;
+    LQ.pitch -= dy * sens;
+    void P;
   },
   _pUp(e) {
     const E = this._E;
@@ -2491,6 +2511,7 @@ GHG3.play = {
   },
   _pTap(cx, cy) {
     const E = this._E;
+    if (E.film) return;
     const id = this._pPickPin(cx, cy);
     if (id != null) {
       if (typeof this._uiOpenStop === 'function') this._uiOpenStop(id);
@@ -2542,6 +2563,7 @@ GHG3.play = {
     const E = this._E;
     if (!E || !E.player) return;
     e.preventDefault();
+    if (E.film) return;
     if (E.ctl === 'overview') E.orbit.r = this._cl(E.orbit.r * Math.exp(e.deltaY * 0.0012), 80, 2600);
     else if (E.ctl === 'walk') E.fovWalk = this._cl(E.fovWalk + e.deltaY * 0.02, 38, 75);
   },
@@ -2566,6 +2588,7 @@ GHG3.play = {
     else if (code === 'KeyM') this._pUiKey('map');
     else if (code === 'KeyF') this._pUiKey('free');
     else if (code === 'KeyH') this._pUiKey('hint');
+    else if (/^(Digit|Numpad)[1-4]$/.test(code)) this._pUiKey('a' + code.slice(-1));
     else if (code === 'KeyE' && (E.mysteryId != null || E.nearId != null)) {
       const id = E.mysteryId != null ? E.mysteryId : E.nearId;
       if (typeof this._uiOpenStop === 'function') this._uiOpenStop(id);

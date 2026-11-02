@@ -945,7 +945,9 @@ GHG3.mascots = {
     S.U.uK.value = k;
     S.U.uTint.value.setRGB(1, 1, 1).lerp(E.sun.color, 0.22);
     this._maConfettiTick(dt);
-    const vis = G.visible !== false;
+    // v1.0 site-visit film: the team steps out of the shots (they would block the source); the swaps happen in the dips to black
+    const film = E.film;
+    const vis = G.visible !== false && !(film && film.t >= film.tA - 0.05 && film.t < film.tE);
     for (const R of [owl, sap, fly]) R.root.visible = vis;
     if (!vis) { TM.hidden = true; S.shadow.visible = false; S.cone.visible = false; return; }
     S.shadow.visible = true;

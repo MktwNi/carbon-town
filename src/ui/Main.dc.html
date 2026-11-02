@@ -11,28 +11,32 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;family=Mitr:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;family=Prompt:wght@400;500;600&amp;display=swap">
 <style>
-body{margin:0;background:#F4EFE3}
+:root{--g-top:78px}
+body{margin:0;background:#0E1612}
 button{font-family:inherit}
-button:focus-visible{outline:3px solid #1E3C2F;outline-offset:2px}
+button:focus-visible{outline:3px solid #0B7D43;outline-offset:2px}
 .g-dark button:focus-visible{outline-color:#FFB703}
 button:disabled{cursor:default}
-kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25,38,30,.22);border-bottom-width:2px;border-radius:7px;background:#FFFDF8;color:#19261E;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;font-weight:600;line-height:1.5;text-align:center}
-.g-root{min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:10px 14px 14px;background:#F4EFE3;color:#19261E;font-family:'IBM Plex Sans Thai','Noto Sans Thai','Leelawadee UI',Thonburi,system-ui,sans-serif}
-.g-h{font-family:'Mitr','IBM Plex Sans Thai',system-ui,sans-serif;font-weight:500;letter-spacing:0}
+kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20,32,26,.16);border-radius:6px;background:rgba(20,32,26,.06);color:inherit;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;font-weight:600;line-height:1.5;text-align:center}
+.g-btn kbd{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.32);color:#FFFFFF}
+.g-root{min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:10px 14px 14px;background:#EEF2F0;color:#14201A;font-family:'IBM Plex Sans Thai','Noto Sans Thai','Leelawadee UI',Thonburi,system-ui,sans-serif}
+.g-h{font-family:'Prompt','IBM Plex Sans Thai',system-ui,sans-serif;font-weight:500;letter-spacing:0}
 .g-mono{font-family:'IBM Plex Mono','IBM Plex Sans Thai',ui-monospace,monospace}
 .g-av{flex:0 0 auto;display:block;border-radius:50%;background-repeat:no-repeat}
 .g-fig{flex:0 0 auto;display:block;background-repeat:no-repeat}
-.g-cl{box-shadow:0 0 0 2.5px #F4EFE3;margin-left:-10px}
+.g-cl{box-shadow:0 0 0 2px #FFFFFF;margin-left:-9px}
 .g-cl:first-child{margin-left:0}
-.g-panel{box-sizing:border-box;background:#FFFDF8;border:1px solid rgba(25,38,30,.10);border-radius:22px;box-shadow:0 18px 48px rgba(25,38,30,.24)}
-.g-float{background:#FFFDF8;border:1px solid rgba(25,38,30,.08);box-shadow:0 4px 14px rgba(25,38,30,.16)}
-.g-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:8px 16px;border:0;border-radius:14px;background:#1E3C2F;color:#FFFFFF;font-size:14.5px;font-weight:600;cursor:pointer;box-sizing:border-box}
-.g-btn:hover{background:#163024}
-.g-btn2{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:8px 15px;border:1.5px solid rgba(25,38,30,.18);border-radius:14px;background:#FFFDF8;color:#19261E;font-size:14px;font-weight:600;cursor:pointer;box-sizing:border-box}
-.g-btn2:hover{background:#F6F0E2}
-.g-link{min-height:40px;padding:4px 10px;border:0;border-radius:10px;background:transparent;color:#4A574F;font-size:13px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.g-panel{box-sizing:border-box;background:#FFFFFF;border:1px solid rgba(20,32,26,.07);border-radius:20px;box-shadow:0 24px 60px rgba(10,22,16,.22),0 2px 8px rgba(10,22,16,.08)}
+.g-glass,.g-float{background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);border:1px solid rgba(255,255,255,.7);box-shadow:0 8px 26px rgba(10,22,16,.16)}
+.g-dark{-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+.g-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 20px;border:0;border-radius:14px;background:#0B7D43;color:#FFFFFF;font-size:15px;font-weight:600;cursor:pointer;box-sizing:border-box;box-shadow:0 6px 16px rgba(11,125,67,.26);transition:background .15s,transform .1s}
+.g-btn:hover{background:#096A39}
+.g-btn:active,.g-btn2:active{transform:translateY(1px)}
+.g-btn2{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;border:1px solid rgba(20,32,26,.14);border-radius:14px;background:#FFFFFF;color:#14201A;font-size:15px;font-weight:600;cursor:pointer;box-sizing:border-box;transition:background .15s,transform .1s}
+.g-btn2:hover{background:#F2F5F3}
+.g-link{min-height:44px;padding:4px 10px;border:0;border-radius:10px;background:transparent;color:#4A574F;font-size:13px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .g-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;line-height:1.5;white-space:nowrap}
 .g-k{font-size:12px;line-height:1.45;color:#55625A}
 .g-seg{display:flex;align-items:center;gap:6px;min-height:36px;padding:4px 11px;border:0;border-radius:11px;font-size:13px;font-weight:600;cursor:pointer}
@@ -72,22 +76,177 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 .g-glow{animation:gGlow 1.7s ease-out infinite}
 .ghg-dlg{position:absolute;left:196px;right:196px;bottom:12px;z-index:3;display:flex;justify-content:center}
 .ghg-dlg[data-card="1"]{right:448px}
-.ghg-map{position:absolute;left:12px;bottom:12px;width:168px;z-index:2}
+.ghg-map{position:absolute;left:12px;bottom:12px;width:176px;z-index:2}
+.ghg-map>div{border-radius:20px!important;padding:6px!important}
+.ghg-map canvas{border-radius:14px!important}
 .ghg-leg{display:none}
 .ghg-map:hover .ghg-leg{display:flex}
-.ghg-hint{position:absolute;right:12px;top:62px;width:250px;z-index:7;display:flex;flex-direction:column;gap:5px}
+.ghg-hint{position:absolute;right:12px;top:var(--g-top);width:250px;z-index:7;display:flex;flex-direction:column;gap:5px}
 .ghg-hint>span{display:flex;align-items:center;gap:6px;white-space:nowrap}
 .ghg-stage{height:clamp(460px,calc(100vh - 68px),1100px)}
-.g-root[data-view="map"]{height:100vh;min-height:540px}
-.g-root[data-view="map"] .ghg-stage{flex:1 1 auto;height:auto;min-height:440px}
+.g-root[data-view="map"]{height:100vh;height:100dvh;min-height:480px;padding:0;gap:0}
+.g-root[data-view="map"]>header{display:none!important}
+.g-root[data-view="map"] .ghg-stage{flex:1 1 auto;height:auto;min-height:0;border-radius:0!important;border:0!important}
 .g-root[data-view="map"] footer{display:none}
-.ghg-banner{position:absolute;left:12px;right:12px;top:62px;display:flex;justify-content:center;pointer-events:none;z-index:4}
-.ghg-card{position:absolute;right:12px;top:62px;bottom:12px;width:420px;max-width:calc(100% - 24px);z-index:4}
-.ghg-drawer{position:absolute;left:12px;top:62px;bottom:12px;width:316px;max-width:calc(100% - 24px);z-index:6}
+.ghg-banner{position:absolute;left:12px;right:12px;top:var(--g-top);display:flex;justify-content:center;pointer-events:none;z-index:4}
+.ghg-card{position:absolute;right:12px;top:var(--g-top);bottom:12px;width:420px;max-width:calc(100% - 24px);z-index:4}
+.ghg-drawer{position:absolute;left:12px;top:var(--g-top);bottom:12px;width:316px;max-width:calc(100% - 24px);z-index:6}
 .ghg-pop{position:absolute;right:0;top:calc(100% + 6px);display:flex;flex-direction:column;gap:2px;min-width:160px;padding:5px;border-radius:14px;z-index:9}
 .ghg-tb{min-height:40px;box-sizing:border-box}
 .ghg-ib{display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:13px;cursor:pointer}
 .ghg-ml{display:inline}
+.ghg-top{position:absolute;left:12px;right:12px;top:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;pointer-events:none;z-index:5}
+.ghg-top-l,.ghg-top-r{display:flex;align-items:center;gap:8px;pointer-events:auto;min-width:0}
+.ghg-top-r{flex:0 0 auto}
+.ghg-status{display:flex;align-items:center;gap:10px;min-width:0;max-width:min(400px,58vw);min-height:54px;padding:6px 12px 6px 8px;border-radius:18px;color:#14201A;text-align:left;cursor:pointer;font:inherit;box-sizing:border-box}
+.ghg-status:hover{background:rgba(255,255,255,.96)}
+.ghg-status[data-on="true"]{box-shadow:0 0 0 2px #0B7D43,0 8px 26px rgba(10,22,16,.16)}
+.ghg-status-av{flex:0 0 auto;display:flex;align-items:center}
+.ghg-status-tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ghg-status-tx strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;line-height:1.25;font-weight:500}
+.ghg-status-row{display:flex;align-items:center;gap:8px;font-size:12px;line-height:1.3;color:#4A574F;white-space:nowrap}
+.ghg-status-row b{color:#0B7D43;font-weight:600}
+.ghg-pbar2{display:block;flex:0 0 auto;width:64px;height:6px;border-radius:999px;background:rgba(20,32,26,.12);overflow:hidden}
+.ghg-pbar2>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#42B236,#10C0E5 60%,#FFB703)}
+.ghg-status-ic{flex:0 0 auto;color:#55625A}
+.ghg-inside{display:flex;align-items:center;gap:6px;min-height:36px;padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:600;color:#6B4A00;white-space:nowrap;box-sizing:border-box}
+.ghg-tbtn{display:flex;align-items:center;justify-content:center;gap:8px;min-width:50px;min-height:50px;padding:6px 15px;border-radius:16px;color:#14201A;font-size:14px;font-weight:600;cursor:pointer;box-sizing:border-box}
+.ghg-tbtn:hover{background:rgba(255,255,255,.96)}
+.ghg-tbtn[data-on="true"]{background:#0B7D43;color:#FFFFFF;border-color:#0B7D43}
+.ghg-menu{position:absolute;top:calc(100% + 8px);right:0;width:310px;max-width:calc(100vw - 24px);max-height:min(580px,calc(100vh - 110px));overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:20px;box-sizing:border-box;z-index:9;background:rgba(255,255,255,.95)}
+.ghg-menu-h{padding:6px 8px 2px;font-size:12px;font-weight:600;color:#55625A}
+.ghg-menu-sep{display:block;margin:6px 4px;border-top:1px solid rgba(20,32,26,.10)}
+.ghg-segs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:14px;background:rgba(20,32,26,.06)}
+.ghg-segs>button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:58px;padding:6px 4px;border:0;border-radius:11px;font-size:13px;font-weight:600;cursor:pointer}
+.ghg-chips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 4px}
+.ghg-chips>button{min-height:40px;padding:6px 13px;border:1px solid rgba(20,32,26,.12);border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer}
+.ghg-mrow{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:8px 10px;border:0;border-radius:12px;background:transparent;color:#14201A;font-size:14.5px;font-weight:500;text-align:left;cursor:pointer;box-sizing:border-box}
+.ghg-mrow:hover{background:rgba(20,32,26,.06)}
+.ghg-mrow>svg{flex:0 0 auto;color:#3A463F}
+.ghg-sw{flex:0 0 auto;position:relative;width:42px;height:26px;border-radius:999px;background:rgba(20,32,26,.2);transition:background .15s}
+.ghg-sw::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
+.ghg-sw[data-on="true"]{background:#0B7D43}
+.ghg-sw[data-on="true"]::after{transform:translateX(16px)}
+.ghg-qwrap{position:absolute;inset:0;z-index:4;display:flex;justify-content:center;align-items:flex-start;padding:var(--g-top) 16px 16px;box-sizing:border-box;background:linear-gradient(180deg,rgba(10,22,16,.12),rgba(10,22,16,.34));-webkit-backdrop-filter:blur(2.5px);backdrop-filter:blur(2.5px)}
+.ghg-quiz{position:relative;width:min(780px,100%);max-height:100%;display:flex;flex-direction:column;box-sizing:border-box;background:#FFFFFF;border-radius:24px;box-shadow:0 30px 80px rgba(10,22,16,.34),0 2px 10px rgba(10,22,16,.1);overflow:hidden}
+.ghg-quiz-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:20px 22px 20px;box-sizing:border-box}
+.ghg-quiz-head{display:flex;align-items:center;gap:12px}
+.ghg-quiz-badge{flex:0 0 auto;width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600}
+.ghg-quiz-ttl{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px}
+.ghg-quiz-ttl>span{font-size:12.5px;line-height:1.45;color:#55625A}
+.ghg-quiz-ttl h3{margin:0;font-size:19px;line-height:1.3;font-weight:500;color:#14201A}
+.ghg-quiz-meta{display:flex;flex-wrap:wrap;gap:6px}
+.ghg-quiz-scene{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:14px;background:#F3F6F4;color:#3A463F}
+.ghg-quiz-scene p{margin:0;font-size:14px;line-height:1.6;color:#2E3B33}
+.ghg-quiz-q{margin:4px 0 0;font-size:22px;line-height:1.45;font-weight:600;color:#14201A}
+.ghg-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ghg-opt{display:flex;align-items:center;gap:12px;min-height:66px;padding:10px 14px;border:1.5px solid rgba(20,32,26,.14);border-radius:16px;background:#FFFFFF;color:#14201A;text-align:left;font-size:15.5px;font-weight:500;line-height:1.45;cursor:pointer;box-sizing:border-box;transition:transform .12s,box-shadow .15s,border-color .15s,background .15s,opacity .15s}
+.ghg-opt:hover:not(:disabled){border-color:#0B7D43;background:#F5FBF7;box-shadow:0 8px 20px rgba(11,125,67,.15);transform:translateY(-1px)}
+.ghg-opt:active:not(:disabled){transform:translateY(0)}
+.ghg-opt:disabled{cursor:default}
+.ghg-opt-k{flex:0 0 auto;width:36px;height:36px;border-radius:12px;background:#EEF2F0;color:#2E3B33;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}
+.ghg-opt-t{flex:1 1 auto}
+.ghg-opt[data-st="ok"]{border-color:#15803D;background:#E9F6EE}
+.ghg-opt[data-st="ok"] .ghg-opt-k{background:#15803D;color:#FFFFFF}
+.ghg-opt[data-st="bad"]{border-color:#B42318;background:#FDEDEB}
+.ghg-opt[data-st="bad"] .ghg-opt-k{background:#B42318;color:#FFFFFF}
+.ghg-opt[data-st="dim"]{opacity:.5}
+.ghg-quiz-tip{display:flex;align-items:center;gap:9px;margin:0;font-size:13px;line-height:1.5;color:#4A574F}
+.ghg-quiz-res{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:18px}
+.ghg-quiz-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.ghg-quiz-tabs>button{display:flex;align-items:center;gap:6px;min-height:42px;padding:3px 13px 3px 4px;border:1.5px solid;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer}
+.ghg-quiz-foot{flex:0 0 auto;padding:12px 22px 16px;border-top:1px solid rgba(20,32,26,.08);background:#FFFFFF}
+.ghg-quiz-foot .g-btn{width:100%;min-height:54px;font-size:16px}
+/* v1.0 site-visit film */
+.ghg-film{position:absolute;inset:0;z-index:60;overflow:hidden;pointer-events:none;--fm-bar:min(9vh,88px)}
+.ghg-fm-live{position:absolute;inset:0}
+.ghg-fm-dip{position:absolute;inset:0;background:#000;opacity:0}
+.ghg-fm-vig{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.42) 100%)}
+.ghg-fm-bar{position:absolute;left:0;right:0;height:var(--fm-bar);background:#050807}
+.ghg-fm-top{top:0;animation:gFmTop .7s cubic-bezier(.2,.8,.2,1) both}
+.ghg-fm-bot{bottom:0;animation:gFmBot .7s cubic-bezier(.2,.8,.2,1) both}
+.ghg-film[data-shot="4"] .ghg-fm-top{animation:gFmTopOut .45s ease-in both}
+.ghg-film[data-shot="4"] .ghg-fm-bot{animation:gFmBotOut .45s ease-in both}
+@keyframes gFmTop{from{transform:translateY(-100%)}to{transform:none}}
+@keyframes gFmBot{from{transform:translateY(100%)}to{transform:none}}
+@keyframes gFmTopOut{from{transform:none}to{transform:translateY(-100%)}}
+@keyframes gFmBotOut{from{transform:none}to{transform:translateY(100%)}}
+.ghg-fm-vf{position:absolute;left:3.5%;right:3.5%;top:calc(var(--fm-bar) + 16px);bottom:calc(var(--fm-bar) + 16px)}
+.ghg-fm-vf i{position:absolute;width:28px;height:28px;border:2px solid rgba(255,255,255,.72)}
+.ghg-fm-vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}
+.ghg-fm-vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.ghg-fm-vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}
+.ghg-fm-vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.ghg-fm-vf span{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;opacity:.5;background:linear-gradient(#FFFFFF,#FFFFFF) center/2px 100% no-repeat,linear-gradient(#FFFFFF,#FFFFFF) center/100% 2px no-repeat}
+.ghg-fm-hud,.ghg-fm-hud2{position:absolute;top:calc(var(--fm-bar) + 24px);display:flex;align-items:center;gap:12px;font:600 13px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#FFFFFF;letter-spacing:.04em;text-shadow:0 1px 3px rgba(0,0,0,.75)}
+.ghg-fm-hud{left:calc(3.5% + 40px)}
+.ghg-fm-hud2{right:calc(3.5% + 40px)}
+.ghg-fm-rec{display:flex;align-items:center;gap:6px;color:#FF6B61}
+.ghg-fm-rec b{width:10px;height:10px;border-radius:50%;background:#FF3B30;box-shadow:0 0 8px rgba(255,59,48,.8);animation:gFmBlink 1.1s steps(1,end) infinite}
+@keyframes gFmBlink{50%{opacity:.15}}
+.ghg-fm-cam{padding:4px 8px;border-radius:6px;background:rgba(0,0,0,.35);font-family:"Prompt","IBM Plex Sans Thai",sans-serif;letter-spacing:0}
+.ghg-fm-prog{position:absolute;left:0;right:0;top:var(--fm-bar);height:3px;background:rgba(255,255,255,.14)}
+.ghg-fm-prog i{display:block;width:0;height:100%;background:linear-gradient(90deg,#FFB703,#FFD86B)}
+.ghg-fm-flash{position:absolute;inset:0;background:#FFFFFF;opacity:0}
+.ghg-fm-tag{position:absolute;left:0;top:0;opacity:0;transition:opacity .35s;will-change:transform}
+.ghg-fm-ring{position:absolute;left:-23px;top:-23px;width:46px;height:46px;border-radius:50%;border:2px solid #8CFFD0;box-shadow:0 0 14px rgba(140,255,208,.65),inset 0 0 10px rgba(140,255,208,.35)}
+.ghg-fm-ring i{position:absolute;inset:-2px;border-radius:50%;border:2px solid #8CFFD0;animation:gFmPing 1.6s ease-out infinite}
+@keyframes gFmPing{from{transform:scale(1);opacity:.9}to{transform:scale(2.3);opacity:0}}
+.ghg-fm-line{position:absolute;left:20px;top:-20px;width:44px;height:2px;background:#8CFFD0;transform-origin:0 50%;transform:rotate(-40deg);box-shadow:0 0 6px rgba(140,255,208,.8)}
+.ghg-fm-card{position:absolute;left:52px;top:-98px;display:flex;flex-direction:column;gap:4px;width:max-content;max-width:250px;padding:10px 13px;border:1px solid rgba(140,255,208,.6);border-radius:12px;background:rgba(4,22,15,.8);color:#FFFFFF;box-shadow:0 8px 24px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ghg-fm-tag[data-side="l"] .ghg-fm-line{left:auto;right:20px;transform-origin:100% 50%;transform:rotate(40deg)}
+.ghg-fm-tag[data-side="l"] .ghg-fm-card{left:auto;right:52px}
+.ghg-fm-card small{font-size:11px;font-weight:600;letter-spacing:.06em;color:#8CFFD0}
+.ghg-fm-card strong{font-family:"Prompt","IBM Plex Sans Thai",sans-serif;font-size:17px;font-weight:600;line-height:1.25}
+.ghg-fm-gas{display:flex;flex-wrap:wrap;gap:4px}
+.ghg-fm-gas em{padding:2px 8px;border-radius:999px;font-style:normal;font-size:12px;font-weight:700;color:#FFFFFF;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.ghg-fm-ad{font-size:12.5px;color:#DDE7E2}
+.ghg-fm-title{position:absolute;left:calc(3.5% + 6px);bottom:calc(var(--fm-bar) + 28px);display:flex;flex-direction:column;gap:6px;max-width:min(660px,82%);padding:14px 20px 15px 16px;border-left:4px solid #FFB703;border-radius:4px 16px 16px 4px;background:linear-gradient(90deg,rgba(6,14,10,.82),rgba(6,14,10,.45));color:#FFFFFF;animation:gFmSlide .7s cubic-bezier(.2,.8,.2,1) .35s both}
+@keyframes gFmSlide{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+.ghg-fm-kick{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#FFE08A}
+.ghg-fm-badge{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 6px;border-radius:8px;color:#FFFFFF;font-size:13px;font-weight:700;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+.ghg-fm-title strong{font-size:clamp(21px,2.8vw,32px);line-height:1.2;font-weight:600}
+.ghg-fm-org{font-size:14px;color:#D4DED8}
+.ghg-fm-sub{position:absolute;left:50%;bottom:calc(var(--fm-bar) + 22px);width:min(880px,90%);margin:0;transform:translateX(-50%);text-align:center;animation:gFmFade .5s ease both}
+@keyframes gFmFade{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+.ghg-fm-sub span{padding:3px 10px;border-radius:6px;background:rgba(0,0,0,.66);color:#FFFFFF;font-size:clamp(15px,1.6vw,19px);line-height:1.8;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ghg-fm-saved{position:absolute;left:50%;top:calc(var(--fm-bar) + 20px);display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.94);color:#14201A;font-size:13.5px;font-weight:600;white-space:nowrap;transform:translateX(-50%);box-shadow:0 6px 20px rgba(0,0,0,.3);animation:gFmDrop .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes gFmDrop{from{opacity:0;transform:translate(-50%,-10px)}to{opacity:1;transform:translate(-50%,0)}}
+.ghg-fm-ctl{position:absolute;right:14px;bottom:max(8px,calc((var(--fm-bar) - 42px) / 2));display:flex;align-items:center;gap:8px;pointer-events:auto}
+.ghg-fm-ctl button{display:flex;align-items:center;gap:8px;min-height:42px;padding:6px 16px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(255,255,255,.12);color:#FFFFFF;font:600 14px/1 "Prompt","IBM Plex Sans Thai",sans-serif;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ghg-fm-ctl button:hover{background:rgba(255,255,255,.22)}
+.ghg-fm-ctl .ghg-fm-ico{width:42px;padding:0;justify-content:center}
+.ghg-fm-ctl kbd{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.16);color:#FFFFFF}
+.g-root[data-film="1"] .ghg-stage>:not(canvas):not(.ghg-film){visibility:hidden!important}
+.ghg-quiz-photo{position:relative;flex:0 0 auto;width:132px;aspect-ratio:16/9;padding:0;border:0;border-radius:10px;overflow:hidden;background:#0E1612;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.ghg-quiz-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.ghg-quiz-photo span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.45))}
+.ghg-quiz-photo span i,.ghg-filmbtn i{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#FFB703;color:#14201A;font-style:normal;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ghg-quiz-scene-t{display:flex;flex-direction:column;gap:8px;min-width:0}
+.ghg-filmbtn{align-self:flex-start;display:flex;align-items:center;gap:8px;min-height:38px;padding:4px 14px 4px 5px;border:0;border-radius:999px;background:#14201A;color:#FFFFFF;font-size:13px;font-weight:600;cursor:pointer}
+.ghg-filmbtn i{width:28px;height:28px;box-shadow:none}
+.ghg-bk-ph{flex:0 0 auto;width:54px;height:31px;border-radius:8px;object-fit:cover;box-shadow:0 0 0 2px var(--bk,#15803D)}
+.ghg-media{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E1612}
+.ghg-media iframe,.ghg-media video{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:640px){
+  .ghg-film{--fm-bar:min(7vh,58px)}
+  .ghg-fm-hud,.ghg-fm-hud2{top:calc(var(--fm-bar) + 14px);gap:8px;font-size:11px}
+  .ghg-fm-hud{left:calc(3.5% + 28px)}
+  .ghg-fm-hud2{right:calc(3.5% + 28px)}
+  .ghg-fm-cam{display:none}
+  .ghg-fm-vf{top:calc(var(--fm-bar) + 8px);bottom:calc(var(--fm-bar) + 8px)}
+  .ghg-fm-vf i{width:20px;height:20px}
+  .ghg-fm-title{left:10px;right:10px;max-width:none;bottom:calc(var(--fm-bar) + 14px);padding:11px 14px 12px 12px}
+  .ghg-fm-sub{bottom:calc(var(--fm-bar) + 12px);width:94%}
+  .ghg-fm-sub span{font-size:14.5px;line-height:1.75}
+  .ghg-fm-card{top:-90px;max-width:180px;padding:8px 10px}
+  .ghg-fm-card strong{font-size:15px}
+  .ghg-fm-saved{font-size:12.5px}
+  .ghg-fm-ctl{right:8px}
+  .ghg-fm-ctl button{min-height:38px;padding:5px 12px;font-size:13px}
+  .ghg-quiz-photo{width:104px}
+}
+.ghg-introbg{-webkit-backdrop-filter:blur(7px) saturate(1.2);backdrop-filter:blur(7px) saturate(1.2)}
 .ghg-wl{display:inline}
 .ghg-xs-show{display:none}
 .ghg-joy{position:absolute;left:0;top:0;display:none;width:116px;height:116px;margin:-58px 0 0 -58px;border-radius:50%;box-sizing:border-box;background:rgba(255,253,248,.2);border:2px solid rgba(255,253,248,.75);box-shadow:0 4px 18px rgba(25,38,30,.25);pointer-events:none;z-index:4}
@@ -97,7 +256,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 .g-name{display:block;box-sizing:border-box;width:min(460px,92%);margin:2px auto 0;padding:2px 8px 4px;border:0;border-bottom:2px dashed rgba(30,60,47,.45);border-radius:0;background:transparent;color:#19261E;font-size:27px;line-height:1.35;text-align:center;outline:none}
 .g-name:focus{border-bottom-color:#2E7A26;background:rgba(66,178,54,.06)}
 .g-name::placeholder{color:#9AA39C;font-size:19px}
-.g-root[data-touch="1"] .ghg-map{left:auto;right:12px;bottom:auto;top:62px;width:132px}
+.g-root[data-touch="1"] .ghg-map{left:auto;right:12px;bottom:auto;top:var(--g-top);width:132px}
 .g-root[data-touch="1"] .ghg-kb{display:none}
 .g-root[data-touch="0"] .ghg-tc{display:none}
 @media print{
@@ -114,9 +273,12 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 }
 @media (max-width:1100px){
   .ghg-ml{display:none}
+  .ghg-quiz-opts{grid-template-columns:1fr}
+  .ghg-opt{min-height:56px}
+  .ghg-status{max-width:min(320px,calc(100vw - 150px))}
   .ghg-dlg{left:12px;right:12px}
   .ghg-dlg[data-card="1"]{display:none}
-  .ghg-map{left:auto;right:12px;bottom:auto;top:62px;width:132px}
+  .ghg-map{left:auto;right:12px;bottom:auto;top:var(--g-top);width:132px}
   .ghg-banner{right:156px}
   .ghg-found{top:30%}
   .ghg-sub{display:none}
@@ -126,9 +288,13 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 }
 @media (max-width:640px){
   .ghg-loc{display:none!important}
-  .ghg-banner{right:12px;top:200px}
+  .ghg-banner{right:12px;top:calc(var(--g-top) + 142px)}
   .ghg-stage{height:clamp(460px,calc(100vh - 124px),900px)}
   .ghg-pbar{display:none}
+  .ghg-status{padding:6px 10px 6px 6px;gap:8px}
+  .ghg-status-ic{display:none}
+  .ghg-status-av .g-av:nth-child(n+2){display:none}
+  .ghg-pbar2{width:44px}
   .ghg-xs-hide{display:none!important}
   .ghg-xs-show{display:flex}
   .g-name{font-size:22px}
@@ -139,11 +305,16 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
   .ghg-team .g-fig{width:64px!important;height:64px!important}
   .ghg-team strong{font-size:15px!important}
   .ghg-team .ghg-motto,.ghg-team .g-chip{display:none!important}
+  .ghg-qwrap{padding:calc(var(--g-top) - 4px) 8px 8px}
+  .ghg-quiz{border-radius:20px}
+  .ghg-quiz-scroll{padding:16px 14px 16px;gap:12px}
+  .ghg-quiz-foot{padding:10px 14px 12px}
+  .ghg-quiz-q{font-size:19px}
 }
 @media (prefers-reduced-motion: reduce){.ghg-anim,.g-pop,.g-wob,.g-bob,.g-bob2,.g-bob3,.g-glow,.g-fig{animation:none!important}.g-conf{display:none!important}.g-spk{animation:none!important;opacity:.9}}
 </style>
 </helmet>
-<div class="g-root" data-view="{{viewKey}}" data-touch="{{touchKey}}">
+<div class="g-root" data-view="{{viewKey}}" data-touch="{{touchKey}}" data-film="{{filmKey}}">
 
 <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-height: 42px">
   <div style="flex: 1 1 auto; display: flex; align-items: center; gap: 10px; min-width: 0">
@@ -151,9 +322,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
       <sc-for list="{{brandPics}}" as="bp" hint-placeholder-count="3"><span class="g-av g-cl" style="width: 32px; height: 32px; background-color: {{bp.bg}}; background-image: {{bp.img}}; background-size: {{bp.size}}; background-position: {{bp.pos}}"></span></sc-for>
     </span>
     <h1 class="g-h" style="margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 19px; line-height: 1.25; font-weight: 600; color: #19261E">GHG Town 3D <span style="font-weight: 500; color: #2E7A26">เมืองคาร์บอน</span></h1>
-    <span class="g-chip g-mono" style="padding: 1px 7px; background: #19261E; color: #FFB703; font-size: 11px">v0.8</span>
+    <span class="g-chip g-mono" style="padding: 1px 7px; background: #19261E; color: #FFB703; font-size: 11px">v1.0</span>
   </div>
-  <nav aria-label="เลือกมุมมอง" style="display: flex; gap: 3px; padding: 3px; border-radius: 13px; background: #E9E1CF">
+  <nav aria-label="เลือกมุมมอง" style="display: flex; gap: 3px; padding: 3px; border-radius: 13px; background: #E6EBE8">
     <button type="button" onClick="{{goMap}}" aria-pressed="{{isMap}}" style="display: flex; align-items: center; gap: 6px; min-height: 34px; padding: 4px 12px; border: 0; border-radius: 10px; background: {{tabMap.bg}}; color: {{tabMap.fg}}; box-shadow: {{tabMap.sh}}; font-size: 13.5px; font-weight: 600; cursor: pointer">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z"></path><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"></path></svg>
       เมือง 3D
@@ -163,10 +334,10 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
       ตารางสรุป
     </button>
   </nav>
-  <div title="{{headProg}}" style="position: relative; display: flex; align-items: center; gap: 9px; min-height: 40px; box-sizing: border-box; padding: 4px 12px; border-radius: 13px; background: #FFFDF8; border: 1px solid rgba(25,38,30,.12)">
+  <div title="{{headProg}}" style="position: relative; display: flex; align-items: center; gap: 9px; min-height: 40px; box-sizing: border-box; padding: 4px 12px; border-radius: 13px; background: #FFFFFF; border: 1px solid rgba(25,38,30,.12)">
     <span class="g-k" style="font-weight: 600">คะแนน</span>
-    <strong class="g-h" style="font-size: 17px; line-height: 1.1; font-weight: 600; color: #1E3C2F">{{score}}/{{total}}</strong>
-    <div class="ghg-pbar" aria-hidden="true" style="width: 76px; height: 7px; border-radius: 999px; background: #EAE3D3; overflow: hidden"><div style="width: {{progress}}; height: 7px; border-radius: 999px; background: linear-gradient(90deg, #42B236, #10C0E5 60%, #FFB703)"></div></div>
+    <strong class="g-h" style="font-size: 17px; line-height: 1.1; font-weight: 600; color: #0B7D43">{{score}}/{{total}}</strong>
+    <div class="ghg-pbar" aria-hidden="true" style="width: 76px; height: 7px; border-radius: 999px; background: #E4E9E6; overflow: hidden"><div style="width: {{progress}}; height: 7px; border-radius: 999px; background: linear-gradient(90deg, #42B236, #10C0E5 60%, #FFB703)"></div></div>
     <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">{{headProg}}</span>
   </div>
 </header>
@@ -175,8 +346,57 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
   <canvas ref="{{canvasRef}}" aria-label="เมืองจำลอง 3 มิติ: กด W A S D หรือลูกศรเพื่อเดิน ลากเมาส์เพื่อมองรอบตัว คลิกพื้นเพื่อเดินไปที่นั่น กด H ขอคำใบ้ กด E ตามหาหรือคุยกับทีม" style="display: block; width: 100%; height: 100%; touch-action: none"></canvas>
   <div class="ghg-joy" ref="{{joyRef}}" aria-hidden="true"><span></span></div>
 
+  <!-- v1.0 site-visit film: the engine moves the camera and writes into .ghg-fm-live (kept element) -->
+  <sc-if value="{{film.on}}" hint-placeholder-val="{{ false }}">
+    <div class="ghg-film" data-shot="{{film.shot}}" role="region" aria-label="วิดีโอสำรวจหน้างาน">
+      <div class="ghg-fm-live" ref="{{filmRef}}">
+        <div class="ghg-fm-dip"></div>
+        <div class="ghg-fm-vig"></div>
+        <div class="ghg-fm-vf" aria-hidden="true"><i></i><i></i><i></i><i></i><span></span></div>
+        <div class="ghg-fm-tag" aria-hidden="true">
+          <span class="ghg-fm-ring"><i></i></span>
+          <span class="ghg-fm-line"></span>
+          <span class="ghg-fm-card">
+            <small>แหล่งปล่อยที่พบ</small>
+            <strong>{{film.short}}</strong>
+            <span class="ghg-fm-gas"><sc-for list="{{film.gases}}" as="fg" hint-placeholder-count="2"><em style="background: {{fg.bg}}">{{fg.t}}</em></sc-for></span>
+            <sc-if value="{{film.hasAd}}" hint-placeholder-val="{{ false }}"><span class="ghg-fm-ad">{{film.ad}}</span></sc-if>
+          </span>
+        </div>
+        <div class="ghg-fm-hud" aria-hidden="true"><span class="ghg-fm-rec"><b></b>REC</span><span class="ghg-fm-tc">00:00:00:00</span><span class="ghg-fm-cam">DRONE · มุมสูง</span></div>
+        <div class="ghg-fm-hud2" aria-hidden="true"><span>ALT <span class="ghg-fm-alt">–</span> m</span><span>ระยะ <span class="ghg-fm-dist">–</span> m</span></div>
+        <div class="ghg-fm-prog" aria-hidden="true"><i></i></div>
+        <div class="ghg-fm-flash"></div>
+      </div>
+      <div class="ghg-fm-bar ghg-fm-top"></div>
+      <div class="ghg-fm-bar ghg-fm-bot"></div>
+      <sc-if value="{{film.isTitle}}" hint-placeholder-val="{{ true }}">
+        <div class="ghg-fm-title">
+          <span class="ghg-fm-kick"><span class="ghg-fm-badge" style="background: {{film.color}}">{{film.n}}</span>วิดีโอสำรวจหน้างาน · จุดที่ {{film.n}} จาก {{film.total}}</span>
+          <strong class="g-h">{{film.place}}</strong>
+          <span class="ghg-fm-org">{{film.org}}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{film.hasSub}}" hint-placeholder-val="{{ false }}">
+        <p class="ghg-fm-sub" aria-live="polite"><span>{{film.sub}}</span></p>
+      </sc-if>
+      <sc-if value="{{film.saved}}" hint-placeholder-val="{{ false }}">
+        <div class="ghg-fm-saved" role="status"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8.5h3l1.6-2.5h6.8L17 8.5h3v10H4z"></path><circle cx="12" cy="13" r="3.2"></circle></svg>บันทึกภาพหลักฐานลงสมุดปริศนาแล้ว</div>
+      </sc-if>
+      <div class="ghg-fm-ctl">
+        <sc-if value="{{ttsOk}}" hint-placeholder-val="{{ true }}">
+          <button type="button" class="ghg-fm-ico" onClick="{{filmNarr}}" aria-pressed="{{film.narr}}" title="เปิด/ปิดเสียงบรรยาย">
+            <sc-if value="{{film.narr}}" hint-placeholder-val="{{ true }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"></path></svg></sc-if>
+            <sc-if value="{{film.narrOff}}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M16 9.5l5 5M21 9.5l-5 5"></path></svg></sc-if>
+          </button>
+        </sc-if>
+        <button type="button" onClick="{{filmSkip}}">ข้ามวิดีโอ <kbd class="ghg-kb">Space</kbd></button>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{webglBad}}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; background: linear-gradient(180deg, #E8F0EC 0%, #F4EFE3 100%); text-align: center">
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; background: linear-gradient(180deg, #E8F0EC 0%, #EEF2F0 100%); text-align: center">
       <span class="g-fig" aria-hidden="true" style="width: 120px; height: 120px; background-image: {{sadFig.img}}; background-size: {{sadFig.size}}; background-position: {{sadFig.pos}}"></span>
       <strong class="g-h" style="font-size: 20px">เบราว์เซอร์นี้แสดงเมือง 3 มิติไม่ได้</strong>
       <p style="margin: 0; max-width: 460px; font-size: 14px; line-height: 1.6; color: #2E3B33">ทีมมาสคอตยังพาเรียนได้ครบทุกจุด เปิดรายการจุดเรียนรู้เพื่ออ่านบทนำและตอบคำถาม หรือดูตารางสรุป</p>
@@ -185,7 +405,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
   </sc-if>
 
   <sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(180deg, #E6F0EE 0%, #F4EFE3 100%); color: #1E3C2F; z-index: 8">
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(180deg, #E6F0EE 0%, #EEF2F0 100%); color: #0B7D43; z-index: 8">
       <div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 6px">
         <sc-for list="{{loadFigs}}" as="lf" hint-placeholder-count="3"><span class="g-fig" style="width: 96px; height: 96px; animation: {{lf.anim}}; background-image: {{lf.img}}; background-size: {{lf.size}}; background-position: {{lf.pos}}"></span></sc-for>
       </div>
@@ -204,36 +424,38 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
   </sc-if>
 
   <sc-if value="{{showTop}}" hint-placeholder-val="{{ true }}">
-    <div style="position: absolute; left: 12px; right: 12px; top: 12px; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; pointer-events: none; z-index: 5">
-      <div style="display: flex; align-items: center; gap: 8px; min-width: 0; pointer-events: auto">
-        <button type="button" class="g-float ghg-tb" onClick="{{toggleDrawer}}" aria-expanded="{{drawerOn}}" title="{{drawerTip}}" style="flex: 0 0 auto; display: flex; align-items: center; gap: 7px; padding: 4px 9px 4px 11px; border-radius: 13px; background: {{drawerBtn.bg}}; color: {{drawerBtn.fg}}; font-size: 13.5px; font-weight: 600; cursor: pointer">
-          <sc-if value="{{isExplore}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 5.5A2 2 0 0 1 6.5 3.5H19v15H6.5a2 2 0 0 0-2 2z"></path><path d="M4.5 20.5v-15M10.2 9a2 2 0 1 1 2.8 1.8c-.6.3-1 .8-1 1.5v.4M12 15.6v.1"></path></svg></sc-if>
-          <sc-if value="{{notExplore}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16"></path></svg></sc-if>
-          <span class="ghg-ml">{{drawerLbl}}</span>
-          <span class="g-mono" style="padding: 1px 7px; border-radius: 999px; background: {{drawerBtn.cbg}}; font-size: 12px; font-weight: 600; line-height: 1.5">{{doneOf}}</span>
+    <div class="ghg-top">
+      <div class="ghg-top-l">
+        <button type="button" class="g-glass ghg-status" onClick="{{toggleDrawer}}" aria-expanded="{{drawerOn}}" title="{{drawerTip}}" data-on="{{drawerOn}}">
+          <span class="ghg-status-av" aria-hidden="true">
+            <sc-for list="{{brandPics}}" as="bp" hint-placeholder-count="3"><span class="g-av g-cl" style="width: 30px; height: 30px; background-color: {{bp.bg}}; background-image: {{bp.img}}; background-size: {{bp.size}}; background-position: {{bp.pos}}"></span></sc-for>
+          </span>
+          <span class="ghg-status-tx">
+            <strong class="g-h">{{loc.name}}</strong>
+            <span class="ghg-status-row"><span class="ghg-pbar2" aria-hidden="true"><span style="width: {{progress}}"></span></span><span>{{drawerLbl}} <b class="g-mono">{{doneOf}}</b></span></span>
+          </span>
+          <svg class="ghg-status-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 5.5A2 2 0 0 1 6.5 3.5H19v15H6.5a2 2 0 0 0-2 2z"></path><path d="M4.5 20.5v-15"></path></svg>
         </button>
-        <div class="g-float ghg-tb ghg-loc" style="display: flex; align-items: center; gap: 7px; min-width: 0; padding: 4px 12px 4px 10px; border-radius: 13px">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2E7A26" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto" aria-hidden="true" focusable="false"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
-          <strong class="g-h" style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; line-height: 1.3; font-weight: 500">{{loc.name}}</strong>
-          <sc-if value="{{loc.hasInside}}" hint-placeholder-val="{{ false }}">
-            <span class="g-chip" style="padding: 2px 8px; background: #FFF1C9; color: #6B4A00"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20.5V9l8-5 8 5v11.5"></path><path d="M9.5 20.5v-6h5v6"></path></svg>{{loc.inside}}</span>
-          </sc-if>
-        </div>
+        <sc-if value="{{loc.hasInside}}" hint-placeholder-val="{{ false }}">
+          <span class="g-glass ghg-inside"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20.5V9l8-5 8 5v11.5"></path><path d="M9.5 20.5v-6h5v6"></path></svg>{{loc.inside}}</span>
+        </sc-if>
+      </div>
+      <div class="ghg-top-r">
         <sc-if value="{{showHop}}" hint-placeholder-val="{{ true }}">
-          <div style="position: relative; flex: 0 0 auto">
-            <button type="button" class="g-float ghg-tb" onClick="{{toggleHop}}" aria-expanded="{{hopOpen}}" aria-haspopup="menu" title="เดินทางด่วน · น้องส่องพาบินโดรนไปย่านอื่น" style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 13px; background: {{hopBtn.bg}}; color: {{hopBtn.fg}}; font-size: 13px; font-weight: 600; cursor: pointer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="10" width="6" height="4.5" rx="1.5"></rect><path d="M9 11 5.5 8.5M15 11l3.5-2.5M9 13.5 5.5 16M15 13.5l3.5 2.5"></path><path d="M3 8.5h5M16 8.5h5M3 16h5M16 16h5"></path></svg>
+          <div style="position: relative">
+            <button type="button" class="g-glass ghg-tbtn" onClick="{{toggleHop}}" aria-expanded="{{hopOpen}}" aria-haspopup="menu" title="เดินทางด่วน · น้องส่องพาบินโดรนไปย่านอื่น" data-on="{{hopOpen}}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="10" width="6" height="4.5" rx="1.5"></rect><path d="M9 11 5.5 8.5M15 11l3.5-2.5M9 13.5 5.5 16M15 13.5l3.5 2.5"></path><path d="M3 8.5h5M16 8.5h5M3 16h5M16 16h5"></path></svg>
               <span class="ghg-ml">เดินทางด่วน</span>
             </button>
             <sc-if value="{{hopOpen}}" hint-placeholder-val="{{ false }}">
-              <div role="menu" aria-label="เดินทางด่วน" class="g-float ghg-pop ghg-anim ghg-scroll" style="left: 0; right: auto; width: 268px; max-height: min(440px, 62vh); overflow-y: auto; padding: 6px">
-                <span style="padding: 4px 8px 6px; font-size: 12px; line-height: 1.45; color: #4A574F">น้องส่องพาบินโดรนไปลงใกล้ปริศนาที่ยังไม่ไข แล้วเดินต่ออีกนิดเดียว</span>
+              <div role="menu" aria-label="เดินทางด่วน" class="g-glass ghg-menu ghg-anim ghg-scroll">
+                <span class="ghg-menu-h">เดินทางด่วน · น้องส่องพาบินไปลงใกล้ปริศนาที่ยังไม่ไข</span>
                 <sc-for list="{{hops}}" as="hp" hint-placeholder-count="9">
-                  <button type="button" role="menuitem" onClick="{{hp.go}}" style="display: flex; align-items: center; gap: 9px; width: 100%; min-height: 42px; padding: 5px 9px; border: 0; border-radius: 11px; background: {{hp.bg}}; color: #19261E; text-align: left; cursor: pointer">
-                    <span style="flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; background: {{hp.dot}}; box-shadow: 0 0 0 2px {{hp.ring}}"></span>
+                  <button type="button" role="menuitem" class="ghg-mrow" onClick="{{hp.go}}" style="background: {{hp.bg}}">
+                    <span style="flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; background: {{hp.dot}}; box-shadow: 0 0 0 3px {{hp.ring}}"></span>
                     <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 0">
-                      <strong style="font-size: 13.5px; line-height: 1.35; font-weight: 600">{{hp.name}}</strong>
-                      <span style="font-size: 11.5px; line-height: 1.4; color: {{hp.subFg}}">{{hp.prog}}</span>
+                      <strong style="font-size: 14px; line-height: 1.35; font-weight: 600">{{hp.name}}</strong>
+                      <span style="font-size: 12px; line-height: 1.4; color: {{hp.subFg}}">{{hp.prog}}</span>
                     </span>
                   </button>
                 </sc-for>
@@ -241,49 +463,36 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
             </sc-if>
           </div>
         </sc-if>
-      </div>
-      <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 6px; pointer-events: auto">
-        <div role="group" aria-label="โหมดการสำรวจ" class="g-float" style="display: flex; gap: 2px; padding: 3px; border-radius: 13px">
-          <button type="button" class="g-seg" onClick="{{setExplore}}" aria-pressed="{{mExplore.on}}" title="สำรวจเอง" style="min-height: 34px; padding: 3px 10px; background: {{mExplore.bg}}; color: {{mExplore.fg}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg><span class="ghg-ml">สำรวจเอง</span></button>
-          <button type="button" class="g-seg" onClick="{{setTour}}" aria-pressed="{{mTour.on}}" title="ทัวร์นำเที่ยวกับทีมมาสคอต" style="min-height: 34px; padding: 3px 10px; background: {{mTour.bg}}; color: {{mTour.fg}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8.5" cy="6" r="2.3"></circle><path d="M4.5 20v-4.5a4 4 0 0 1 8 0V20"></path><circle cx="16.5" cy="7.5" r="2"></circle><path d="M13.8 20v-3.6a2.7 2.7 0 0 1 5.4 0V20"></path></svg><span class="ghg-ml">ทัวร์</span></button>
-          <button type="button" class="g-seg" onClick="{{toggleOver}}" aria-pressed="{{mOver.on}}" title="มุมสูง (M)" style="min-height: 34px; padding: 3px 10px; background: {{mOver.bg}}; color: {{mOver.fg}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4.5 3.5 6.5v13l5.5-2 6 2 5.5-2v-13l-5.5 2-6-2z"></path><path d="M9 4.5v13M15 6.5v13"></path></svg><span class="ghg-ml">มุมสูง</span></button>
-        </div>
-        <div class="ghg-xs-hide" style="position: relative">
-          <button type="button" class="g-float ghg-tb" onClick="{{toggleWx}}" aria-expanded="{{wxOpen}}" aria-haspopup="menu" title="ช่วงเวลาและสภาพอากาศ" style="display: flex; align-items: center; gap: 6px; padding: 4px 8px 4px 10px; border-radius: 13px; background: {{wxBtn.bg}}; color: {{wxBtn.fg}}; font-size: 13px; font-weight: 600; cursor: pointer">
-            <sc-if value="{{wDay.on}}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"></path></svg></sc-if><sc-if value="{{wEvening.on}}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 17.5h18M6.5 17.5a5.5 5.5 0 0 1 11 0"></path><path d="M12 6v3M5.6 9.6l1.6 1.6M18.4 9.6l-1.6 1.6M8 21h8"></path></svg></sc-if><sc-if value="{{wNight.on}}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg></sc-if><sc-if value="{{wRain.on}}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 15.5a4.5 4.5 0 1 1 1.6-8.7A5.5 5.5 0 0 1 19 9.5a3.5 3.5 0 0 1-.5 6"></path><path d="M9 18l-1 2.5M13 18l-1 2.5M17 18l-1 2.5"></path></svg></sc-if><sc-if value="{{wAuto.on}}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></sc-if>
-            <span class="ghg-ml">{{wxLabel}}</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9.5l6 6 6-6"></path></svg>
+        <div style="position: relative">
+          <button type="button" class="g-glass ghg-tbtn" onClick="{{toggleMore}}" aria-expanded="{{moreOpen}}" aria-haspopup="menu" title="เมนู · โหมด เวลา เสียง ตารางสรุป วิธีเล่น" data-on="{{moreOpen}}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+            <span class="ghg-ml">เมนู</span>
           </button>
-          <sc-if value="{{wxOpen}}" hint-placeholder-val="{{ false }}">
-            <div role="menu" aria-label="ช่วงเวลาและสภาพอากาศ" class="g-float ghg-pop ghg-anim">
-              <button type="button" role="menuitemradio" aria-checked="{{wDay.on}}" class="g-wx" onClick="{{setDay}}" style="justify-content: flex-start; gap: 8px; padding: 6px 10px; background: {{wDay.bg}}; color: {{wDay.fg}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"></path></svg>กลางวัน</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wEvening.on}}" class="g-wx" onClick="{{setEvening}}" style="justify-content: flex-start; gap: 8px; padding: 6px 10px; background: {{wEvening.bg}}; color: {{wEvening.fg}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 17.5h18M6.5 17.5a5.5 5.5 0 0 1 11 0"></path><path d="M12 6v3M5.6 9.6l1.6 1.6M18.4 9.6l-1.6 1.6M8 21h8"></path></svg>ตอนเย็น</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wNight.on}}" class="g-wx" onClick="{{setNight}}" style="justify-content: flex-start; gap: 8px; padding: 6px 10px; background: {{wNight.bg}}; color: {{wNight.fg}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>กลางคืน</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wRain.on}}" class="g-wx" onClick="{{setRain}}" style="justify-content: flex-start; gap: 8px; padding: 6px 10px; background: {{wRain.bg}}; color: {{wRain.fg}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 15.5a4.5 4.5 0 1 1 1.6-8.7A5.5 5.5 0 0 1 19 9.5a3.5 3.5 0 0 1-.5 6"></path><path d="M9 18l-1 2.5M13 18l-1 2.5M17 18l-1 2.5"></path></svg>ฝนตก</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wAuto.on}}" class="g-wx" onClick="{{setAuto}}" style="justify-content: flex-start; gap: 8px; padding: 6px 10px; background: {{wAuto.bg}}; color: {{wAuto.fg}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>ตามเวลาจริง</button>
-            </div>
-          </sc-if>
-        </div>
-        <button type="button" class="g-float ghg-ib ghg-xs-hide" onClick="{{toggleSound}}" aria-pressed="{{soundOn}}" title="{{soundText}}" style="background: {{soundBtn.bg}}; color: {{soundBtn.fg}}">
-          <sc-if value="{{soundOn}}" hint-placeholder-val="{{ true }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-label="{{soundText}}" role="img"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"></path></svg></sc-if>
-          <sc-if value="{{soundOff}}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-label="{{soundText}}" role="img"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M16 9.5l5 5M21 9.5l-5 5"></path></svg></sc-if>
-        </button>
-        <button type="button" class="g-float ghg-ib ghg-xs-hide" onClick="{{toggleLabels}}" aria-pressed="{{labelsOn}}" title="{{labelsText}}" style="background: {{labelsBtn.bg}}; color: {{labelsBtn.fg}}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-label="{{labelsText}}" role="img"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="2.8"></circle></svg></button>
-        <button type="button" class="g-float ghg-ib ghg-xs-hide" onClick="{{toggleHelp}}" aria-expanded="{{helpOn}}" aria-label="ปุ่มลัดและวิธีควบคุม" title="ปุ่มลัดและวิธีควบคุม" style="background: {{helpBtn.bg}}; color: {{helpBtn.fg}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5"></rect><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M6.5 14.2h11"></path></svg></button>
-        <div class="ghg-xs-show" style="position: relative">
-          <button type="button" class="g-float ghg-ib" onClick="{{toggleMore}}" aria-expanded="{{moreOpen}}" aria-haspopup="menu" aria-label="ตั้งค่าเพิ่มเติม" title="ตั้งค่าเพิ่มเติม" style="background: {{moreBtn.bg}}; color: {{moreBtn.fg}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.9"></circle><circle cx="12" cy="12" r="1.9"></circle><circle cx="18.5" cy="12" r="1.9"></circle></svg></button>
           <sc-if value="{{moreOpen}}" hint-placeholder-val="{{ false }}">
-            <div role="menu" aria-label="ตั้งค่าเพิ่มเติม" class="g-float ghg-pop ghg-anim" style="min-width: 210px">
-              <span style="padding: 4px 8px 2px; font-size: 11.5px; font-weight: 600; color: #55625A">ช่วงเวลาและสภาพอากาศ</span>
-              <button type="button" role="menuitemradio" aria-checked="{{wDay.on}}" class="g-wx" onClick="{{setDay}}" style="justify-content: flex-start; padding: 6px 10px; background: {{wDay.bg}}; color: {{wDay.fg}}">กลางวัน</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wEvening.on}}" class="g-wx" onClick="{{setEvening}}" style="justify-content: flex-start; padding: 6px 10px; background: {{wEvening.bg}}; color: {{wEvening.fg}}">ตอนเย็น</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wNight.on}}" class="g-wx" onClick="{{setNight}}" style="justify-content: flex-start; padding: 6px 10px; background: {{wNight.bg}}; color: {{wNight.fg}}">กลางคืน</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wRain.on}}" class="g-wx" onClick="{{setRain}}" style="justify-content: flex-start; padding: 6px 10px; background: {{wRain.bg}}; color: {{wRain.fg}}">ฝนตก</button>
-              <button type="button" role="menuitemradio" aria-checked="{{wAuto.on}}" class="g-wx" onClick="{{setAuto}}" style="justify-content: flex-start; padding: 6px 10px; background: {{wAuto.bg}}; color: {{wAuto.fg}}">ตามเวลาจริง</button>
-              <span style="margin: 4px 6px; border-top: 1px solid rgba(25,38,30,.1)"></span>
-              <button type="button" role="menuitemcheckbox" aria-checked="{{soundOn}}" class="g-wx" onClick="{{toggleSound}}" style="justify-content: flex-start; padding: 6px 10px; background: transparent; color: #19261E">{{soundMenu}}</button>
-              <button type="button" role="menuitemcheckbox" aria-checked="{{labelsOn}}" class="g-wx" onClick="{{toggleLabels}}" style="justify-content: flex-start; padding: 6px 10px; background: transparent; color: #19261E">{{labelsText}}</button>
-              <button type="button" role="menuitem" class="g-wx" onClick="{{toggleHelp}}" style="justify-content: flex-start; padding: 6px 10px; background: transparent; color: #19261E">วิธีควบคุม</button>
+            <div role="menu" aria-label="เมนู" class="g-glass ghg-menu ghg-anim ghg-scroll" style="right: 0">
+              <span class="ghg-menu-h">โหมดการเล่น</span>
+              <div class="ghg-segs">
+                <button type="button" onClick="{{setExplore}}" aria-pressed="{{mExplore.on}}" style="background: {{mExplore.bg}}; color: {{mExplore.fg}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg>สำรวจเอง</button>
+                <button type="button" onClick="{{setTour}}" aria-pressed="{{mTour.on}}" style="background: {{mTour.bg}}; color: {{mTour.fg}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8.5" cy="6" r="2.3"></circle><path d="M4.5 20v-4.5a4 4 0 0 1 8 0V20"></path><circle cx="16.5" cy="7.5" r="2"></circle><path d="M13.8 20v-3.6a2.7 2.7 0 0 1 5.4 0V20"></path></svg>ทัวร์</button>
+                <button type="button" onClick="{{toggleOver}}" aria-pressed="{{mOver.on}}" style="background: {{mOver.bg}}; color: {{mOver.fg}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4.5 3.5 6.5v13l5.5-2 6 2 5.5-2v-13l-5.5 2-6-2z"></path><path d="M9 4.5v13M15 6.5v13"></path></svg>มุมสูง</button>
+              </div>
+              <span class="ghg-menu-h">ช่วงเวลาและอากาศ</span>
+              <div class="ghg-chips">
+                <button type="button" role="menuitemradio" aria-checked="{{wDay.on}}" onClick="{{setDay}}" style="background: {{wDay.bg}}; color: {{wDay.fg}}">กลางวัน</button>
+                <button type="button" role="menuitemradio" aria-checked="{{wEvening.on}}" onClick="{{setEvening}}" style="background: {{wEvening.bg}}; color: {{wEvening.fg}}">ตอนเย็น</button>
+                <button type="button" role="menuitemradio" aria-checked="{{wNight.on}}" onClick="{{setNight}}" style="background: {{wNight.bg}}; color: {{wNight.fg}}">กลางคืน</button>
+                <button type="button" role="menuitemradio" aria-checked="{{wRain.on}}" onClick="{{setRain}}" style="background: {{wRain.bg}}; color: {{wRain.fg}}">ฝนตก</button>
+                <button type="button" role="menuitemradio" aria-checked="{{wAuto.on}}" onClick="{{setAuto}}" style="background: {{wAuto.bg}}; color: {{wAuto.fg}}">ตามเวลาจริง</button>
+              </div>
+              <span class="ghg-menu-sep"></span>
+              <button type="button" role="menuitemcheckbox" aria-checked="{{soundOn}}" class="ghg-mrow" onClick="{{toggleSound}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"></path><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"></path></svg><span style="flex: 1 1 auto">เสียงประกอบ</span><span class="ghg-sw" data-on="{{soundOn}}"></span></button>
+              <button type="button" role="menuitemcheckbox" aria-checked="{{labelsOn}}" class="ghg-mrow" onClick="{{toggleLabels}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="2.8"></circle></svg><span style="flex: 1 1 auto">ป้ายชื่อจุดในเมือง</span><span class="ghg-sw" data-on="{{labelsOn}}"></span></button>
+              <button type="button" role="menuitemcheckbox" aria-checked="{{filmAutoOn}}" class="ghg-mrow" onClick="{{toggleFilmAuto}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="13" height="12" rx="2.5"></rect><path d="M15.5 10.5l6-3.5v10l-6-3.5z"></path></svg><span style="flex: 1 1 auto">วิดีโอสำรวจเมื่อเจอแหล่งปล่อย</span><span class="ghg-sw" data-on="{{filmAutoOn}}"></span></button>
+              <sc-if value="{{ttsOk}}" hint-placeholder-val="{{ true }}">
+                <button type="button" role="menuitemcheckbox" aria-checked="{{narrSw}}" class="ghg-mrow" onClick="{{toggleNarr}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10.5H9.5L4 20z"></path><path d="M8 9.5h8M8 12.5h5"></path></svg><span style="flex: 1 1 auto">เสียงบรรยายภาษาไทย</span><span class="ghg-sw" data-on="{{narrSw}}"></span></button>
+              </sc-if>
+              <button type="button" role="menuitem" class="ghg-mrow" onClick="{{goTableM}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="4.5" width="17" height="15" rx="2"></rect><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"></path></svg><span style="flex: 1 1 auto">ตารางสรุปผล 19 จุด</span></button>
+              <button type="button" role="menuitem" class="ghg-mrow" onClick="{{toggleHelp}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.5M12 16.6v.2"></path></svg><span style="flex: 1 1 auto">วิธีเล่น · ปุ่มลัด</span></button>
             </div>
           </sc-if>
         </div>
@@ -293,7 +502,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showGateWait}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-banner">
-      <div class="ghg-anim" role="status" style="display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 16px; background: rgba(25,38,30,.9); color: #FFFFFF; font-size: 14px; font-weight: 600">
+      <div class="ghg-anim g-dark" role="status" style="display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 16px; background: rgba(14,24,19,.80); color: #FFFFFF; font-size: 14px; font-weight: 600">
         <span aria-hidden="true" style="display: flex; align-items: center">
           <sc-for list="{{brandPics}}" as="gp" hint-placeholder-count="3"><span class="g-av g-cl" style="width: 32px; height: 32px; box-shadow: 0 0 0 2px #19261E; background-color: {{gp.bg}}; background-image: {{gp.img}}; background-size: {{gp.size}}; background-position: {{gp.pos}}"></span></sc-for>
         </span>
@@ -307,7 +516,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
       <div class="ghg-anim g-panel" role="group" aria-label="เลือกวิธีเริ่มสำรวจ" style="pointer-events: auto; width: min(620px, 100%); display: flex; flex-direction: column; gap: 11px; padding: 14px 16px; border-radius: 20px; box-shadow: 0 12px 34px rgba(25,38,30,.28)">
         <div style="display: flex; align-items: center; gap: 11px">
           <span aria-hidden="true" style="flex: 0 0 auto; display: flex; align-items: center">
-            <sc-for list="{{gatePics}}" as="gc" hint-placeholder-count="3"><span class="g-av g-cl" style="width: 40px; height: 40px; box-shadow: 0 0 0 2.5px #FFFDF8; background-color: {{gc.bg}}; background-image: {{gc.img}}; background-size: {{gc.size}}; background-position: {{gc.pos}}"></span></sc-for>
+            <sc-for list="{{gatePics}}" as="gc" hint-placeholder-count="3"><span class="g-av g-cl" style="width: 40px; height: 40px; box-shadow: 0 0 0 2.5px #FFFFFF; background-color: {{gc.bg}}; background-image: {{gc.img}}; background-size: {{gc.size}}; background-position: {{gc.pos}}"></span></sc-for>
           </span>
           <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
             <strong class="g-h" style="font-size: 17px; line-height: 1.3; font-weight: 600">ประตูเมืองคาร์บอน · พร้อมออกสำรวจ</strong>
@@ -330,7 +539,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showFinaleWait}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-banner">
-      <div class="ghg-anim" role="status" style="display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 16px; background: rgba(25,38,30,.9); color: #FFFFFF; font-size: 14px; font-weight: 600">
+      <div class="ghg-anim g-dark" role="status" style="display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 16px; background: rgba(14,24,19,.80); color: #FFFFFF; font-size: 14px; font-weight: 600">
         <span class="g-av" aria-hidden="true" style="width: 34px; height: 34px; background-color: {{finFig.bg}}; background-image: {{finFig.img}}; background-size: {{finFig.size}}; background-position: {{finFig.pos}}"></span>
         น้องส่องพาบินขึ้นชมวิวทั้งเมือง…
       </div>
@@ -339,7 +548,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showTravel}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-banner">
-      <div class="ghg-anim g-dark" role="status" style="width: min(580px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 9px; padding: 11px 13px; border-radius: 18px; background: rgba(25,38,30,.92); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25); pointer-events: auto">
+      <div class="ghg-anim g-dark" role="status" style="width: min(580px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 9px; padding: 11px 13px; border-radius: 18px; background: rgba(14,24,19,.80); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25); pointer-events: auto">
         <div style="display: flex; align-items: center; gap: 10px">
           <span class="g-av g-glow" aria-hidden="true" style="width: 44px; height: 44px; background-color: {{travel.pic.bg}}; background-image: {{travel.pic.img}}; background-size: {{travel.pic.size}}; background-position: {{travel.pic.pos}}"></span>
           <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px">
@@ -369,7 +578,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showSeek}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-banner">
-      <div class="ghg-anim g-dark" role="status" style="pointer-events: auto; width: min(600px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 18px; background: rgba(25,38,30,.92); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25)">
+      <div class="ghg-anim g-dark" role="status" style="pointer-events: auto; width: min(600px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 18px; background: rgba(14,24,19,.80); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25)">
         <div style="display: flex; align-items: center; gap: 10px">
           <span class="g-av" aria-hidden="true" style="width: 42px; height: 42px; background-color: {{seek.pic.bg}}; background-image: {{seek.pic.img}}; background-size: {{seek.pic.size}}; background-position: {{seek.pic.pos}}"></span>
           <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px">
@@ -411,7 +620,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showHintB}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-banner">
-      <div class="ghg-anim g-dark" role="status" style="pointer-events: auto; width: min(560px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 18px; background: rgba(25,38,30,.92); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25)">
+      <div class="ghg-anim g-dark" role="status" style="pointer-events: auto; width: min(560px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 18px; background: rgba(14,24,19,.80); color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.25)">
         <div style="display: flex; align-items: center; gap: 10px">
           <sc-if value="{{cmp.on}}" hint-placeholder-val="{{ true }}">
             <span class="g-cmp" role="img" aria-label="{{cmp.say}}" style="width: 46px; height: 46px"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" style="transform: {{cmp.rot}}"><path d="M12 2.5l6.5 16-6.5-3.6-6.5 3.6z"></path></svg></span>
@@ -439,7 +648,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showFound}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-found">
-      <div class="g-pop g-panel" role="status" style="position: relative; pointer-events: auto; display: flex; align-items: center; gap: 12px; max-width: 100%; padding: 12px 20px 12px 10px; border: 1.5px solid #F2D58E; border-radius: 24px; background: #FFFBF1; box-shadow: 0 16px 44px rgba(25,38,30,.34)">
+      <div class="g-pop g-panel" role="status" style="position: relative; pointer-events: auto; display: flex; align-items: center; gap: 12px; max-width: 100%; padding: 12px 20px 12px 10px; border: 1.5px solid #F2D58E; border-radius: 24px; background: #FFFFFF; box-shadow: 0 16px 44px rgba(25,38,30,.34)">
         <span class="g-spk" aria-hidden="true" style="left: -9px; top: -11px; width: 22px; height: 22px; color: #FFB703"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor" focusable="false"><path d="M12 1.5l2.4 8.1 8.1 2.4-8.1 2.4L12 22.5l-2.4-8.1L1.5 12l8.1-2.4z"></path></svg></span>
         <span class="g-spk" aria-hidden="true" style="left: 34%; top: -17px; width: 15px; height: 15px; color: #42B236; animation-delay: .35s"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor" focusable="false"><path d="M12 1.5l2.4 8.1 8.1 2.4-8.1 2.4L12 22.5l-2.4-8.1L1.5 12l8.1-2.4z"></path></svg></span>
         <span class="g-spk" aria-hidden="true" style="right: 16%; top: -13px; width: 19px; height: 19px; color: #10C0E5; animation-delay: .7s"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor" focusable="false"><path d="M12 1.5l2.4 8.1 8.1 2.4-8.1 2.4L12 22.5l-2.4-8.1L1.5 12l8.1-2.4z"></path></svg></span>
@@ -449,7 +658,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
         <span class="g-spk" aria-hidden="true" style="left: -13px; bottom: 16%; width: 16px; height: 16px; color: #10C0E5; animation-delay: 1.1s"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor" focusable="false"><path d="M12 1.5l2.4 8.1 8.1 2.4-8.1 2.4L12 22.5l-2.4-8.1L1.5 12l8.1-2.4z"></path></svg></span>
         <span class="g-fig g-bob" aria-hidden="true" style="width: 96px; height: 96px; background-image: {{found.fig.img}}; background-size: {{found.fig.size}}; background-position: {{found.fig.pos}}"></span>
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; max-width: 380px">
-          <strong class="g-h" style="font-size: 30px; line-height: 1.1; font-weight: 600; color: #1E3C2F">เจอแล้ว!</strong>
+          <strong class="g-h" style="font-size: 30px; line-height: 1.1; font-weight: 600; color: #0B7D43">เจอแล้ว!</strong>
           <span style="font-size: 14px; line-height: 1.5; color: #19261E"><strong class="g-h" style="font-weight: 500; color: {{found.color}}">{{found.name}}: </strong>{{found.t}}</span>
           <span style="font-size: 12px; line-height: 1.45; color: #55625A">{{found.sub}}</span>
           <sc-if value="{{found.canGo}}" hint-placeholder-val="{{ true }}">
@@ -521,17 +730,17 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showRiddle}}" hint-placeholder-val="{{ false }}">
     <div class="ghg-dlg">
-      <div class="ghg-anim g-panel" role="region" aria-label="ปริศนาใกล้ตัว" style="width: min(640px, 100%); display: flex; flex-direction: column; gap: 9px; padding: 12px 14px; border: 1.5px solid #F2D58E; border-radius: 22px; background: #FFFBF1; box-shadow: 0 12px 34px rgba(25,38,30,.30)">
+      <div class="ghg-anim g-panel" role="region" aria-label="ปริศนาใกล้ตัว" style="width: min(640px, 100%); display: flex; flex-direction: column; gap: 9px; padding: 12px 14px; border: 1.5px solid #F2D58E; border-radius: 22px; background: #FFFFFF; box-shadow: 0 12px 34px rgba(25,38,30,.30)">
         <div style="display: flex; align-items: flex-start; gap: 12px">
           <span aria-hidden="true" style="flex: 0 0 auto; position: relative; width: 56px; height: 56px">
             <span class="g-av" style="width: 56px; height: 56px; box-shadow: 0 0 0 3px #FFB703; background-color: {{riddle.pic.bg}}; background-image: {{riddle.pic.img}}; background-size: {{riddle.pic.size}}; background-position: {{riddle.pic.pos}}"></span>
-            <span class="g-h g-wob" style="position: absolute; right: -6px; bottom: -5px; width: 26px; height: 26px; border-radius: 50%; background: #19261E; color: #FFB703; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; box-shadow: 0 0 0 2px #FFFBF1">?</span>
+            <span class="g-h g-wob" style="position: absolute; right: -6px; bottom: -5px; width: 26px; height: 26px; border-radius: 50%; background: #19261E; color: #FFB703; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; box-shadow: 0 0 0 2px #FFFFFF">?</span>
           </span>
           <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px">
               <span class="g-chip" style="background: #19261E; color: #FFB703">ปริศนาใกล้ตัว!</span>
               <span style="font-size: 12px; line-height: 1.4; color: #55625A">{{riddle.area}}</span>
-              <sc-if value="{{riddle.hasDist}}" hint-placeholder-val="{{ true }}"><span class="g-chip g-mono" style="margin-left: auto; padding: 2px 9px; background: #F1EADB; color: #2E3B33; font-size: 11.5px"><sc-if value="{{riddle.cmp}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#B87800" aria-hidden="true" focusable="false" style="transform: {{cmp.rot}}; transition: transform .12s linear"><path d="M12 2.5l6.5 16-6.5-3.6-6.5 3.6z"></path></svg></sc-if>{{riddle.dist}}</span></sc-if>
+              <sc-if value="{{riddle.hasDist}}" hint-placeholder-val="{{ true }}"><span class="g-chip g-mono" style="margin-left: auto; padding: 2px 9px; background: #EEF2F0; color: #2E3B33; font-size: 11.5px"><sc-if value="{{riddle.cmp}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#B87800" aria-hidden="true" focusable="false" style="transform: {{cmp.rot}}; transition: transform .12s linear"><path d="M12 2.5l6.5 16-6.5-3.6-6.5 3.6z"></path></svg></sc-if>{{riddle.dist}}</span></sc-if>
             </div>
             <p class="g-h" style="margin: 2px 0 0; font-size: 16px; line-height: 1.55; font-weight: 400; color: #19261E">“{{riddle.t}}” <span style="font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 12px; font-weight: 600; color: {{riddle.color}}">— {{riddle.name}}</span></p>
           </div>
@@ -623,13 +832,13 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
           <strong class="g-h" style="font-size: 17px">{{drawerTitle}}</strong>
           <span class="g-k">{{drawerSub}}</span>
         </div>
-        <button type="button" onClick="{{closeDrawer}}" aria-label="ปิดรายการ" style="flex: 0 0 auto; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #F1EADB; color: #19261E; cursor: pointer">
+        <button type="button" onClick="{{closeDrawer}}" aria-label="ปิดรายการ" style="flex: 0 0 auto; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #EEF2F0; color: #19261E; cursor: pointer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
         </button>
       </div>
       <sc-if value="{{showBook}}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <div aria-hidden="true" style="height: 7px; border-radius: 999px; background: #EAE3D3; overflow: hidden"><div style="width: {{progress}}; height: 7px; border-radius: 999px; background: linear-gradient(90deg, #42B236, #10C0E5 60%, #FFB703)"></div></div>
+          <div aria-hidden="true" style="height: 7px; border-radius: 999px; background: #E4E9E6; overflow: hidden"><div style="width: {{progress}}; height: 7px; border-radius: 999px; background: linear-gradient(90deg, #42B236, #10C0E5 60%, #FFB703)"></div></div>
           <p style="margin: 0; padding: 8px 10px; border-radius: 12px; background: #FFF5D9; font-size: 12px; line-height: 1.55; color: #5A3F00">เดินเข้าใกล้ฟอง ? ในเมืองเพื่อเปิดปริศนา ไขได้แล้วจะบันทึกไว้ที่นี่ · กด <kbd>H</kbd> ให้น้องส่องพาไปจุดที่ใกล้ที่สุด</p>
         </div>
       </sc-if>
@@ -637,7 +846,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px; font-weight: 600; color: #2E7A26">บทนำที่ประตูเมือง</span>
           <sc-for list="{{lessonsList}}" as="ls" hint-placeholder-count="4">
-            <button type="button" onClick="{{ls.pick}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 46px; padding: 5px 10px 5px 6px; border: 1px solid rgba(25,38,30,.1); border-radius: 13px; background: #FFFDF8; color: #19261E; text-align: left; cursor: pointer">
+            <button type="button" onClick="{{ls.pick}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 46px; padding: 5px 10px 5px 6px; border: 1px solid rgba(25,38,30,.1); border-radius: 13px; background: #FFFFFF; color: #19261E; text-align: left; cursor: pointer">
               <span class="g-av" aria-hidden="true" style="width: 32px; height: 32px; background-color: {{ls.pic.bg}}; background-image: {{ls.pic.img}}; background-size: {{ls.pic.size}}; background-position: {{ls.pic.pos}}"></span>
               <span style="display: flex; flex-direction: column; gap: 0; min-width: 0">
                 <span style="font-size: 11px; color: #55625A">บทที่ {{ls.n}}</span>
@@ -656,8 +865,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
             </div>
             <sc-for list="{{bg.items}}" as="bi" hint-placeholder-count="2">
               <sc-if value="{{bi.solved}}" hint-placeholder-val="{{ false }}">
-                <button type="button" onClick="{{bi.review}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 50px; padding: 6px 10px; border: 1.5px solid rgba(25,38,30,.1); border-radius: 14px; background: #FFFDF8; color: #19261E; text-align: left; cursor: pointer">
-                  <span class="g-mono" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 10px; background: {{bi.badge}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">{{bi.n}}</span>
+                <button type="button" onClick="{{bi.review}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 50px; padding: 6px 10px; border: 1.5px solid rgba(25,38,30,.1); border-radius: 14px; background: #FFFFFF; color: #19261E; text-align: left; cursor: pointer">
+                  <sc-if value="{{bi.hasPhoto}}" hint-placeholder-val="{{ false }}"><img class="ghg-bk-ph" src="{{bi.photo}}" alt="ภาพหลักฐานจุดที่ {{bi.n}}" style="--bk: {{bi.badge}}"></sc-if>
+                  <sc-if value="{{bi.noPhoto}}" hint-placeholder-val="{{ true }}"><span class="g-mono" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 10px; background: {{bi.badge}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">{{bi.n}}</span></sc-if>
                   <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px">
                     <span style="font-size: 13.5px; font-weight: 600; line-height: 1.3">{{bi.title}}</span>
                     <span style="display: flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; color: {{bi.resFg}}">
@@ -682,7 +892,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
                   <p class="g-clamp2" style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #2E3B33">“{{bi.riddle}}”</p>
                   <sc-if value="{{bi.hinting}}" hint-placeholder-val="{{ false }}"><span class="g-chip" style="align-self: flex-start; background: #FFB703; color: #19261E">น้องส่องกำลังพาไป · ตามแสงไปเลย</span></sc-if>
                   <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 8px">
-                    <button type="button" onClick="{{bi.hint}}" style="display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 3px 12px 3px 4px; border: 0; border-radius: 999px; background: #1E3C2F; color: #FFFFFF; font-size: 12.5px; font-weight: 600; cursor: pointer">
+                    <button type="button" onClick="{{bi.hint}}" style="display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 3px 12px 3px 4px; border: 0; border-radius: 999px; background: #0B7D43; color: #FFFFFF; font-size: 12.5px; font-weight: 600; cursor: pointer">
                       <span class="g-av" aria-hidden="true" style="width: 28px; height: 28px; background-color: {{bookFly.bg}}; background-image: {{bookFly.img}}; background-size: {{bookFly.size}}; background-position: {{bookFly.pos}}"></span>
                       ขอให้น้องส่องพาไป
                     </button>
@@ -696,7 +906,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
         <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 4px; border-top: 1px dashed rgba(25,38,30,.18)">
           <span style="font-size: 12px; font-weight: 600; color: #2E7A26">ทบทวนบทนำที่ประตูเมือง</span>
           <sc-for list="{{lessonsList}}" as="lb" hint-placeholder-count="4">
-            <button type="button" onClick="{{lb.pick}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 4px 10px 4px 6px; border: 1px solid rgba(25,38,30,.1); border-radius: 13px; background: #FFFDF8; color: #19261E; text-align: left; cursor: pointer">
+            <button type="button" onClick="{{lb.pick}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 4px 10px 4px 6px; border: 1px solid rgba(25,38,30,.1); border-radius: 13px; background: #FFFFFF; color: #19261E; text-align: left; cursor: pointer">
               <span class="g-av" aria-hidden="true" style="width: 30px; height: 30px; background-color: {{lb.pic.bg}}; background-image: {{lb.pic.img}}; background-size: {{lb.pic.size}}; background-position: {{lb.pic.pos}}"></span>
               <span style="display: flex; flex-direction: column; gap: 0; min-width: 0">
                 <span style="font-size: 11px; color: #55625A">บทที่ {{lb.n}}</span>
@@ -737,82 +947,97 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
   </sc-if>
 
   <sc-if value="{{showCard}}" hint-placeholder-val="{{ false }}">
-    <div class="ghg-scroll ghg-anim ghg-card g-panel" role="region" aria-label="คำถามประจำจุด" style="overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 22px">
-      <div style="display: flex; align-items: center; gap: 12px">
-        <span class="g-h" style="flex: 0 0 auto; width: 46px; height: 46px; border-radius: 15px; background: {{card.color}}; color: {{card.badgeFg}}; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600">{{card.n}}</span>
-        <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
-          <span class="g-k">{{card.pos}}</span>
-          <h3 class="g-h" style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 500">{{card.title}}</h3>
-          <span style="font-size: 12.5px; color: #3A463F">{{card.org}}</span>
-        </div>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 6px">
-        <span class="g-chip" style="background: {{card.soft}}; color: {{card.ink}}"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{card.color}}; box-shadow: 0 0 0 1px rgba(25,38,30,.25)"></span>{{card.scopeLabel}}</span>
-        <span class="g-chip" style="background: #F1EADB; color: #2E3B33">{{card.isoText}}</span>
-        <sc-for list="{{card.gases}}" as="cg" hint-placeholder-count="2"><span class="g-chip" style="border: 1px solid rgba(25,38,30,.14); color: #2E3B33; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{cg.color}}"></span><strong>{{cg.t}}</strong> {{cg.sub}}</span></sc-for>
-      </div>
-      <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: #F6F0E2; font-size: 13.5px; line-height: 1.6; color: #2E3B33"><strong>สิ่งที่เห็น: </strong>{{card.scene}}</p>
-      <p style="margin: 0; font-size: 16px; line-height: 1.55; font-weight: 600">{{card.q}}</p>
-      <div role="group" aria-label="ตัวเลือกคำตอบ" style="display: flex; flex-direction: column; gap: 8px">
-        <sc-for list="{{opts}}" as="op" hint-placeholder-count="4">
-          <button type="button" onClick="{{op.pick}}" disabled="{{op.dis}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 12px; border: 1.5px solid {{op.bd}}; border-radius: 14px; background: {{op.bg}}; color: {{op.fg}}; text-align: left; font-size: 14.5px; font-weight: 500; cursor: pointer">
-            <span style="flex: 0 0 auto; width: 28px; height: 28px; border-radius: 9px; background: {{op.kbg}}; color: {{op.kfg}}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">{{op.key}}</span>
-            <span style="flex: 1 1 auto; line-height: 1.45">{{op.t}}</span>
-            <sc-if value="{{op.ok}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-label="คำตอบที่ถูก" role="img"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
-            <sc-if value="{{op.bad}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-label="คำตอบที่เลือกไม่ถูก" role="img"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
-          </button>
-        </sc-for>
-      </div>
-      <sc-if value="{{notAnswered}}" hint-placeholder-val="{{ true }}">
-        <div style="display: flex; align-items: center; gap: 8px">
-          <span class="g-av" aria-hidden="true" style="width: 30px; height: 30px; background-color: {{askPic.bg}}; background-image: {{askPic.img}}; background-size: {{askPic.size}}; background-position: {{askPic.pos}}"></span>
-          <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #4A574F">เลือกคำตอบเพื่อดูเฉลย สูตร หลักฐาน และมุมมองผู้ทวนสอบจากทีมมาสคอต</p>
-        </div>
-      </sc-if>
-      <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px; border-radius: 16px; background: {{card.fbBg}}; color: {{card.fbFg}}">
-            <span class="g-av" aria-hidden="true" style="width: 46px; height: 46px; background-color: {{card.fbPic.bg}}; background-image: {{card.fbPic.img}}; background-size: {{card.fbPic.size}}; background-position: {{card.fbPic.pos}}; box-shadow: 0 0 0 2px {{card.fbIcon}}"></span>
-            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
-              <strong style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 15px">
-                <sc-if value="{{cardOk}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
-                <sc-if value="{{cardBad}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
-                {{card.fbTitle}} · {{card.fbSub}}
-              </strong>
-              <span style="font-size: 12.5px; font-weight: 600; opacity: .92">{{card.fbName}}: “{{card.fbLine}}”</span>
-              <span style="font-size: 13.5px; line-height: 1.6">{{card.why}}</span>
+    <div class="ghg-qwrap">
+      <section class="ghg-quiz ghg-anim" role="dialog" aria-label="คำถามประจำจุด">
+        <div class="ghg-quiz-scroll ghg-scroll">
+          <div class="ghg-quiz-head">
+            <span class="ghg-quiz-badge g-h" style="background: {{card.color}}; color: {{card.badgeFg}}">{{card.n}}</span>
+            <div class="ghg-quiz-ttl">
+              <span>{{card.pos}}</span>
+              <h3 class="g-h">{{card.title}}</h3>
+              <span>{{card.org}}</span>
             </div>
           </div>
-          <div role="tablist" aria-label="รายละเอียดเฉลย" style="display: flex; flex-wrap: wrap; gap: 6px">
-            <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="5">
-              <button type="button" role="tab" onClick="{{tb.pick}}" aria-selected="{{tb.on}}" style="display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 3px 12px 3px 4px; border: 1.5px solid {{tb.bd}}; border-radius: 999px; background: {{tb.bg}}; color: {{tb.fg}}; font-size: 12.5px; font-weight: 600; cursor: pointer">
-                <span class="g-av" aria-hidden="true" style="width: 28px; height: 28px; background-color: {{tb.pic.bg}}; background-image: {{tb.pic.img}}; background-size: {{tb.pic.size}}; background-position: {{tb.pic.pos}}"></span>
-                {{tb.label}}
+          <div class="ghg-quiz-meta">
+            <span class="g-chip" style="background: {{card.soft}}; color: {{card.ink}}"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{card.color}}; box-shadow: 0 0 0 1px rgba(25,38,30,.25)"></span>{{card.scopeLabel}}</span>
+            <span class="g-chip" style="background: #EEF2F0; color: #2E3B33">{{card.isoText}}</span>
+            <sc-for list="{{card.gases}}" as="cg" hint-placeholder-count="2"><span class="g-chip" style="border: 1px solid rgba(25,38,30,.14); color: #2E3B33; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{cg.color}}"></span><strong>{{cg.t}}</strong> {{cg.sub}}</span></sc-for>
+          </div>
+          <div class="ghg-quiz-scene">
+            <sc-if value="{{card.hasPhoto}}" hint-placeholder-val="{{ false }}">
+              <button type="button" class="ghg-quiz-photo" onClick="{{filmReplay}}" title="ดูวิดีโอสำรวจหน้างานอีกครั้ง"><img src="{{card.photo}}" alt="ภาพหลักฐานจากวิดีโอสำรวจหน้างาน จุดที่ {{card.n}}"><span><i><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"></path></svg></i></span></button>
+            </sc-if>
+            <sc-if value="{{card.noPhoto}}" hint-placeholder-val="{{ true }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="2.8"></circle></svg>
+            </sc-if>
+            <div class="ghg-quiz-scene-t">
+              <p><strong>สิ่งที่เห็น </strong>{{card.scene}}</p>
+              <sc-if value="{{card.canFilm}}" hint-placeholder-val="{{ true }}">
+                <button type="button" class="ghg-filmbtn" onClick="{{filmReplay}}"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"></path></svg></i>{{card.filmLbl}}</button>
+              </sc-if>
+            </div>
+          </div>
+          <p class="ghg-quiz-q g-h">{{card.q}}</p>
+          <div class="ghg-quiz-opts" role="group" aria-label="ตัวเลือกคำตอบ">
+            <sc-for list="{{opts}}" as="op" hint-placeholder-count="4">
+              <button type="button" class="ghg-opt" onClick="{{op.pick}}" disabled="{{op.dis}}" data-st="{{op.st}}">
+                <span class="ghg-opt-k">{{op.key}}</span>
+                <span class="ghg-opt-t">{{op.t}}</span>
+                <sc-if value="{{op.ok}}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-label="คำตอบที่ถูก" role="img"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+                <sc-if value="{{op.bad}}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-label="คำตอบที่เลือกไม่ถูก" role="img"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
               </button>
             </sc-for>
           </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; background: {{host.soft}}">
-            <span class="g-av" aria-hidden="true" style="width: 40px; height: 40px; background-color: #FFFDF8; background-image: {{host.pic.img}}; background-size: {{host.pic.size}}; background-position: {{host.pic.pos}}"></span>
-            <div style="display: flex; flex-direction: column; gap: 0; min-width: 0">
-              <strong class="g-h" style="font-size: 14.5px; font-weight: 500; color: {{host.ink}}">{{host.label}}</strong>
-              <span style="font-size: 12px; color: {{host.ink}}">{{host.motto}}</span>
+          <sc-if value="{{notAnswered}}" hint-placeholder-val="{{ true }}">
+            <p class="ghg-quiz-tip">
+              <span class="g-av" aria-hidden="true" style="width: 30px; height: 30px; background-color: {{askPic.bg}}; background-image: {{askPic.img}}; background-size: {{askPic.size}}; background-position: {{askPic.pos}}"></span>
+              <span>เลือกคำตอบที่คิดว่าถูก แล้วทีมมาสคอตจะเฉลยพร้อมสูตรและมุมผู้ทวนสอบ<span class="ghg-kb"> · กด <kbd>1</kbd>–<kbd>4</kbd> ก็ได้</span></span>
+            </p>
+          </sc-if>
+          <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
+            <div class="ghg-quiz-res" style="background: {{card.fbBg}}; color: {{card.fbFg}}">
+              <span class="g-av" aria-hidden="true" style="width: 52px; height: 52px; background-color: {{card.fbPic.bg}}; background-image: {{card.fbPic.img}}; background-size: {{card.fbPic.size}}; background-position: {{card.fbPic.pos}}; box-shadow: 0 0 0 2.5px {{card.fbIcon}}"></span>
+              <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <strong class="g-h" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 18px; font-weight: 600">
+                  <sc-if value="{{cardOk}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+                  <sc-if value="{{cardBad}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+                  {{card.fbTitle}}<span style="font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 13.5px; font-weight: 600; opacity: .85">· {{card.fbSub}}</span>
+                </strong>
+                <span style="font-size: 13px; font-weight: 600; opacity: .92">{{card.fbName}}: “{{card.fbLine}}”</span>
+                <span style="font-size: 14px; line-height: 1.65">{{card.why}}</span>
+              </div>
             </div>
-          </div>
+
+            <div role="tablist" aria-label="รายละเอียดเฉลย" class="ghg-quiz-tabs">
+              <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="5">
+                <button type="button" role="tab" onClick="{{tb.pick}}" aria-selected="{{tb.on}}" style="border-color: {{tb.bd}}; background: {{tb.bg}}; color: {{tb.fg}}">
+                  <span class="g-av" aria-hidden="true" style="width: 28px; height: 28px; background-color: {{tb.pic.bg}}; background-image: {{tb.pic.img}}; background-size: {{tb.pic.size}}; background-position: {{tb.pic.pos}}"></span>
+                  {{tb.label}}
+                </button>
+              </sc-for>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; background: {{host.soft}}">
+              <span class="g-av" aria-hidden="true" style="width: 40px; height: 40px; background-color: #FFFFFF; background-image: {{host.pic.img}}; background-size: {{host.pic.size}}; background-position: {{host.pic.pos}}"></span>
+              <div style="display: flex; flex-direction: column; gap: 0; min-width: 0">
+                <strong class="g-h" style="font-size: 14.5px; font-weight: 500; color: {{host.ink}}">{{host.label}}</strong>
+                <span style="font-size: 12px; color: {{host.ink}}">{{host.motto}}</span>
+              </div>
+            </div>
           <sc-if value="{{tabCalc}}" hint-placeholder-val="{{ true }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 10px">
               <div style="display: flex; flex-direction: column; gap: 6px">
                 <span style="font-size: 13px; font-weight: 600; color: #2E3B33">สูตร</span>
-                <div class="g-mono" style="padding: 10px 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; background: #FBF7EE; font-size: 13px; line-height: 1.65">{{card.formula}}</div>
+                <div class="g-mono" style="padding: 10px 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; background: #FFFFFF; font-size: 13px; line-height: 1.65">{{card.formula}}</div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 6px">
                 <span style="font-size: 13px; font-weight: 600; color: #2E3B33">ตัวอย่างการคำนวณ</span>
                 <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px">
                   <sc-for list="{{card.ex}}" as="el" hint-placeholder-count="2"><div class="g-mono" style="font-size: 12.5px; line-height: 1.6; color: #2E3B33">{{el.t}}</div></sc-for>
                   <div class="g-h" style="margin-top: 2px; padding-top: 8px; border-top: 1px dashed rgba(25,38,30,.25); font-size: 19px; font-weight: 600; color: {{card.resultInk}}">= {{card.result}}</div>
-                  <sc-if value="{{card.hasExtra}}" hint-placeholder-val="{{ false }}"><div style="padding: 8px 10px; border-radius: 11px; background: #F6F0E2; font-size: 12.5px; line-height: 1.6; color: #2E3B33">{{card.extra}}</div></sc-if>
+                  <sc-if value="{{card.hasExtra}}" hint-placeholder-val="{{ false }}"><div style="padding: 8px 10px; border-radius: 11px; background: #F2F5F3; font-size: 12.5px; line-height: 1.6; color: #2E3B33">{{card.extra}}</div></sc-if>
                 </div>
               </div>
-              <p style="margin: 0; padding: 10px 12px; border-radius: 13px; background: #F6F0E2; font-size: 13px; line-height: 1.6; color: #2E3B33">{{card.owner}}</p>
+              <p style="margin: 0; padding: 10px 12px; border-radius: 13px; background: #F2F5F3; font-size: 13px; line-height: 1.6; color: #2E3B33">{{card.owner}}</p>
             </div>
           </sc-if>
           <sc-if value="{{tabData}}" hint-placeholder-val="{{ false }}">
@@ -831,7 +1056,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               <span style="font-size: 13px; font-weight: 600; color: #2E3B33">ผู้ทวนสอบจะตรวจอะไรที่จุดนี้</span>
               <sc-for list="{{card.verify}}" as="vf" hint-placeholder-count="3">
                 <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #E8EFEA; font-size: 13.5px; line-height: 1.6; color: #1F3A2B">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1E3C2F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0B7D43" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
                   <span>{{vf.t}}</span>
                 </div>
               </sc-for>
@@ -848,6 +1073,15 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               </sc-for>
             </div>
           </sc-if>
+          <sc-if value="{{tabMedia}}" hint-placeholder-val="{{ false }}">
+            <div role="tabpanel" style="display: flex; flex-direction: column; gap: 8px">
+              <div class="ghg-media">
+                <sc-if value="{{media.yt}}" hint-placeholder-val="{{ true }}"><iframe src="{{media.src}}" title="{{media.title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe></sc-if>
+                <sc-if value="{{media.file}}" hint-placeholder-val="{{ false }}"><video src="{{media.src}}" controls playsinline preload="metadata"></video></sc-if>
+              </div>
+              <sc-if value="{{media.hasNote}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #4A574F">{{media.note}}</p></sc-if>
+            </div>
+          </sc-if>
           <sc-if value="{{tabRef}}" hint-placeholder-val="{{ false }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 10px">
               <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid #F2D58E; border-radius: 13px; background: #FFF5D9">
@@ -855,35 +1089,41 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
                 <sc-for list="{{card.caution}}" as="cl" hint-placeholder-count="1"><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #533A04">{{cl.t}}</p></sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; gap: 6px">
-                <span class="g-chip" style="background: #F1EADB; color: #2E3B33">{{card.cat}}</span>
+                <span class="g-chip" style="background: #EEF2F0; color: #2E3B33">{{card.cat}}</span>
                 <sc-if value="{{card.hasIpcc}}" hint-placeholder-val="{{ true }}"><span class="g-chip g-mono" style="border: 1px solid rgba(25,38,30,.16); color: #2E3B33">{{card.ipcc}}</span></sc-if>
                 <span class="g-chip" style="background: {{card.soft}}; color: {{card.ink}}">{{card.isoName}}</span>
               </div>
               <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #4A574F">ที่มาของค่า: {{card.src}}</p>
             </div>
           </sc-if>
-          <button type="button" class="g-btn" onClick="{{after}}" style="width: 100%; min-height: 50px; font-size: 15px">
-            {{afterLabel}}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h13.5M13 6l6 6-6 6"></path></svg>
-          </button>
+          </sc-if>
         </div>
-      </sc-if>
+        <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
+          <div class="ghg-quiz-foot">
+            <button type="button" class="g-btn" onClick="{{after}}">
+              {{afterLabel}}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h13.5M13 6l6 6-6 6"></path></svg>
+              <kbd class="ghg-kb">Space</kbd>
+            </button>
+          </div>
+        </sc-if>
+      </section>
     </div>
   </sc-if>
 
   <sc-if value="{{showIntro}}" hint-placeholder-val="{{ true }}">
-    <div class="ghg-scroll" style="position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; overflow-y: auto; background: radial-gradient(ellipse at 50% 40%, rgba(25,38,30,.30) 0%, rgba(25,38,30,.62) 100%)">
-      <div class="ghg-anim g-panel ghg-intro" style="width: min(900px, 100%); margin: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 16px; border-radius: 24px; background: #FBF7EE">
+    <div class="ghg-scroll ghg-introbg" style="position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; overflow-y: auto; background: radial-gradient(ellipse at 50% 40%, rgba(10,22,16,.18) 0%, rgba(10,22,16,.5) 100%)">
+      <div class="ghg-anim g-panel ghg-intro" style="width: min(900px, 100%); margin: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 16px; border-radius: 24px; background: #FFFFFF">
         <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 16px">
           <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
-            <span class="g-chip" style="align-self: flex-start; background: #19261E; color: #FFB703">เมืองจำลองสำหรับอบรม CFO · v0.8</span>
+            <span class="g-chip" style="align-self: flex-start; background: #19261E; color: #FFB703">เมืองจำลองสำหรับอบรม CFO · v1.0</span>
             <h2 class="g-h" style="margin: 0; font-size: 25px; line-height: 1.25; font-weight: 600">{{town.name}} · สำรวจเมือง ไขปริศนากับทีมมาสคอต GCC</h2>
             <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #2E3B33">{{town.tagline}}<span style="color: #6B5A2E"> · ข้อมูลทุกจุดเป็นตัวอย่างสมมติเพื่อการสอน</span></p>
           </div>
         </div>
         <div class="ghg-team" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px">
           <sc-for list="{{teamCards}}" as="tm" hint-placeholder-count="3">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 10px 12px; border-radius: 18px; background: #FFFDF8; border: 1px solid rgba(25,38,30,.08); text-align: center">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 10px 12px; border-radius: 18px; background: #FFFFFF; border: 1px solid rgba(25,38,30,.08); text-align: center">
               <div style="width: 100%; display: flex; justify-content: center; padding: 6px 0 2px; border-radius: 16px; background: {{tm.soft}}">
                 <span class="g-fig" aria-hidden="true" style="width: 112px; height: 112px; animation: {{tm.anim}}; background-image: {{tm.fig.img}}; background-size: {{tm.fig.size}}; background-position: {{tm.fig.pos}}"></span>
               </div>
@@ -935,7 +1175,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 
   <sc-if value="{{showLesson}}" hint-placeholder-val="{{ false }}">
     <div style="position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 14px; box-sizing: border-box; background: rgba(25,38,30,.42)">
-      <div class="ghg-scroll ghg-anim g-panel" role="dialog" aria-label="{{les.title}}" style="width: min(940px, 100%); max-height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 18px; border-radius: 26px; background: #FBF7EE">
+      <div class="ghg-scroll ghg-anim g-panel" role="dialog" aria-label="{{les.title}}" style="width: min(940px, 100%); max-height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 18px; border-radius: 26px; background: #FFFFFF">
         <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
           <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
             <span class="g-chip" style="align-self: flex-start; background: #19261E; color: #FFB703">{{les.kicker}} · ที่ประตูเมือง</span>
@@ -943,16 +1183,16 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
           </div>
           <div style="display: flex; align-items: center; gap: 10px">
             <span aria-hidden="true" style="display: flex; align-items: center">
-              <sc-for list="{{les.presenters}}" as="pr" hint-placeholder-count="2"><span class="g-av g-cl" style="width: 44px; height: 44px; box-shadow: 0 0 0 2.5px #FBF7EE; background-color: {{pr.bg}}; background-image: {{pr.img}}; background-size: {{pr.size}}; background-position: {{pr.pos}}"></span></sc-for>
+              <sc-for list="{{les.presenters}}" as="pr" hint-placeholder-count="2"><span class="g-av g-cl" style="width: 44px; height: 44px; box-shadow: 0 0 0 2.5px #FFFFFF; background-color: {{pr.bg}}; background-image: {{pr.img}}; background-size: {{pr.size}}; background-position: {{pr.pos}}"></span></sc-for>
             </span>
             <sc-if value="{{les.isView}}" hint-placeholder-val="{{ false }}">
-              <button type="button" onClick="{{lesClose}}" aria-label="ปิดบทนำ" style="flex: 0 0 auto; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #EDE6D6; color: #19261E; cursor: pointer">
+              <button type="button" onClick="{{lesClose}}" aria-label="ปิดบทนำ" style="flex: 0 0 auto; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: #E6EBE8; color: #19261E; cursor: pointer">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
               </button>
             </sc-if>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 18px; background: #FFFDF8; border: 1px solid rgba(25,38,30,.08)">
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 1px solid rgba(25,38,30,.08)">
           <sc-for list="{{les.lines}}" as="ll" hint-placeholder-count="3">
             <div style="display: flex; align-items: flex-start; gap: 10px">
               <span class="g-av" aria-hidden="true" style="width: 40px; height: 40px; background-color: {{ll.pic.bg}}; background-image: {{ll.pic.img}}; background-size: {{ll.pic.size}}; background-position: {{ll.pic.pos}}"></span>
@@ -968,15 +1208,15 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
           <div style="display: flex; flex-direction: column; gap: 10px">
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px">
               <sc-for list="{{les.gases}}" as="gs" hint-placeholder-count="7">
-                <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-top: 5px solid {{gs.color}}; border-radius: 16px; background: #FFFDF8">
+                <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-top: 5px solid {{gs.color}}; border-radius: 16px; background: #FFFFFF">
                   <strong class="g-h" style="font-size: 24px; line-height: 1.15; font-weight: 600; color: {{gs.color}}">{{gs.t}}</strong>
                   <span style="font-size: 13px; font-weight: 600; color: #19261E">{{gs.name}}</span>
-                  <span class="g-chip" style="align-self: flex-start; max-width: 100%; box-sizing: border-box; padding: 2px 8px; border-radius: 10px; white-space: normal; background: #F1EADB; color: #2E3B33">GWP {{gs.gwp}}</span>
+                  <span class="g-chip" style="align-self: flex-start; max-width: 100%; box-sizing: border-box; padding: 2px 8px; border-radius: 10px; white-space: normal; background: #EEF2F0; color: #2E3B33">GWP {{gs.gwp}}</span>
                   <span style="font-size: 12px; line-height: 1.5; color: #4A574F">{{gs.from}}</span>
                 </div>
               </sc-for>
             </div>
-            <p style="margin: 0; padding: 8px 12px; border-radius: 12px; background: #F1EADB; font-size: 12.5px; line-height: 1.6; color: #3A463F">{{les.note}}</p>
+            <p style="margin: 0; padding: 8px 12px; border-radius: 12px; background: #EEF2F0; font-size: 12.5px; line-height: 1.6; color: #3A463F">{{les.note}}</p>
           </div>
         </sc-if>
 
@@ -994,12 +1234,12 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               </sc-for>
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 12px">
-              <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFDF8">
+              <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFFFF">
                 <strong style="font-size: 13.5px">กำหนดขอบเขตองค์กรก่อนเสมอ</strong>
                 <sc-for list="{{les.boundary}}" as="bd" hint-placeholder-count="2"><p style="margin: 0; font-size: 12.5px; line-height: 1.55; color: #2E3B33">{{bd.t}}</p></sc-for>
                 <span class="g-chip" style="align-self: flex-start; background: {{les.removal.soft}}; color: {{les.removal.ink}}">{{les.removal.label}} · {{les.removal.name}}</span>
               </div>
-              <div style="flex: 1.3 1 320px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFDF8">
+              <div style="flex: 1.3 1 320px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFFFF">
                 <strong style="font-size: 13.5px">เทียบหมวดตาม ISO 14064-1:2018</strong>
                 <sc-for list="{{les.iso}}" as="io" hint-placeholder-count="6">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid rgba(25,38,30,.08); font-size: 12.5px; line-height: 1.45">
@@ -1021,21 +1261,21 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               <span aria-hidden="true" class="g-h" style="align-self: center; font-size: 24px; font-weight: 600; color: #4A574F">×</span>
               <div style="flex: 1 1 130px; display: flex; flex-direction: column; gap: 3px; padding: 12px; border: 1.5px dashed #42B236; border-radius: 16px; background: #EFF8EC; color: #1E5A1B"><strong class="g-h" style="font-size: 21px; font-weight: 600">GWP</strong><span style="font-size: 12.5px; font-weight: 600">เมื่อ EF เป็นรายก๊าซ</span></div>
               <span aria-hidden="true" class="g-h" style="align-self: center; font-size: 24px; font-weight: 600; color: #4A574F">=</span>
-              <div style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 3px; padding: 12px; border-radius: 16px; background: #1E3C2F; color: #FFFFFF"><strong class="g-h" style="font-size: 21px; font-weight: 600">tCO₂e</strong><span style="font-size: 12.5px; font-weight: 600; color: #D4EBCD">การปล่อย (หาร 1,000 จาก kg)</span></div>
+              <div style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 3px; padding: 12px; border-radius: 16px; background: #0B7D43; color: #FFFFFF"><strong class="g-h" style="font-size: 21px; font-weight: 600">tCO₂e</strong><span style="font-size: 12.5px; font-weight: 600; color: #D4EBCD">การปล่อย (หาร 1,000 จาก kg)</span></div>
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 12px">
               <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 7px">
                 <strong style="font-size: 13.5px">ขั้นตอน</strong>
                 <sc-for list="{{les.steps}}" as="stp" hint-placeholder-count="4">
-                  <div style="display: flex; align-items: flex-start; gap: 9px; font-size: 13px; line-height: 1.5; color: #19261E"><span class="g-mono" style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: #1E3C2F; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{stp.n}}</span><span style="padding-top: 2px">{{stp.t}}</span></div>
+                  <div style="display: flex; align-items: flex-start; gap: 9px; font-size: 13px; line-height: 1.5; color: #19261E"><span class="g-mono" style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: #0B7D43; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{stp.n}}</span><span style="padding-top: 2px">{{stp.t}}</span></div>
                 </sc-for>
               </div>
-              <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 16px; background: #FFFDF8">
+              <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 16px; background: #FFFFFF">
                 <strong style="font-size: 13.5px">ตัวอย่าง</strong>
                 <span style="font-size: 13px; color: #2E3B33">ข้อมูลกิจกรรม: {{les.ex.ad}}</span>
                 <span style="font-size: 13px; color: #2E3B33">ค่าการปล่อย: {{les.ex.ef}}</span>
                 <span class="g-mono" style="font-size: 13px; color: #19261E">{{les.ex.calc}}</span>
-                <strong class="g-h" style="font-size: 19px; font-weight: 600; color: #1E3C2F">= {{les.ex.res}}</strong>
+                <strong class="g-h" style="font-size: 19px; font-weight: 600; color: #0B7D43">= {{les.ex.res}}</strong>
                 <sc-if value="{{les.hasGwpEx}}" hint-placeholder-val="{{ true }}"><span class="g-mono" style="padding-top: 6px; border-top: 1px dashed rgba(25,38,30,.25); font-size: 12.5px; color: #1E5A1B">ถ้าเป็นรายก๊าซ: {{les.gwpEx}}</span></sc-if>
               </div>
             </div>
@@ -1076,14 +1316,14 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 7px; padding: 12px; border-radius: 16px; background: #E8EFEA">
                 <strong style="font-size: 13.5px; color: #1F3A2B">ผู้ทวนสอบจะตรวจ</strong>
                 <sc-for list="{{les.checks}}" as="ck" hint-placeholder-count="5">
-                  <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; color: #1F3A2B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E3C2F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px" aria-hidden="true" focusable="false"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg><span>{{ck.t}}</span></div>
+                  <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; color: #1F3A2B"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7D43" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px" aria-hidden="true" focusable="false"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg><span>{{ck.t}}</span></div>
                 </sc-for>
               </div>
             </div>
           </div>
         </sc-if>
 
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFDF8">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFFFF">
           <strong style="font-size: 13.5px">ประเด็นสำคัญ</strong>
           <sc-for list="{{les.points}}" as="pt" hint-placeholder-count="4"><div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; line-height: 1.55; color: #19261E"><span style="flex: 0 0 auto; width: 7px; height: 7px; margin-top: 8px; border-radius: 50%; background: #42B236"></span>{{pt.t}}</div></sc-for>
         </div>
@@ -1117,7 +1357,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
       <div class="g-confl" aria-hidden="true">
         <sc-for list="{{confetti}}" as="cf" hint-placeholder-count="36"><span class="g-conf" style="left: {{cf.l}}; width: {{cf.w}}; height: {{cf.h}}; background: {{cf.bg}}; border-radius: {{cf.r}}; animation: {{cf.anim}}"></span></sc-for>
       </div>
-      <div class="ghg-scroll ghg-anim g-panel" role="dialog" aria-label="ใบประกาศนียบัตรและสรุปการเดินทาง" style="position: relative; z-index: 1; width: min(1000px, 100%); max-height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 26px; background: #F4EFE3">
+      <div class="ghg-scroll ghg-anim g-panel" role="dialog" aria-label="ใบประกาศนียบัตรและสรุปการเดินทาง" style="position: relative; z-index: 1; width: min(1000px, 100%); max-height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 26px; background: #EEF2F0">
         <div class="g-cert">
           <span class="g-mono" style="font-size: 11.5px; font-weight: 600; line-height: 1.5; color: #2E7A26"><span style="letter-spacing: .14em">GHG TOWN 3D</span> · {{town.name}}</span>
           <h2 class="g-h g-cert-t">ใบประกาศนียบัตร</h2>
@@ -1133,9 +1373,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 6px 12px">
                 <div style="display: flex; flex-direction: column; gap: 0">
                   <span style="font-size: 12.5px; font-weight: 600; color: #4A574F">ผลการทวนสอบ · ตอบถูก</span>
-                  <strong class="g-h" style="font-size: 46px; line-height: 1.05; font-weight: 600; color: #1E3C2F">{{score}}<span style="font-size: 21px; font-weight: 500; color: #4A574F"> / {{total}} จุด</span></strong>
+                  <strong class="g-h" style="font-size: 46px; line-height: 1.05; font-weight: 600; color: #0B7D43">{{score}}<span style="font-size: 21px; font-weight: 500; color: #4A574F"> / {{total}} จุด</span></strong>
                 </div>
-                <span class="g-chip" style="padding: 4px 11px; background: #1E3C2F; color: #FFFFFF; font-size: 12.5px">
+                <span class="g-chip" style="padding: 4px 11px; background: #0B7D43; color: #FFFFFF; font-size: 12.5px">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFB703" aria-hidden="true" focusable="false"><path d="M12 3.2l2.7 5.5 6 .9-4.4 4.2 1.1 6-5.4-2.9-5.4 2.9 1.1-6-4.4-4.2 6-.9z"></path></svg>
                   {{outro.scoreTitle}}
                 </span>
@@ -1166,12 +1406,12 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
               </span>
             </span>
             <div style="min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px">
-              <svg width="150" height="34" viewBox="0 0 150 34" fill="none" stroke="#1E3C2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 26c7-1 10-18 18-18 6 0-1 18 5 18s10-13 17-13c5 0 2 9 7 9 7 0 9-11 17-11 5 0 3 8 8 8 8 0 12-9 20-9 5 0 7 5 12 5h30"></path><path d="M22 31c32 2 68 1 110-4" stroke-width="1.3" opacity=".55"></path></svg>
+              <svg width="150" height="34" viewBox="0 0 150 34" fill="none" stroke="#0B7D43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 26c7-1 10-18 18-18 6 0-1 18 5 18s10-13 17-13c5 0 2 9 7 9 7 0 9-11 17-11 5 0 3 8 8 8 8 0 12-9 20-9 5 0 7 5 12 5h30"></path><path d="M22 31c32 2 68 1 110-4" stroke-width="1.3" opacity=".55"></path></svg>
               <span aria-hidden="true" style="display: block; width: 100%; max-width: 240px; border-top: 1px solid rgba(30,60,47,.5)"></span>
               <span style="font-size: 12px; line-height: 1.45; color: #55625A; text-align: center">ทีมมาสคอต GCC · หน่วยทวนสอบ GCC</span>
             </div>
           </div>
-          <span style="display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 3px 11px; border-radius: 999px; background: #F1EADB; font-size: 11.5px; font-weight: 600; line-height: 1.5; color: #4A574F">
+          <span style="display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 3px 11px; border-radius: 999px; background: #EEF2F0; font-size: 11.5px; font-weight: 600; line-height: 1.5; color: #4A574F">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5.5M12 7.6v.4"></path></svg>
             ข้อมูลตัวอย่างเพื่อการสอน
           </span>
@@ -1197,7 +1437,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
             </button>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 6px; border-radius: 18px; background: #FFFDF8; border: 1px solid rgba(25,38,30,.08)">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 6px; border-radius: 18px; background: #FFFFFF; border: 1px solid rgba(25,38,30,.08)">
           <strong class="g-h" style="font-size: 18px; font-weight: 600">{{outro.title}}</strong>
           <div class="g-cols">
             <sc-for list="{{outro.lines}}" as="ol" hint-placeholder-count="4">
@@ -1212,7 +1452,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
           <strong class="g-h" style="font-size: 17px; font-weight: 500">{{outro.tkCount}} ข้อที่ควรจำกลับไปใช้งาน</strong>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px">
             <sc-for list="{{outro.takeaways}}" as="tk" hint-placeholder-count="6">
-              <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFDF8">
+              <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid rgba(25,38,30,.1); border-radius: 16px; background: #FFFFFF">
                 <span class="g-h" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 10px; background: {{tk.bg}}; color: {{tk.fg}}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">{{tk.n}}</span>
                 <div style="display: flex; flex-direction: column; gap: 3px">
                   <strong style="font-size: 14px; line-height: 1.4">{{tk.t}}</strong>
@@ -1228,7 +1468,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
 </section>
 
 <sc-if value="{{isTable}}" hint-placeholder-val="{{ false }}">
-  <section aria-label="ตารางสรุป" style="display: flex; flex-direction: column; gap: 12px; padding: 18px 18px 20px; border: 1px solid rgba(25,38,30,.12); border-radius: 24px; background: #FFFDF8">
+  <section aria-label="ตารางสรุป" style="display: flex; flex-direction: column; gap: 12px; padding: 18px 18px 20px; border: 1px solid rgba(25,38,30,.12); border-radius: 24px; background: #FFFFFF">
     <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
       <div style="display: flex; align-items: center; gap: 10px">
         <span class="g-av" aria-hidden="true" style="width: 44px; height: 44px; background-color: {{tablePic.bg}}; background-image: {{tablePic.img}}; background-size: {{tablePic.size}}; background-position: {{tablePic.pos}}"></span>
@@ -1236,7 +1476,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
       </div>
       <span class="g-k">กดชื่อจุดเพื่อให้ทีมมาสคอตพาไปที่จุดนั้น</span>
     </div>
-    <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: #F6F0E2; font-size: 13px; line-height: 1.6; color: #2E3B33">แต่ละแถวเป็นตัวอย่างของ<strong>องค์กรผู้รายงานคนละราย</strong> (ร้านค้า เทศบาล โรงพยาบาล โรงสี ฟาร์ม ฯลฯ) ผลรวมด้านล่างจึงใช้เพื่อเปรียบเทียบขนาดเท่านั้น ไม่ใช่บัญชีขององค์กรใดองค์กรหนึ่ง และการดูดกลับต้องรายงานแยกจากการปล่อย</p>
+    <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: #F2F5F3; font-size: 13px; line-height: 1.6; color: #2E3B33">แต่ละแถวเป็นตัวอย่างของ<strong>องค์กรผู้รายงานคนละราย</strong> (ร้านค้า เทศบาล โรงพยาบาล โรงสี ฟาร์ม ฯลฯ) ผลรวมด้านล่างจึงใช้เพื่อเปรียบเทียบขนาดเท่านั้น ไม่ใช่บัญชีขององค์กรใดองค์กรหนึ่ง และการดูดกลับต้องรายงานแยกจากการปล่อย</p>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px">
       <sc-for list="{{totals}}" as="tt" hint-placeholder-count="4">
         <div style="display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 16px; background: {{tt.soft}}; border-top: 4px solid {{tt.color}}">
@@ -1247,7 +1487,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
     </div>
     <div style="overflow-x: auto; border: 1px solid rgba(25,38,30,.1); border-radius: 16px">
       <div role="table" aria-label="ตารางสรุป 19 จุด" style="min-width: 1080px">
-        <div role="row" style="display: grid; grid-template-columns: 50px 112px 72px minmax(220px, 1.7fr) minmax(150px, 1.1fr) minmax(150px, 1.1fr) 104px 92px; background: #F1EADB; font-size: 12.5px; font-weight: 600; color: #2E3B33">
+        <div role="row" style="display: grid; grid-template-columns: 50px 112px 72px minmax(220px, 1.7fr) minmax(150px, 1.1fr) minmax(150px, 1.1fr) 104px 92px; background: #EEF2F0; font-size: 12.5px; font-weight: 600; color: #2E3B33">
           <span role="columnheader" style="padding: 10px 12px">#</span>
           <span role="columnheader" style="padding: 10px 12px">ประเภท</span>
           <span role="columnheader" style="padding: 10px 12px">ISO</span>
@@ -1265,7 +1505,7 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(25
             <span role="cell" style="padding: 9px 12px; display: flex; flex-direction: column; gap: 3px">
               <button type="button" onClick="{{r.pick}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; color: #19261E; font-size: 13.5px; font-weight: 600; line-height: 1.45; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: rgba(25,38,30,.3); text-underline-offset: 3px">{{r.title}}</button>
               <span style="font-size: 12px; color: #55625A">{{r.org}}</span>
-              <span style="display: flex; flex-wrap: wrap; gap: 4px"><sc-for list="{{r.gases}}" as="rg" hint-placeholder-count="2"><span style="padding: 1px 7px; border-radius: 7px; background: #F1EADB; color: #2E3B33; font-size: 11.5px; font-weight: 600; line-height: 1.6">{{rg.t}}</span></sc-for></span>
+              <span style="display: flex; flex-wrap: wrap; gap: 4px"><sc-for list="{{r.gases}}" as="rg" hint-placeholder-count="2"><span style="padding: 1px 7px; border-radius: 7px; background: #EEF2F0; color: #2E3B33; font-size: 11.5px; font-weight: 600; line-height: 1.6">{{rg.t}}</span></sc-for></span>
             </span>
             <span role="cell" class="g-mono" style="padding: 9px 12px; font-size: 12.5px; line-height: 1.5">{{r.ad}}</span>
             <span role="cell" class="g-mono" style="padding: 9px 12px; font-size: 12.5px; line-height: 1.5">{{r.ef}}</span>
@@ -1332,7 +1572,8 @@ class Component extends DCLogic {
     const d = {
       v: 1, t: Date.now(), answers: st.answers || {}, clues: st.clues || {}, weather: st.weather || 'day',
       labels: st.labels == null ? true : !!st.labels, sound: st.sound == null ? true : !!st.sound,
-      name: String(st.trainee || '').slice(0, 80), pos: this.__uPos || null
+      name: String(st.trainee || '').slice(0, 80), pos: this.__uPos || null,
+      narr: st.narr == null ? true : !!st.narr, film: st.filmAuto == null ? true : !!st.filmAuto
     };
     try { window.localStorage.setItem(this._uStoreKey(), JSON.stringify(d)); } catch (err) { /* storage blocked: progress lives in this tab only */ }
   }
@@ -1349,6 +1590,9 @@ class Component extends DCLogic {
     if (['day', 'evening', 'night', 'rain', 'auto'].indexOf(d.weather) >= 0) patch.weather = d.weather;
     if (typeof d.labels === 'boolean') patch.labels = d.labels;
     if (typeof d.sound === 'boolean') patch.sound = d.sound;
+    if (typeof d.narr === 'boolean') patch.narr = d.narr;
+    if (typeof d.film === 'boolean') patch.filmAuto = d.film;
+    patch.photos = this._uLoadPhotos();
     this.__uPos = Array.isArray(d.pos) && d.pos.length >= 2 && d.pos.every((v) => typeof v === 'number' && isFinite(v)) ? d.pos : null;
     this.setState(patch);
     this.__uSyncE = null;   // re-apply pins, weather, labels and sound to the engine on the next render
@@ -1368,7 +1612,9 @@ class Component extends DCLogic {
     this.__uPos = null;
     this.__uTele = null;
     // a full wipe (e.g. the next trainee on a shared computer): the name goes too
-    this.setState({ answers: {}, clues: {}, clearAsk: false, trainee: '' });
+    this.setState({ answers: {}, clues: {}, clearAsk: false, trainee: '', photos: {} });
+    try { window.localStorage.removeItem(this._uStoreKey() + ':photos'); } catch (err) { /* ignore */ }
+    this._uE('_eFilmReset');
     for (const s of this._uStops()) this._uE('_eAnswered', s.id, null);
     this._uSave({ answers: {}, clues: {}, trainee: '' });
   }
@@ -1816,7 +2062,14 @@ class Component extends DCLogic {
   _uLabelsOn() { const st = this._uSt(); return st.labels == null ? true : !!st.labels; }
   _uToggleLabels() { const on = !this._uLabelsOn(); this.setState({ labels: on, moreOpen: false }); this._uE('_eLabels', on); this._uSave({ labels: on }); }
   _uSoundOn() { const st = this._uSt(); return st.sound == null ? true : !!st.sound; }
-  _uToggleSound() { const on = !this._uSoundOn(); this.setState({ sound: on, moreOpen: false }); this._uE('_eSound', on); this._uSave({ sound: on }); }
+  _uToggleSound() {
+    const on = !this._uSoundOn();
+    this.setState({ sound: on, moreOpen: false });
+    this._uE('_eSound', on);
+    if (!on) this._uSayStop();
+    this._uE('_eNarr', on && this._uNarrPref() && !!this._uSt().ttsOk);
+    this._uSave({ sound: on });
+  }
   // fast travel (explore mode): back to roaming first, then น้องส่อง flies the drone there
   _uHop(where) {
     this.setState({ hopOpen: false, moreOpen: false, wxOpen: false });
@@ -1851,6 +2104,8 @@ class Component extends DCLogic {
   _uiKey(k) {
     const st = this._uSt();
     const F = this._uFlow();
+    // the site-visit film: Space / Enter / Esc skip it, other keys wait
+    if (st.eFilm != null) { if (k === 'next' || k === 'esc') this._uFilmSkip(); return; }
     if (k === 'next') {
       if (!st.started) { this._uStartExplore(); return; }
       if (F.lessonOpen) { this._uLesson(1); return; }
@@ -1884,6 +2139,13 @@ class Component extends DCLogic {
       return;
     }
     if (k === 'map') { this._uToggleOver(); return; }
+    // number keys 1-4 answer the open question
+    if (/^a[1-4]$/.test(k)) {
+      const s = F.cur;
+      const n = +k[1] - 1;
+      if (F.quiz && !F.answered && s && n < (s.opts || []).length) this._uAnswer(n);
+      return;
+    }
     if (k === 'free') this._uToExplore();
   }
   // a click / touch on the 3D view closes the small pop-over menus
@@ -1897,6 +2159,8 @@ class Component extends DCLogic {
     if (st.weather) this._uE('_eWeather', st.weather);
     this._uE('_eLabels', this._uLabelsOn());
     this._uE('_eSound', this._uSoundOn());
+    this._uE('_eFilmAuto', this._uFilmAutoOn());
+    this._uE('_eNarr', this._uNarrOn());
     if (st.fast) this._uE('_eFast', true);
     const a = st.answers || {};
     for (const s of this._uStops()) if (a[s.id] != null) this._uE('_eAnswered', s.id, a[s.id] === s.ans);
@@ -1958,7 +2222,7 @@ class Component extends DCLogic {
     const isoShort = (n) => ((ISO[n] && ISO[n].short) || ('หมวด ' + n));
     const isoName = (n) => ((ISO[n] && ISO[n].name) || '');
     const list = (a) => (Array.isArray(a) ? a : []).map((t) => ({ t: String(t) }));
-    const seg = (on) => ({ on: on, bg: on ? '#1E3C2F' : 'transparent', fg: on ? '#FFFFFF' : '#19261E' });
+    const seg = (on) => ({ on: on, bg: on ? '#0B7D43' : 'transparent', fg: on ? '#FFFFFF' : '#19261E' });
     const pic = (who, mood, k, extra) => this._uPic(who, mood, Object.assign({ k: k, team: TEAM, ctx: CTX }, extra || {}));
     const pickArr = (arr, k) => (Array.isArray(arr) && arr.length ? arr[((k % arr.length) + arr.length) % arr.length] : null);
     const lineView = (l, sz, ctx) => {
@@ -2012,7 +2276,7 @@ class Component extends DCLogic {
     const ansTxt = String((b.opts || [])[b.ans] != null ? b.opts[b.ans] : '');
     const askGas = !answered && /CO₂|CH₄|N₂O|HFCs|PFCs|SF₆|NF₃/.test(ansTxt.replace(/(?:t|kg)?CO₂e/g, ''));
     const askScope = !answered && /ประเภทที่\s*\d/.test(ansTxt);
-    const cc = askScope ? { color: '#8C8270', soft: '#F1EADB', ink: '#2E3B33' } : bc;
+    const cc = askScope ? { color: '#8C8270', soft: '#EEF2F0', ink: '#2E3B33' } : bc;
     const keys = ['ก', 'ข', 'ค', 'ง'];
     const opts = (b.opts || []).map((o, i) => {
       const isAns = i === b.ans;
@@ -2022,10 +2286,11 @@ class Component extends DCLogic {
         t: String(o),
         pick: () => this._uAnswer(i),
         dis: answered,
-        bg: answered ? (isAns ? '#E3F3E6' : (mine ? '#FBE8E3' : '#FFFDF8')) : '#FFFDF8',
+        st: answered ? (isAns ? 'ok' : (mine ? 'bad' : 'dim')) : 'idle',
+        bg: answered ? (isAns ? '#E3F3E6' : (mine ? '#FBE8E3' : '#FFFFFF')) : '#FFFFFF',
         bd: answered ? (isAns ? '#15803D' : (mine ? '#B42318' : 'rgba(25,38,30,.1)')) : 'rgba(25,38,30,.2)',
         fg: answered && !isAns && !mine ? '#55625A' : '#19261E',
-        kbg: answered ? (isAns ? '#15803D' : (mine ? '#B42318' : '#F1EADB')) : '#F1EADB',
+        kbg: answered ? (isAns ? '#15803D' : (mine ? '#B42318' : '#EEF2F0')) : '#EEF2F0',
         kfg: answered && (isAns || mine) ? '#FFFFFF' : '#2E3B33',
         ok: answered && isAns,
         bad: answered && mine && !isAns
@@ -2050,6 +2315,10 @@ class Component extends DCLogic {
     else if (allDone) afterLabel = 'ขึ้นจุดชมวิว ดูภาพรวมทั้งเมือง';
     else if (nextId != null && this._uStop(nextId)) afterLabel = 'ไปจุดที่ ' + nextId + ' · ' + this._uStop(nextId).short;
     const fbWho = fbLine ? fbLine.who : 'owl';
+    // v1.0: evidence photos from the site-visit film (per stop)
+    const photos = st.photos || {};
+    const photoOf = (id) => (typeof photos[id] === 'string' ? photos[id] : '');
+    const canFilm = !!cur && this._uHas('_eFilm') && st.webgl !== false;
     const card = {
       n: String(b.id),
       color: cc.color, soft: cc.soft, ink: cc.ink, badgeFg: onC(cc.color),
@@ -2064,23 +2333,41 @@ class Component extends DCLogic {
       fbTitle: correct ? 'ถูกต้อง' : 'ยังไม่ถูก',
       fbSub: correct ? 'ได้ 1 คะแนน' : ('คำตอบที่ถูกคือข้อ ' + (keys[b.ans] || '')),
       fbBg: correct ? '#E3F3E6' : '#FBE8E3', fbFg: correct ? '#14532D' : '#7A1E12', fbIcon: correct ? '#15803D' : '#B42318',
-      fbPic: pic(fbWho, fbLine ? fbLine.mood : 'neutral', 1.38, { bg: '#FFFDF8' }),
+      fbPic: pic(fbWho, fbLine ? fbLine.mood : 'neutral', 1.38, { bg: '#FFFFFF' }),
       fbName: TEAM[fbWho].name,
       fbLine: fbLine ? fbLine.t : '',
       why: b.why || '', owner: b.owner || '', formula: b.formula || '',
       ex: list(b.ex), result: b.result || '', hasExtra: !!b.extra, extra: b.extra || '',
       data: list(b.data), verify: list(b.verify), reduce: list(b.reduce), caution: list(b.caution),
-      src: b.src || '', cat: b.cat || '', ipcc: b.ipcc || '', hasIpcc: !!b.ipcc
+      src: b.src || '', cat: b.cat || '', ipcc: b.ipcc || '', hasIpcc: !!b.ipcc,
+      photo: photoOf(b.id), hasPhoto: !!photoOf(b.id), noPhoto: !photoOf(b.id),
+      canFilm: canFilm, filmLbl: photoOf(b.id) ? 'ดูวิดีโอสำรวจอีกครั้ง' : 'ดูวิดีโอสำรวจหน้างาน'
     };
     const TH = Object.assign({ calc: 'owl', data: 'firefly', verify: 'owl', reduce: 'sapling', caution: 'firefly' }, (C && C.tabHost) || {});
     const TABS = [['calc', 'วิธีคำนวณ', 'calc', 'explain'], ['data', 'หลักฐาน', 'data', 'askdocs'], ['verify', 'มุมผู้ทวนสอบ', 'verify', 'inspect'], ['reduce', 'แนวทางลด', 'reduce', 'explain'], ['ref', 'ข้อควรระวัง', 'caution', 'curious']];
-    const tab = st.tab || 'calc';
+    // v1.0: optional real-world clip per stop (js/media.js → window.GHGTownMedia)
+    const MEDIA = window.GHGTownMedia || {};
+    const md = cur ? (MEDIA[cur.id] || MEDIA[String(cur.id)] || null) : null;
+    let mediaV = null;
+    if (md && md.video) {
+      const ym = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/.exec(String(md.video));
+      mediaV = {
+        yt: !!ym, file: !ym,
+        src: ym ? 'https://www.youtube-nocookie.com/embed/' + ym[1] + '?rel=0&modestbranding=1&playsinline=1' : String(md.video),
+        title: md.title || ('วิดีโอจริง · ' + (cur.short || '')),
+        note: [md.title || '', md.credit ? 'ที่มา: ' + md.credit : ''].filter(Boolean).join(' · '),
+        hasNote: !!(md.title || md.credit)
+      };
+      TABS.push(['media', 'วิดีโอจริง', 'data', 'curious']);
+    }
+    const media = mediaV || { yt: false, file: false, src: '', title: '', note: '', hasNote: false };
+    const tab = st.tab === 'media' && !mediaV ? 'calc' : (st.tab || 'calc');
     const tabs = TABS.map((p) => {
       const on = tab === p[0];
       return {
         key: p[0], label: p[1], on: on,
-        bg: on ? '#1E3C2F' : '#FFFDF8', fg: on ? '#FFFFFF' : '#1E3C2F', bd: on ? '#1E3C2F' : 'rgba(25,38,30,.2)',
-        pic: pic(TH[p[2]], p[3], 1.38, { bg: on ? '#FFFDF8' : TEAM[this._uWho(TH[p[2]])].soft, raw: true }),
+        bg: on ? '#0B7D43' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0B7D43', bd: on ? '#0B7D43' : 'rgba(25,38,30,.2)',
+        pic: pic(TH[p[2]], p[3], 1.38, { bg: on ? '#FFFFFF' : TEAM[this._uWho(TH[p[2]])].soft, raw: true }),
         pick: () => this.setState({ tab: p[0] })
       };
     });
@@ -2122,7 +2409,7 @@ class Component extends DCLogic {
       const tz = pickArr(this._uGuideLines('mysteryLines'), id) || { who: 'firefly', mood: 'curious', t: 'เอ๊ะ ตรงนี้มีอะไรแปลก ๆ นะ!' };
       const dist = Number(st.eMysteryD);
       return {
-        id: id, line: R.line, t: R.line.t, name: TEAM[rw].name, color: TEAM[rw].ink, pic: pic(rw, R.line.mood, 1.38, { bg: '#FFFDF8' }),
+        id: id, line: R.line, t: R.line.t, name: TEAM[rw].name, color: TEAM[rw].ink, pic: pic(rw, R.line.mood, 1.38, { bg: '#FFFFFF' }),
         teaser: tz.t, teaserName: TEAM[this._uWho(tz.who)].name, teaserColor: TEAM[this._uWho(tz.who)].ink,
         seek: R.seek, clue: R.clue, area: R.area, showClue: !!(clues[id] && R.clue),
         hasDist: st.eMystery === id && isFinite(dist) && dist > 0, dist: 'ห่าง ~' + fmt(Math.max(0, Math.round(dist || 0)), 0) + ' ม.',
@@ -2171,7 +2458,8 @@ class Component extends DCLogic {
     const roam = { left: String(total - nAns), pic: pic('firefly', 'curious', 1.38) };
 
     // ---------- dialogue bar (+ which mascot speaks in 3D)
-    const showCard = isMap && F.quiz && !F.lessonOpen && !F.showOutro && !F.overOn;
+    const filmOn = isMap && st.eFilm != null && !!this._uStop(st.eFilm);
+    const showCard = isMap && F.quiz && !F.lessonOpen && !F.showOutro && !F.overOn && !filmOn;
     const lineCount = F.lines.length;
     let dl = null;            // visible line {who, mood, t}
     let dctx;                 // outfit override for the dialogue portraits (undefined = live context)
@@ -2179,7 +2467,7 @@ class Component extends DCLogic {
     const dlg = { text: '', sub: '', hasNext: false, nextLabel: 'ต่อไป', hasSkip: false, hasDots: false, dots: [] };
     let showDlg = false;
     const introL = this._uLines(G.introLines, G.intro, 'owl', 'wave');
-    if (F.started && isMap && !F.lessonOpen && !F.showOutro && !F.overOn) {
+    if (F.started && isMap && !F.lessonOpen && !F.showOutro && !F.overOn && !filmOn) {
       if (F.gateWait) {
         showDlg = true;
         // the welcome line that points at the city gate (else the last intro line)
@@ -2196,7 +2484,7 @@ class Component extends DCLogic {
         dlg.hasNext = gi < gl.length - 1;
         dlg.nextLabel = 'ต่อไป';
         dlg.hasDots = gl.length > 1;
-        dlg.dots = gl.map((x, i) => ({ bg: i <= gi ? TEAM[this._uWho(x.who)].color : '#E2DACA', w: i === gi ? '20px' : '7px' }));
+        dlg.dots = gl.map((x, i) => ({ bg: i <= gi ? TEAM[this._uWho(x.who)].color : '#DCE3DF', w: i === gi ? '20px' : '7px' }));
         dctx = 'thai';
         spkKey = 'g' + gi;
       } else if (F.traveling && !F.gathering) {
@@ -2220,7 +2508,7 @@ class Component extends DCLogic {
           dlg.nextLabel = F.line >= lineCount - 1 ? 'ไปที่คำถาม' : 'ต่อไป';
           dlg.hasSkip = F.line < lineCount - 1;
           dlg.hasDots = lineCount > 1;
-          dlg.dots = F.lines.map((x, i) => ({ bg: i <= F.line ? TEAM[this._uWho(x.who)].color : '#E2DACA', w: i === F.line ? '20px' : '7px' }));
+          dlg.dots = F.lines.map((x, i) => ({ bg: i <= F.line ? TEAM[this._uWho(x.who)].color : '#DCE3DF', w: i === F.line ? '20px' : '7px' }));
         } else {
           dl = { who: 'owl', mood: 'curious', t: 'ลองตอบคำถามในการ์ดดูครับ คิดแบบผู้ทวนสอบนะ' };
           spkKey = 'q' + cur.id;
@@ -2256,12 +2544,17 @@ class Component extends DCLogic {
     if (!spkKey && showFound) { spkKey = 'f' + foundId; dl = fl; }
     if (!spkKey && showRiddle) { spkKey = 'm' + F.mystery; dl = riddle.line; }
     if (!spkKey && showHintB) { spkKey = 'h' + F.hint; dl = hl; }
+    if (filmOn) spkKey = null;
     if (spkKey !== this.__uSpkKey) {
       this.__uSpkKey = spkKey;
       if (spkKey && dl) {
         const w = dl.who, m = dl.mood;
         Promise.resolve().then(() => this._uSpeak(w, m, 4));
       }
+      // v1.0 Thai narration of the visible line (the question itself when the card opens)
+      const sayT = spkKey && spkKey[0] === 'q' && cur ? (cur.q || '') : (spkKey && dl ? (dl.t || '') : '');
+      const sayW = spkKey && spkKey[0] === 'q' ? 'owl' : (dl ? this._uWho(dl.who) : 'owl');
+      if (sayT) Promise.resolve().then(() => this._uSay(sayT, sayW));
       // sound cues: a riddle pops up, the certificate opens
       const cue = spkKey && spkKey[0] === 'm' ? 'riddle' : (spkKey === 'out' ? 'cert' : null);
       if (cue) Promise.resolve().then(() => this._uE('_auSfx', cue));
@@ -2333,7 +2626,7 @@ class Component extends DCLogic {
         level: ['ความน่าเชื่อถือสูงสุด', 'สูง', 'ปานกลาง', 'ต้องอธิบายสมมติฐาน'][i] || ''
       })),
       checks: list(LD.checks),
-      dots: lessons.map((x, i) => ({ bg: i === li ? '#1E3C2F' : (i < li ? '#9CC59A' : '#E2DACA'), w: i === li ? '24px' : '8px' })),
+      dots: lessons.map((x, i) => ({ bg: i === li ? '#0B7D43' : (i < li ? '#9CC59A' : '#DCE3DF'), w: i === li ? '24px' : '8px' })),
       hasPrev: li > 0, isFlow: isFlow, isView: !isFlow,
       skipLabel: st.mode === 'explore' ? 'ข้ามบทนำ ออกสำรวจเลย' : 'ข้ามบทนำ เข้าเมืองเลย',
       nextLabel: li >= lessons.length - 1 ? (isFlow ? (st.mode === 'explore' ? 'ออกสำรวจเมืองกันเลย' : 'เข้าเมืองกันเลย') : 'ปิดบทนำ') : 'บทถัดไป'
@@ -2353,7 +2646,7 @@ class Component extends DCLogic {
           const on = !!cur && cur.id === s.id;
           return {
             n: String(s.id), short: s.short || '', place: s.place || '', badge: stt.c,
-            bg: on ? '#FFF5DD' : '#FFFDF8', bd: on ? '#FFB703' : 'rgba(25,38,30,.1)',
+            bg: on ? '#FFF5DD' : '#FFFFFF', bd: on ? '#FFB703' : 'rgba(25,38,30,.1)',
             scopeLabel: c.label, scopeSoft: c.soft, scopeInk: c.ink, stText: stt.t, stFg: stt.fg,
             pick: () => this._uiOpenStop(s.id)
           };
@@ -2376,7 +2669,8 @@ class Component extends DCLogic {
             n: String(s.id), title: s.short || s.title || '', scopeLabel: c.label, scopeSoft: c.soft, scopeInk: c.ink,
             res: good ? 'ตอบถูก' : 'ตอบผิด', resFg: good ? '#14532D' : '#7A1E12', badge: good ? '#15803D' : '#64748B',
             area: R.area, riddle: R.line.t, pic: pic(R.line.who, R.line.mood, 1.38, { raw: true }),
-            hinting: hinting, bd: hinting ? '#FFB703' : 'rgba(25,38,30,.24)', bg: hinting ? '#FFF5DD' : '#FFFDF8',
+            hinting: hinting, bd: hinting ? '#FFB703' : 'rgba(25,38,30,.24)', bg: hinting ? '#FFF5DD' : '#FFFFFF',
+            photo: photoOf(s.id), hasPhoto: solved && !!photoOf(s.id), noPhoto: !(solved && photoOf(s.id)),
             hint: () => this._uHint(s.id, true), warp: () => this._uWarp(s.id), review: () => this._uGo(s.id, 'explore')
           };
         })
@@ -2398,7 +2692,7 @@ class Component extends DCLogic {
       const here = h.id === curD;
       return {
         name: h.name + (here ? ' · อยู่ที่นี่' : ''), prog: h.prog, go: () => this._uHop(h.id),
-        bg: here ? '#FFF5DD' : 'transparent', dot: h.id === 'gate' ? '#1E3C2F' : (h.left ? '#E8590C' : '#15803D'),
+        bg: here ? '#FFF5DD' : 'transparent', dot: h.id === 'gate' ? '#0B7D43' : (h.left ? '#E8590C' : '#15803D'),
         ring: h.left || h.id === 'gate' ? 'rgba(232,89,12,.18)' : 'rgba(21,128,61,.2)', subFg: h.left || h.id === 'gate' ? '#55625A' : '#14532D'
       };
     });
@@ -2474,12 +2768,43 @@ class Component extends DCLogic {
       clearLabel: st.clearAsk ? 'ลบเลย เริ่มนับใหม่' : 'ล้างความคืบหน้าแล้วเริ่มนับใหม่', clearFg: st.clearAsk ? '#B42318' : '#4A574F'
     };
     const soundOn = this._uSoundOn();
-    const menuBtn = (on) => ({ bg: on ? '#1E3C2F' : '#FFFDF8', fg: on ? '#FFFFFF' : '#19261E' });
+    const menuBtn = (on) => ({ bg: on ? '#0B7D43' : '#FFFFFF', fg: on ? '#FFFFFF' : '#19261E' });
+    // ---------- v1.0 site-visit film (letterbox, captions, AR tag)
+    const fStop = filmOn ? this._uStop(st.eFilm) : null;
+    const narrOn = this._uNarrOn();
+    let film = { on: false, shot: '0', n: '', total: String(total), place: '', org: '', color: '#0B7D43', short: '', gases: [], hasAd: false, ad: '', isTitle: false, hasSub: false, sub: '', saved: false, narr: narrOn, narrOff: !narrOn };
+    if (fStop) {
+      const shot = st.eFilmShot != null ? st.eFilmShot : 0;
+      const solved = answers[fStop.id] != null;
+      const fAns = String((fStop.opts || [])[fStop.ans] != null ? fStop.opts[fStop.ans] : '');
+      const fHide = !solved && /CO₂|CH₄|N₂O|HFCs|PFCs|SF₆|NF₃/.test(fAns.replace(/(?:t|kg)?CO₂e/g, ''));
+      film = {
+        on: true, shot: String(shot), n: String(fStop.id), total: String(total),
+        place: fStop.place || fStop.title || '', org: fStop.org ? 'องค์กรผู้รายงาน: ' + fStop.org : '',
+        color: sc(fStop.scope).color, short: fStop.short || fStop.title || '',
+        gases: fHide ? [{ t: 'ก๊าซ ?', bg: '#B7791F' }] : (fStop.gases || []).map((g) => ({ t: (GAS[g] && GAS[g].t) || g, bg: (GAS[g] && GAS[g].color) || '#475569' })),
+        hasAd: solved && !!fStop.ad, ad: fStop.ad || '',
+        isTitle: shot === 0, hasSub: shot >= 1 && shot <= 3 && !!fStop.scene, sub: fStop.scene || '', saved: shot === 3,
+        narr: narrOn, narrOff: !narrOn
+      };
+    }
 
     return {
       canvasRef: this._canvasRef(),
       mapRef: this._mapRef(),
       joyRef: this._joyRef(),
+      filmRef: this._filmRef(),
+      film: film,
+      filmKey: film.on ? '1' : '0',
+      filmSkip: () => this._uFilmSkip(),
+      filmNarr: () => this._uToggleNarr(),
+      filmReplay: () => this._uFilmReplay(),
+      filmAutoOn: this._uFilmAutoOn(),
+      toggleFilmAuto: () => this._uToggleFilmAuto(),
+      ttsOk: !!st.ttsOk,
+      narrSw: this._uNarrPref(),
+      toggleNarr: () => this._uToggleNarr(),
+      tabMedia: tab === 'media', media: media,
       nameRef: this._nameRef(),
       touchKey: touchOn ? '1' : '0', touchOn: touchOn, touchOff: !touchOn,
       resume: resume,
@@ -2496,11 +2821,12 @@ class Component extends DCLogic {
       soundOn: soundOn, soundOff: !soundOn,
       soundText: soundOn ? 'ปิดเสียง' : 'เปิดเสียง',
       soundMenu: soundOn ? 'เสียง: เปิดอยู่ (แตะเพื่อปิด)' : 'เสียง: ปิดอยู่ (แตะเพื่อเปิด)',
-      soundBtn: { bg: soundOn ? '#FFFDF8' : '#1E3C2F', fg: soundOn ? '#19261E' : '#FFFFFF' },
+      soundBtn: { bg: soundOn ? '#FFFFFF' : '#0B7D43', fg: soundOn ? '#19261E' : '#FFFFFF' },
       toggleSound: () => this._uToggleSound(),
       moreOpen: !!st.moreOpen,
       moreBtn: menuBtn(!!st.moreOpen),
       toggleMore: () => this.setState({ moreOpen: !st.moreOpen, wxOpen: false, helpOpen: false, hopOpen: false }),
+      goTableM: () => this.setState({ view: 'table', drawer: false, moreOpen: false }),
       printCert: () => { try { window.print(); } catch (err) { /* printing unavailable */ } },
       webglBad: webglBad && isMap,
       sadFig: pic('firefly', 'surprised', 1, { raw: true, bg: 'transparent' }),
@@ -2512,8 +2838,8 @@ class Component extends DCLogic {
       isMap: isMap, isTable: !isMap, viewKey: isMap ? 'map' : 'table',
       mapDisplay: isMap ? 'block' : 'none',
       brandPics: ['owl', 'sapling', 'firefly'].map((w) => pic(w, 'hero', 1.38, { raw: true })),
-      tabMap: { bg: isMap ? '#FFFDF8' : 'transparent', fg: isMap ? '#19261E' : '#3A463F', sh: isMap ? '0 1px 3px rgba(25,38,30,.18)' : 'none' },
-      tabTable: { bg: isMap ? 'transparent' : '#FFFDF8', fg: isMap ? '#3A463F' : '#19261E', sh: isMap ? 'none' : '0 1px 3px rgba(25,38,30,.18)' },
+      tabMap: { bg: isMap ? '#FFFFFF' : 'transparent', fg: isMap ? '#19261E' : '#3A463F', sh: isMap ? '0 1px 3px rgba(25,38,30,.18)' : 'none' },
+      tabTable: { bg: isMap ? 'transparent' : '#FFFFFF', fg: isMap ? '#3A463F' : '#19261E', sh: isMap ? 'none' : '0 1px 3px rgba(25,38,30,.18)' },
       goMap: () => this.setState({ view: 'map' }),
       goTable: () => this.setState({ view: 'table', drawer: false }),
       tablePic: pic('owl', 'desk', 1.38, { raw: true }),
@@ -2541,7 +2867,7 @@ class Component extends DCLogic {
       openDrawer: () => this.setState({ drawer: true, started: true, mode: 'free', step: st.started && st.step && st.step !== 'explore' && st.step !== 'gate' ? st.step : 'free' }),
       closeDrawer: () => this.setState({ drawer: false }),
       drawerOn: drawerOn,
-      drawerBtn: { bg: drawerOn ? '#1E3C2F' : '#FFFDF8', fg: drawerOn ? '#FFFFFF' : '#19261E', cbg: drawerOn ? 'rgba(255,255,255,.18)' : '#F1EADB' },
+      drawerBtn: { bg: drawerOn ? '#0B7D43' : '#FFFFFF', fg: drawerOn ? '#FFFFFF' : '#19261E', cbg: drawerOn ? 'rgba(255,255,255,.18)' : '#EEF2F0' },
       mExplore: seg(modeExplore), mTour: seg(modeTour), mOver: seg(F.overOn),
       setExplore: () => this._uToExplore(),
       setTour: () => this._uToTour(),
@@ -2556,13 +2882,13 @@ class Component extends DCLogic {
       wxOpen: !!st.wxOpen,
       toggleWx: () => this.setState({ wxOpen: !st.wxOpen, helpOpen: false, hopOpen: false, moreOpen: false }),
       wxLabel: ({ day: 'กลางวัน', evening: 'ตอนเย็น', night: 'กลางคืน', rain: 'ฝนตก', auto: 'ตามเวลาจริง' })[wx] || 'กลางวัน',
-      wxBtn: { bg: st.wxOpen ? '#1E3C2F' : '#FFFDF8', fg: st.wxOpen ? '#FFFFFF' : '#19261E' },
+      wxBtn: { bg: st.wxOpen ? '#0B7D43' : '#FFFFFF', fg: st.wxOpen ? '#FFFFFF' : '#19261E' },
       helpOn: !!st.helpOpen,
       toggleHelp: () => this.setState({ helpOpen: !st.helpOpen, wxOpen: false, hopOpen: false, moreOpen: false }),
-      helpBtn: { bg: st.helpOpen ? '#1E3C2F' : '#FFFDF8', fg: st.helpOpen ? '#FFFFFF' : '#19261E' },
+      helpBtn: { bg: st.helpOpen ? '#0B7D43' : '#FFFFFF', fg: st.helpOpen ? '#FFFFFF' : '#19261E' },
       labelsOn: labelsOn,
       labelsText: labelsOn ? 'ซ่อนป้ายชื่อจุด' : 'แสดงป้ายชื่อจุด',
-      labelsBtn: { bg: labelsOn ? '#FFFDF8' : '#1E3C2F', fg: labelsOn ? '#19261E' : '#FFFFFF' },
+      labelsBtn: { bg: labelsOn ? '#FFFFFF' : '#0B7D43', fg: labelsOn ? '#19261E' : '#FFFFFF' },
       toggleLabels: () => this._uToggleLabels(),
       // banners
       showGateWait: isMap && F.gateWait,
@@ -2609,8 +2935,8 @@ class Component extends DCLogic {
       showNear: isMap && F.near != null && !F.lessonOpen && !drawerOn,
       near: near,
       talkNear: () => this._uTalkNear(),
-      // dialogue
-      showDlg: showDlg,
+      // dialogue (the question card shows the mascot's line itself, so the bar steps aside while it is open)
+      showDlg: showDlg && !showCard,
       dlgCard: showCard ? '1' : '0',
       dlg: dlg,
       dlgNext: () => this._uDlgNext(),
@@ -2666,15 +2992,131 @@ class Component extends DCLogic {
     this._uRestore();
     try { if (window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches) this.setState({ touch: true }); } catch (err) { /* ignore */ }
     // keep where the player stands when the tab is hidden or closed
-    this.__uVis = () => { if (document.hidden && this._uSt().started) this._uSave(); };
+    this.__uVis = () => { if (document.hidden) { this._uSayStop(); if (this._uSt().started) this._uSave(); } };
     document.addEventListener('visibilitychange', this.__uVis);
+    // Thai narration needs a Thai voice on this device (the voice list loads asynchronously)
+    const ss = window.speechSynthesis;
+    if (ss) {
+      this.__uVoices = () => {
+        this.__uVoiceN = -1;
+        const ok = !!this._uTtsVoice();
+        if (ok !== !!this._uSt().ttsOk) { this.setState({ ttsOk: ok }); this._uE('_eNarr', ok && this._uNarrPref() && this._uSoundOn()); }
+      };
+      try { ss.addEventListener('voiceschanged', this.__uVoices); } catch (err) { ss.onvoiceschanged = this.__uVoices; }
+      this.__uVoices();
+    }
   }
   componentWillUnmount() {
     if (this.__uFoundTimer) { clearTimeout(this.__uFoundTimer); this.__uFoundTimer = null; }
     if (this.__uVis) { document.removeEventListener('visibilitychange', this.__uVis); this.__uVis = null; }
+    if (this.__uVoices && window.speechSynthesis) { try { window.speechSynthesis.removeEventListener('voiceschanged', this.__uVoices); } catch (err) { /* ignore */ } }
+    this._uSayStop();
     if (this._uSt().started) this._uSave();
     if (typeof this._dispose === 'function') this._dispose();
   }
+
+  // ================================================================ v1.0 SITE-VISIT FILM + THAI NARRATION
+  // the film overlay's engine-driven part (timecode, AR tag, dips) is a kept element
+  _filmRef() {
+    if (!this.__fref) this.__fref = (el) => { if (typeof this._fmAttach === 'function') this._fmAttach(el || null); };
+    return this.__fref;
+  }
+  _uFilmAutoOn() { const st = this._uSt(); return st.filmAuto == null ? true : !!st.filmAuto; }
+  _uToggleFilmAuto() { const on = !this._uFilmAutoOn(); this.setState({ filmAuto: on }); this._uE('_eFilmAuto', on); this._uSave({ filmAuto: on }); }
+  _uFilmSkip() { this._uSayStop(); this._uE('_eFilmSkip'); }
+  _uFilmReplay() {
+    const st = this._uSt();
+    if (st.target == null || st.eFilm != null) return;
+    this._uSayStop();
+    this._uE('_eFilm', st.target);
+  }
+  // engine → UI: the evidence photo taken in the close-up (kept per stop, also across reloads)
+  _uPhoto(id, url) {
+    if (!this._uStop(id) || typeof url !== 'string') return;
+    const photos = Object.assign({}, this._uSt().photos || {});
+    photos[id] = url;
+    this.setState({ photos: photos });
+    try { window.localStorage.setItem(this._uStoreKey() + ':photos', JSON.stringify(photos)); } catch (err) { /* storage full or blocked: the photo lives in this tab only */ }
+  }
+  _uLoadPhotos() {
+    try {
+      const raw = window.localStorage ? window.localStorage.getItem(this._uStoreKey() + ':photos') : null;
+      const d = raw ? JSON.parse(raw) : null;
+      const out = {};
+      if (!d || typeof d !== 'object') return out;
+      for (const s of this._uStops()) if (typeof d[s.id] === 'string' && d[s.id].indexOf('data:image/') === 0) out[s.id] = d[s.id];
+      return out;
+    } catch (err) { return {}; }
+  }
+  // engine → UI at each shot: the narrator reads the place, then what we see
+  _uFilmCue(id, shot) {
+    const s = this._uStop(id);
+    if (!s) return;
+    if (shot === 0) this._uSay('จุดที่ ' + s.id + ' ' + (s.place || s.title || ''), 'narrator');
+    else if (shot === 1 && s.scene) this._uSay(s.scene, 'narrator', true);
+  }
+  _uNarrPref() { const st = this._uSt(); return st.narr == null ? true : !!st.narr; }
+  _uNarrOn() { return this._uNarrPref() && this._uSoundOn() && !!this._uSt().ttsOk; }
+  _uToggleNarr() {
+    const on = !this._uNarrPref();
+    this.setState({ narr: on });
+    if (!on) this._uSayStop();
+    this._uE('_eNarr', on && this._uSoundOn() && !!this._uSt().ttsOk);
+    this._uSave({ narr: on });
+  }
+  // best Thai voice on this device (Edge's natural voices, then Google, then the system voice)
+  _uTtsVoice() {
+    const ss = window.speechSynthesis;
+    if (!ss || typeof window.SpeechSynthesisUtterance !== 'function') return null;
+    const vs = ss.getVoices() || [];
+    if (this.__uVoiceN === vs.length) return this.__uVoice || null;
+    const th = vs.filter((v) => /^th([-_]|$)/i.test(v.lang || ''));
+    const rank = (v) => (/Premwadee|Niwat|Natural|Neural/i.test(v.name) ? 0 : (/Google/i.test(v.name) ? 1 : (/Kanya|Narisa|Pattara/i.test(v.name) ? 2 : 3)));
+    th.sort((a, b) => rank(a) - rank(b));
+    this.__uVoiceN = vs.length;
+    this.__uVoice = th[0] || null;
+    return this.__uVoice;
+  }
+  // formulas and units read as words
+  _uSayText(t) {
+    const SUB = { '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9' };
+    let s = String(t || '').replace(/[₀-₉]/g, (c) => SUB[c]).replace(/\(ข้อมูลสมมติเพื่อการสอน\)/g, '');
+    const R = [
+      [/tCO2e/g, ' ตันคาร์บอนไดออกไซด์เทียบเท่า '], [/kgCO2e/g, ' กิโลกรัมคาร์บอนไดออกไซด์เทียบเท่า '], [/CO2e/g, ' คาร์บอนไดออกไซด์เทียบเท่า '],
+      [/CO2/g, ' คาร์บอนไดออกไซด์ '], [/CH4/g, ' มีเทน '], [/N2O/g, ' ไนตรัสออกไซด์ '], [/SF6/g, ' เอสเอฟหก '], [/NF3/g, ' เอ็นเอฟสาม '],
+      [/HFC-?(\d+\w*)/g, ' เอชเอฟซี $1 '], [/HFCs?/g, ' เอชเอฟซี '], [/PFCs?/g, ' พีเอฟซี '], [/R-(\d+)/g, ' อาร์ $1 '],
+      [/LPG/g, ' แอลพีจี '], [/GWP/g, ' จีดับเบิลยูพี '], [/ISO/g, ' ไอเอสโอ '], [/CFO/g, ' ซีเอฟโอ '], [/IPCC/g, ' ไอพีซีซี '], [/AWD/g, ' เอดับเบิลยูดี '],
+      [/BOD/g, ' บีโอดี '], [/\bEF/g, ' อีเอฟ '], [/\bAD\b/g, ' เอดี '], [/TJ\b/g, ' เทราจูล '], [/kWh/g, ' กิโลวัตต์ชั่วโมง '],
+      [/(\d)\s*kg\b/g, '$1 กิโลกรัม '], [/(\d)\s*km\b/g, '$1 กิโลเมตร '], [/(\d)\s*ha\b/g, '$1 เฮกตาร์ '], [/(\d)\s*L\b/g, '$1 ลิตร '], [/(\d)\s*t\b/g, '$1 ตัน '],
+      [/m³/g, ' ลูกบาศก์เมตร '], [/%/g, ' เปอร์เซ็นต์ '], [/×/g, ' คูณ '], [/÷/g, ' หาร '], [/=/g, ' เท่ากับ '], [/[→“”"]/g, ' ']
+    ];
+    for (const r of R) s = s.replace(r[0], r[1]);
+    return s.replace(/\s+/g, ' ').trim();
+  }
+  _uSay(text, who, queue) {
+    if (!this._uNarrOn()) return;
+    const ss = window.speechSynthesis;
+    const v = this._uTtsVoice();
+    const s = this._uSayText(text);
+    if (!ss || !v || !s) return;
+    try {
+      if (!queue) ss.cancel();
+      const pitch = { owl: 0.9, sapling: 1.08, firefly: 1.22 }[who] || 1;
+      // short chunks: some voices stop reading after ~15 s
+      const parts = [];
+      let cur = '';
+      for (const w of s.split(' ')) {
+        if (cur && (cur + ' ' + w).length > 110) { parts.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w;
+      }
+      if (cur) parts.push(cur);
+      for (const p of parts) {
+        const u = new window.SpeechSynthesisUtterance(p);
+        u.voice = v; u.lang = v.lang; u.rate = 1.05; u.pitch = pitch; u.volume = 1;
+        ss.speak(u);
+      }
+    } catch (err) { /* speech unavailable */ }
+  }
+  _uSayStop() { try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (err) { /* ignore */ } }
 
   // touch joystick ring: the engine moves it (no re-render per finger move)
   _joyRef() {

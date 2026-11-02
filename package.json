@@ -1,6 +1,6 @@
 {
   "name": "ghg-town-3d",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "private": true,
   "description": "GHG Town 3D (เมืองคาร์บอน) — a 3D training town for organizational carbon footprint (CFO) calculation and verification, guided by the GCC mascot team",
   "type": "module",

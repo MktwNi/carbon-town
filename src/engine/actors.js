@@ -548,8 +548,16 @@ GHG3.actors = {
     // gestures
     const m = s.mode;
     const G = {};
-    if (m === 'talk' || m === 'chat') {
-      const amp = m === 'talk' ? 1 : 0.55;
+    if (m === 'chat') {
+      // relaxed conversation: one hand gestures at chest height, the other hangs loose; small nods and head tilts
+      const q = Math.sin(t * 1.7 + sd), q2 = Math.sin(t * 0.9 + sd * 2.3);
+      const gs = -0.26 + 0.09 * q, ge = -0.9 + 0.22 * Math.sin(t * 2.3 + 1 + sd), gy = 0.12 * q2;
+      if (((sd * 10) | 0) % 2 === 1) Object.assign(G, { sLx: gs, sLy: -gy, sLz: 0.12, eL: ge, wLx: 0.12 * q, wLy: 0, wLz: 0, sRx: 0.04, sRy: 0, sRz: -0.07, eR: -0.2, wRx: 0, wRy: 0, wRz: 0 });
+      else Object.assign(G, { sLx: 0.04, sLy: 0, sLz: 0.07, eL: -0.2, wLx: 0, wLy: 0, wLz: 0, sRx: gs, sRy: gy, sRz: -0.12, eR: ge, wRx: 0.12 * q, wRy: 0, wRz: 0 });
+      o.nx += 0.04 * Math.sin(t * 2.1 + sd);
+      o.nz += 0.03 * q2;
+    } else if (m === 'talk') {
+      const amp = 1;
       Object.assign(G, {
         sLx: s.holdL ? -0.3 : -0.12, sLy: 0, sLz: s.holdL ? 0.16 : 0.09, eL: s.holdL ? -1.62 : -0.5, wLx: s.holdL ? 0.1 : 0, wLy: s.holdL ? -1.2 : 0, wLz: 0,
         sRx: -0.42 + 0.17 * Math.sin(t * 2.1 + sd) * amp, sRy: 0.18 * Math.sin(t * 0.9) * amp, sRz: -0.2 + 0.1 * Math.sin(t * 1.3) * amp,
@@ -779,6 +787,269 @@ GHG3.actors = {
       { k: 'umb', j: ['root'], geo: bk((A) => this._acUmbrella(A, 'lo', '#FFFFFF')), col: (p) => p.c.umb, when: (p) => p.umbOn }
     ];
   },
+
+  // =============================================================== NEAR-LOD PEOPLE (v0.8.1): smooth lofted bodies, faces and hair
+  // tube through elliptical rings [y, rx, rz, cx, cz] (ascending y); o.bot / o.top close the ends (optional dome),
+  // o.both adds an inside skin for open hems (sleeves, skirts, trouser legs)
+  _acLoftGeo(rings, seg, o) {
+    const T = this._E.T;
+    o = o || {};
+    const pos = [], idx = [];
+    const n = rings.length;
+    for (const r of rings) {
+      for (let j = 0; j < seg; j++) {
+        const a = (j / seg) * Math.PI * 2;
+        pos.push((r[3] || 0) + Math.sin(a) * r[1], r[0], (r[4] || 0) + Math.cos(a) * r[2]);
+      }
+    }
+    for (let i = 0; i < n - 1; i++) {
+      for (let j = 0; j < seg; j++) {
+        const a = i * seg + j, b = i * seg + (j + 1) % seg, c = a + seg, d = b + seg;
+        idx.push(a, b, c, b, d, c);
+      }
+    }
+    if (o.bot) {
+      const r = rings[0], ci = pos.length / 3;
+      pos.push(r[3] || 0, r[0] - (o.botDome || 0), r[4] || 0);
+      for (let j = 0; j < seg; j++) idx.push(ci, (j + 1) % seg, j);
+    }
+    if (o.top) {
+      const r = rings[n - 1], ci = pos.length / 3, base = (n - 1) * seg;
+      pos.push(r[3] || 0, r[0] + (o.topDome || 0), r[4] || 0);
+      for (let j = 0; j < seg; j++) idx.push(ci, base + j, base + (j + 1) % seg);
+    }
+    let g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    g.setIndex(idx);
+    g.computeVertexNormals();
+    if (o.both) {
+      const nr = Array.from(g.attributes.normal.array);
+      const off = pos.length / 3;
+      const idx2 = idx.slice();
+      for (let t = 0; t < idx.length; t += 3) idx2.push(idx[t] + off, idx[t + 2] + off, idx[t + 1] + off);
+      const g2 = new T.BufferGeometry();
+      g2.setAttribute('position', new T.Float32BufferAttribute(pos.concat(pos), 3));
+      g2.setAttribute('normal', new T.Float32BufferAttribute(nr.concat(nr.map((v) => -v)), 3));
+      g2.setIndex(idx2);
+      g.dispose();
+      g = g2;
+    }
+    return g;
+  },
+  _acNKit(A) {
+    const s = this;
+    return {
+      S: (x, y, z, rx, ry, rz, col, ax, ay, az) => s._acPut(A, s._acGeo('sph:20:14'), x, y, z, rx, ry, rz, ax || 0, ay || 0, az || 0, col),
+      C: (x, y, z, r, h, rz, t, col, ax, ay, az, n) => s._acPut(A, s._acGeo('tap:' + t + ':' + (n || 14)), x, y, z, r, h, rz, ax || 0, ay || 0, az || 0, col),
+      L: (rings, col, o) => { const g = s._acLoftGeo(rings, (o && o.seg) || 18, o); s._acPut(A, g, 0, 0, 0, 1, 1, 1, 0, 0, 0, col); g.dispose(); }
+    };
+  },
+  // head, neck, ears, nose (skin; neck-joint space)
+  _acNHead(A) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    const Z = (x, y) => this._acHeadZ(x, y);
+    K.L([[-0.025, 0.055, 0.053, 0, -0.012], [0.04, 0.048, 0.047, 0, -0.008], [0.1, 0.047, 0.047, 0, -0.004]], W, { seg: 16 });
+    this._acPut(A, this._acGeo('head:30'), 0, 0, 0, 1, 1, 1, 0, 0, 0, W);
+    for (const sx of [1, -1]) {
+      K.S(sx * 0.0752, 0.141, -0.006, 0.0105, 0.0255, 0.0175, this._shade(W, 0.94), 0, sx * 0.25, 0);
+      K.S(sx * 0.0785, 0.142, -0.004, 0.0048, 0.016, 0.009, this._shade(W, 0.84));
+    }
+    const zn = Z(0, 0.125);
+    K.S(0, 0.128, zn - 0.002, 0.0085, 0.022, 0.0125, W, -0.28, 0, 0);
+    K.S(0, 0.111, zn + 0.007, 0.0115, 0.0098, 0.0108, W);
+    for (const sx of [1, -1]) K.S(sx * 0.0092, 0.1085, zn + 0.0015, 0.0072, 0.0062, 0.0072, this._shade(W, 0.97));
+  },
+  // eyes, lids, brows, lips: fixed colours (instance colour stays white)
+  _acNFace(A) {
+    const K = this._acNKit(A);
+    const Z = (x, y) => this._acHeadZ(x, y);
+    for (const sx of [1, -1]) {
+      const ex = sx * 0.0305, ey = 0.1565, ze = Z(ex, ey);
+      K.S(ex, ey, ze - 0.0034, 0.0134, 0.0079, 0.006, '#EFEAE3');
+      K.S(ex - sx * 0.0004, ey - 0.0003, ze + 0.0014, 0.0063, 0.0065, 0.0018, '#3B2A1E');
+      K.S(ex - sx * 0.0004, ey - 0.0003, ze + 0.0027, 0.0029, 0.003, 0.001, '#0E0A08');
+      K.S(ex - sx * 0.0018, ey + 0.0019, ze + 0.0033, 0.0012, 0.0012, 0.0006, '#FFFFFF');
+      // upper lash line (thin, follows the top of the eye)
+      K.S(ex, ey + 0.0068, ze - 0.0006, 0.0142, 0.0014, 0.0042, '#241912', 0, 0, -sx * 0.05);
+      for (let i = 0; i < 3; i++) {
+        const t = i / 2;
+        const bx = sx * (0.017 + t * 0.029), by = 0.1772 + 0.0042 * Math.sin(Math.PI * t) - 0.0028 * t;
+        K.S(bx, by, Z(bx, by) + 0.0007, 0.0104, 0.0021, 0.0032, '#33261D', 0, 0, sx * (0.12 - 0.28 * t));
+      }
+    }
+    K.S(0, 0.0935, Z(0, 0.0935) + 0.0009, 0.0172, 0.0041, 0.0054, '#A4645A');
+    K.S(0, 0.0858, Z(0, 0.0858) + 0.0009, 0.0152, 0.0051, 0.006, '#B47268');
+    K.S(0, 0.0897, Z(0, 0.0897) + 0.0028, 0.0162, 0.001, 0.0018, '#5A2E27');
+  },
+  // hair that follows the skull: a cap over the head shape, thicker on top, thinning to the hairline
+  _acNHairCap(A, st, col) {
+    const T = this._E.T;
+    const nT = 16, nP = 32;
+    const C = [0, 0.148, 0.008];
+    const prm = {
+      short: { f: 0.98, s: 1.6, b: 2.15, th: 0.1, top: 0.035 },
+      buzz: { f: 0.92, s: 1.5, b: 2.05, th: 0.045, top: 0.012 },
+      bob: { f: 1.32, s: 2.02, b: 2.32, th: 0.17, top: 0.04 },
+      long: { f: 1.05, s: 1.98, b: 2.28, th: 0.14, top: 0.035 }
+    }[st] || { f: 0.98, s: 1.6, b: 2.15, th: 0.1, top: 0.035 };
+    const tmax = (ph) => { const c = Math.cos(ph); return c >= 0 ? prm.s + (prm.f - prm.s) * Math.pow(c, 1.4) : prm.s + (prm.b - prm.s) * Math.pow(-c, 1.1); };
+    const pos = [], idx = [];
+    const pt = (th, ph, tm) => {
+      const h = this._acHeadMap(Math.sin(th) * Math.sin(ph), Math.cos(th), Math.sin(th) * Math.cos(ph));
+      const u = th / tm;
+      let k = prm.th * (1 - Math.pow(u, 5)) + 0.018 + prm.top * Math.max(0, 1 - th / 0.9);
+      // volume: lifted at the front-top, close-cropped at the sides, a soft side parting
+      k += prm.top * 1.2 * Math.max(0, Math.cos(ph)) * Math.max(0, 1 - u * 1.25);
+      if (st === 'short' || st === 'buzz') k *= 1 - 0.35 * Math.pow(Math.abs(Math.sin(ph)), 2) * this._sm((u - 0.45) / 0.4);
+      k -= 0.02 * Math.exp(-Math.pow((ph - 0.55) / 0.08, 2)) * Math.max(0, 1 - u * 1.6);
+      if (st === 'bob' && u > 0.82) k += 0.05 * (u - 0.82) / 0.18;
+      // bangs: a soft fringe that keeps some thickness down to the brow line
+      if (st === 'bob') k += 0.07 * Math.pow(Math.max(0, Math.cos(ph)), 2) * this._sm((u - 0.55) / 0.4);
+      pos.push(C[0] + (h[0] - C[0]) * (1 + k), C[1] + (h[1] - C[1]) * (1 + k), C[2] + (h[2] - C[2]) * (1 + k));
+    };
+    pt(0, 0, 1);
+    for (let i = 1; i <= nT; i++) for (let j = 0; j < nP; j++) { const ph = (j / nP) * Math.PI * 2, tm = tmax(ph); pt((i / nT) * tm, ph, tm); }
+    for (let j = 0; j < nP; j++) idx.push(0, 1 + j, 1 + (j + 1) % nP);
+    for (let i = 1; i < nT; i++) {
+      for (let j = 0; j < nP; j++) {
+        const a = 1 + (i - 1) * nP + j, b = 1 + (i - 1) * nP + (j + 1) % nP, c = a + nP, d = b + nP;
+        idx.push(a, c, b, b, c, d);
+      }
+    }
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    g.setIndex(idx);
+    g.computeVertexNormals();
+    this._acPut(A, g, 0, 0, 0, 1, 1, 1, 0, 0, 0, col);
+    g.dispose();
+  },
+  _acNHairDrape(A, col) {
+    const K = this._acNKit(A);
+    K.L([[-0.11, 0.074, 0.032, 0, -0.07], [-0.04, 0.083, 0.04, 0, -0.072], [0.04, 0.088, 0.046, 0, -0.07], [0.12, 0.083, 0.05, 0, -0.06], [0.17, 0.062, 0.046, 0, -0.046]], col, { seg: 16, bot: true, botDome: 0.012 });
+    for (const sx of [1, -1]) K.S(sx * 0.07, 0.086, -0.014, 0.019, 0.074, 0.033, col);
+  },
+  _acNPony(A, col) {
+    const K = this._acNKit(A);
+    K.S(0, 0.152, -0.108, 0.022, 0.02, 0.022, this._shade(col, 0.8));
+    K.S(0, 0.09, -0.13, 0.025, 0.074, 0.029, col, 0.32, 0, 0);
+  },
+  // shirt / blouse (waist-joint space); hangs a little over the waistband
+  _acNTorso(A, fem) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    const R = fem
+      ? [[-0.05, 0.142, 0.099, 0, 0.002], [0, 0.134, 0.093, 0, 0.002], [0.07, 0.132, 0.091, 0, 0.004], [0.14, 0.14, 0.1, 0, 0.01], [0.205, 0.151, 0.118, 0, 0.02], [0.255, 0.154, 0.121, 0, 0.021], [0.3, 0.153, 0.106, 0, 0.01], [0.345, 0.157, 0.096, 0, 0.002], [0.375, 0.146, 0.088, 0, -0.004], [0.4, 0.108, 0.074, 0, -0.008], [0.418, 0.062, 0.056, 0, -0.008]]
+      : [[-0.05, 0.156, 0.106, 0, 0.002], [0, 0.149, 0.099, 0, 0], [0.07, 0.151, 0.102, 0, 0.003], [0.15, 0.158, 0.108, 0, 0.007], [0.225, 0.167, 0.114, 0, 0.01], [0.29, 0.172, 0.112, 0, 0.008], [0.34, 0.173, 0.104, 0, 0.002], [0.372, 0.161, 0.094, 0, -0.004], [0.398, 0.12, 0.08, 0, -0.008], [0.418, 0.068, 0.06, 0, -0.008]];
+    K.L(R, W, { seg: 22, bot: true, top: true });
+    K.L([[0.392, 0.071, 0.063, 0, -0.004], [0.432, 0.064, 0.057, 0, -0.006]], this._shade(W, 0.86), { seg: 18, both: true });
+  },
+  _acNPelvis(A, fem) {
+    const K = this._acNKit(A);
+    const hw = fem ? 0.16 : 0.152;
+    K.L([[-0.118, 0.1, 0.082, 0, -0.006], [-0.08, 0.135, 0.096, 0, -0.005], [-0.02, hw, 0.104, 0, -0.002], [0.045, hw - 0.004, 0.102, 0, 0], [0.11, 0.148, 0.099, 0, 0]], '#FFFFFF', { seg: 22, bot: true, top: true });
+  },
+  // shoulder-joint space: 'bare' (below a short sleeve), 'sleeve' (short sleeve + shoulder), 'long'
+  _acNArm(A, kind) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    if (kind === 'bare') { K.L([[-0.292, 0.039, 0.038], [-0.22, 0.044, 0.043], [-0.12, 0.049, 0.048]], W, { seg: 16, bot: true }); return; }
+    // deltoid: a flattened cap that blends into the shirt's shoulder line (not a puff)
+    K.S(-0.006, -0.03, 0, 0.054, 0.052, 0.052, W);
+    if (kind === 'sleeve') { K.L([[-0.165, 0.058, 0.056], [-0.1, 0.059, 0.057], [-0.035, 0.058, 0.056]], W, { seg: 18, both: true }); return; }
+    K.L([[-0.292, 0.045, 0.045], [-0.22, 0.05, 0.049], [-0.13, 0.054, 0.053], [-0.06, 0.056, 0.055], [-0.02, 0.054, 0.053]], W, { seg: 18, bot: true });
+  },
+  _acNFore(A, long) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    const g = long ? 0.008 : 0;
+    K.S(0, 0, 0, 0.039 + g, 0.041 + g, 0.039 + g, W);
+    K.L([[-0.256, 0.025 + g * 1.2, 0.021 + g * 1.2], [-0.2, 0.029 + g, 0.025 + g], [-0.12, 0.035 + g, 0.032 + g], [-0.05, 0.039 + g, 0.036 + g], [0, 0.039 + g, 0.037 + g]], W, { seg: 16, bot: !long });
+    if (long) K.L([[-0.256, 0.035, 0.031], [-0.226, 0.036, 0.032]], this._shade(W, 0.9), { seg: 16, both: true });
+  },
+  // relaxed hand: palm faces the thigh (x), fingers along -y, thumb in front (+z)
+  _acNHand(A) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    K.S(0, -0.047, 0.003, 0.018, 0.048, 0.042, W);
+    for (let i = 0; i < 4; i++) {
+      const z = (0.026 - i * 0.0172) * 0.95, len = [0.066, 0.075, 0.071, 0.056][i];
+      K.C(0.002, -0.088 - len / 2, z, 0.0084, len, 0.008, 0.84, W, 0.12, 0, 0, 10);
+      K.S(0.002, -0.086 - len, z + 0.005, 0.0071, 0.0075, 0.0069, W);
+    }
+    K.S(0.004, -0.056, 0.043, 0.0112, 0.033, 0.0122, W, -0.45, 0, 0.12);
+  },
+  // hip-joint space: 'pants', 'bare', 'shorts'
+  _acNThigh(A, kind) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    if (kind === 'shorts') { K.L([[-0.24, 0.088, 0.09, 0, 0.002], [-0.12, 0.088, 0.092], [-0.02, 0.087, 0.091], [0.04, 0.084, 0.088]], W, { seg: 18, both: true }); return; }
+    const g = kind === 'pants' ? 1.07 : 1;
+    K.L([[-0.43, 0.052 * g, 0.055 * g, 0, 0.004], [-0.36, 0.058 * g, 0.061 * g, 0, 0.002], [-0.26, 0.065 * g, 0.069 * g], [-0.15, 0.071 * g, 0.075 * g, 0, -0.002], [-0.05, 0.075 * g, 0.08 * g, 0, -0.002], [0.035, 0.074 * g, 0.079 * g]], W, { seg: 18, bot: true });
+  },
+  // knee-joint space: 'pants' (straight leg, open hem), 'bare' (calf)
+  _acNShin(A, kind) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    if (kind === 'pants') {
+      K.S(0, 0, 0.004, 0.06, 0.063, 0.062, W);
+      K.L([[-0.405, 0.057, 0.061, 0, 0.004], [-0.3, 0.055, 0.059], [-0.18, 0.057, 0.062, 0, -0.004], [-0.06, 0.059, 0.062], [0.02, 0.06, 0.062, 0, 0.004]], W, { seg: 18, both: true });
+      return;
+    }
+    K.S(0, 0, 0.005, 0.054, 0.058, 0.057, W);
+    K.L([[-0.415, 0.031, 0.035, 0, -0.003], [-0.36, 0.035, 0.04, 0, -0.006], [-0.28, 0.042, 0.05, 0, -0.01], [-0.18, 0.049, 0.058, 0, -0.012], [-0.08, 0.051, 0.055, 0, -0.004], [0.02, 0.053, 0.056, 0, 0.004]], W, { seg: 16, bot: true });
+  },
+  // ankle-joint space (ankle 0.08 above the sole): sock, upper, toe box, heel, darker sole
+  _acNShoe(A) {
+    const K = this._acNKit(A);
+    const W = '#FFFFFF';
+    K.C(0, 0.02, -0.004, 0.034, 0.07, 0.036, 1, this._shade(W, 0.5), 0, 0, 0, 12);
+    K.S(0, -0.044, 0.05, 0.047, 0.04, 0.122, W);
+    K.S(0, -0.054, 0.142, 0.045, 0.029, 0.062, W);
+    K.S(0, -0.047, -0.038, 0.043, 0.036, 0.042, W);
+    K.S(0, -0.073, 0.052, 0.052, 0.009, 0.136, this._shade(W, 0.42));
+  },
+  _acNSkirt(A) {
+    const K = this._acNKit(A);
+    K.L([[-0.46, 0.2, 0.165, 0, 0.01], [-0.3, 0.183, 0.145, 0, 0.006], [-0.12, 0.168, 0.12, 0, 0.002], [0.04, 0.158, 0.106], [0.115, 0.152, 0.102]], '#FFFFFF', { seg: 26, both: true });
+  },
+  _acNearParts() {
+    const W = '#FFFFFF';
+    const bk = (fn) => this._bake((A) => fn(A));
+    const bare = (p) => !p.c.longSleeve && !p.c.coat;
+    const legsOut = (p) => p.c.shorts || p.c.skirt;
+    return [
+      { k: 'nHead', j: ['neck'], m: 'skin', geo: bk((A) => this._acNHead(A)), col: (p) => p.c.skin },
+      { k: 'nFace', j: ['neck'], m: 'face', geo: bk((A) => this._acNFace(A)), col: () => W },
+      { k: 'nHairS', j: ['neck'], m: 'hair', geo: bk((A) => this._acNHairCap(A, 'short', W)), col: (p) => p.c.hair, when: (p) => p.hs === 'short' },
+      { k: 'nHairZ', j: ['neck'], m: 'hair', geo: bk((A) => this._acNHairCap(A, 'buzz', W)), col: (p) => p.c.hair, when: (p) => p.hs === 'buzz' },
+      { k: 'nHairB', j: ['neck'], m: 'hair', geo: bk((A) => this._acNHairCap(A, 'bob', W)), col: (p) => p.c.hair, when: (p) => p.hs === 'bob' },
+      { k: 'nHairL', j: ['neck'], m: 'hair', geo: bk((A) => { this._acNHairCap(A, 'long', W); this._acNHairDrape(A, W); }), col: (p) => p.c.hair, when: (p) => p.hs === 'long' },
+      { k: 'nHairP', j: ['neck'], m: 'hair', geo: bk((A) => { this._acNHairCap(A, 'short', W); this._acNPony(A, W); }), col: (p) => p.c.hair, when: (p) => p.hs === 'pony' },
+      { k: 'nTorsoM', j: ['torso'], geo: bk((A) => this._acNTorso(A, false)), col: (p) => p.c.top, when: (p) => !p.fem },
+      { k: 'nTorsoF', j: ['torso'], geo: bk((A) => this._acNTorso(A, true)), col: (p) => p.c.top, when: (p) => p.fem },
+      { k: 'nPelvisM', j: ['hips'], geo: bk((A) => this._acNPelvis(A, false)), col: (p) => p.c.bottom, when: (p) => !p.fem },
+      { k: 'nPelvisF', j: ['hips'], geo: bk((A) => this._acNPelvis(A, true)), col: (p) => p.c.bottom, when: (p) => p.fem },
+      { k: 'nSleeve', j: ['shL', 'shR'], geo: bk((A) => this._acNArm(A, 'sleeve')), col: (p) => p.c.sleeve, when: bare },
+      { k: 'nArmB', j: ['shL', 'shR'], m: 'skin', geo: bk((A) => this._acNArm(A, 'bare')), col: (p) => p.c.skin, when: bare },
+      { k: 'nArmL', j: ['shL', 'shR'], geo: bk((A) => this._acNArm(A, 'long')), col: (p) => p.c.sleeve, when: (p) => !bare(p) },
+      { k: 'nForeB', j: ['elL', 'elR'], m: 'skin', geo: bk((A) => this._acNFore(A, false)), col: (p) => p.c.skin, when: (p) => !p.c.longSleeve },
+      { k: 'nForeL', j: ['elL', 'elR'], geo: bk((A) => this._acNFore(A, true)), col: (p) => p.c.fore, when: (p) => p.c.longSleeve },
+      { k: 'nHand', j: ['wrL', 'wrR'], m: 'skin', geo: bk((A) => this._acNHand(A)), col: (p) => p.c.skin },
+      { k: 'nThighP', j: ['hipL', 'hipR'], geo: bk((A) => this._acNThigh(A, 'pants')), col: (p) => p.c.bottom, when: (p) => !legsOut(p) },
+      { k: 'nThighS', j: ['hipL', 'hipR'], geo: bk((A) => this._acNThigh(A, 'shorts')), col: (p) => p.c.bottom, when: (p) => p.c.shorts },
+      { k: 'nThighB', j: ['hipL', 'hipR'], m: 'skin', geo: bk((A) => this._acNThigh(A, 'bare')), col: (p) => p.c.skin, when: legsOut },
+      { k: 'nShinP', j: ['knL', 'knR'], geo: bk((A) => this._acNShin(A, 'pants')), col: (p) => p.c.bottom, when: (p) => !legsOut(p) },
+      { k: 'nShinB', j: ['knL', 'knR'], m: 'skin', geo: bk((A) => this._acNShin(A, 'bare')), col: (p) => p.c.skin, when: legsOut },
+      { k: 'nShoe', j: ['anL', 'anR'], geo: bk((A) => this._acNShoe(A)), col: (p) => p.c.shoe },
+      { k: 'nSkirt', j: ['hips'], geo: bk((A) => this._acNSkirt(A)), col: (p) => p.c.bottom, when: (p) => p.c.skirt },
+      { k: 'nHat', j: ['neck'], geo: bk((A) => this._acHat(A, true)), col: () => W, when: (p) => p.c.hat },
+      { k: 'nHelmet', j: ['neck'], geo: bk((A) => this._acHelmet(A, true, W)), col: (p) => p.c.helmet || '#F4F4F0', when: (p) => !!p.c.helmet },
+      { k: 'nCoat', j: ['torso'], geo: bk((A) => this._acCoat(A, true)), col: () => W, when: (p) => p.c.coat },
+      { k: 'nApron', j: ['torso'], geo: bk((A) => this._acApron(A, true, W)), col: (p) => p.c.apron || W, when: (p) => !!p.c.apron },
+      { k: 'nUmb', j: ['root'], geo: bk((A) => this._acUmbrella(A, true, W)), col: (p) => p.c.umb, when: (p) => p.umbOn }
+    ];
+  },
   _initCrowd() {
     const E = this._E;
     const T = E.T;
@@ -801,7 +1072,10 @@ GHG3.actors = {
       const outfit = o.outfit || this._acPick(R, outfitsWalk);
       const c = this._acPalette({ outfit: outfit, fem: fem, seed: (R() * 1e6) | 0 });
       const h = (fem ? 1.52 : 1.62) + R() * 0.17;
-      return Object.assign({ c: c, k: h / 1.72, fem: fem, outfit: outfit, ph: R(), seed: R() * 10, t: R() * 50, m: new Float32Array(16 * 16), due: 0, vis: false, umbOn: false, lc: {} }, o);
+      // near-LOD hair style
+      const hr = R();
+      const hs = fem ? (c.hairLong ? (hr < 0.55 ? 'long' : 'pony') : 'bob') : (hr < 0.22 ? 'buzz' : 'short');
+      return Object.assign({ c: c, k: h / 1.72, fem: fem, hs: hs, outfit: outfit, ph: R(), seed: R() * 10, t: R() * 50, m: new Float32Array(16 * 16), due: 0, vis: false, umbOn: false, lc: {}, lod: 1 }, o);
     };
     for (let i = 0; i < N; i++) {
       let pick = R() * totalLen, li = 0;
@@ -827,7 +1101,27 @@ GHG3.actors = {
       im.count = 0;
       im.instanceMatrix.setUsage(T.DynamicDrawUsage);
       E.scene.add(im);
-      return { pt: pt, im: im };
+      return { pt: pt, im: im, lod: 1 };
+    });
+    // near LOD (people within ~32 m): smooth bodies, faces and hair; skin / cloth / hair get their own sheen
+    const MATS = {
+      skin: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.56, metalness: 0 }),
+      cloth: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, metalness: 0 }),
+      face: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.38, metalness: 0 }),
+      hair: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.06 })
+    };
+    const near = this._acNearParts().map((pt) => {
+      const n = cap * pt.j.length;
+      const im = new T.InstancedMesh(pt.geo, MATS[pt.m || 'cloth'], n);
+      im.frustumCulled = false;
+      im.castShadow = true;
+      im.receiveShadow = true;
+      const col = new T.Color(1, 1, 1);
+      for (let i = 0; i < n; i++) im.setColorAt(i, col);
+      im.count = 0;
+      im.instanceMatrix.setUsage(T.DynamicDrawUsage);
+      E.scene.add(im);
+      return { pt: pt, im: im, lod: 2 };
     });
     // far LOD: 3-box impostor in root space (people beyond ~85 m are a few pixels tall)
     const imp = [
@@ -843,9 +1137,10 @@ GHG3.actors = {
       im.count = 0;
       im.instanceMatrix.setUsage(T.DynamicDrawUsage);
       E.scene.add(im);
-      return { pt: Object.assign({ j: ['root'] }, pt), im: im, far: true };
+      return { pt: Object.assign({ j: ['root'] }, pt), im: im, far: true, lod: 0 };
     });
-    E.crowd = { people: people, loops: loops, meshes: meshes.concat(imp), rig: this._acRig(1), frame: 0, ang: this._acZero(), M: new T.Matrix4(), Q: new T.Quaternion(), V: new T.Vector3(), S: new T.Vector3(), Y: new T.Vector3(0, 1, 0) };
+    E.crowd = { people: people, loops: loops, meshes: near.concat(meshes, imp), rig: this._acRig(1), frame: 0, ang: this._acZero(), M: new T.Matrix4(), Q: new T.Quaternion(), V: new T.Vector3(), S: new T.Vector3(), Y: new T.Vector3(0, 1, 0),
+      J: ['root', 'hips', 'torso', 'neck', 'shL', 'shR', 'elL', 'elR', 'wrL', 'wrR', 'hipL', 'hipR', 'knL', 'knR', 'anL', 'anR'] };
   },
   _acWalkPos(p, dt) {
     const lp = p.loop;
@@ -900,7 +1195,9 @@ GHG3.actors = {
       const d = Math.sqrt(dx * dx + dz * dz);
       p.vis = d < 430;
       if (!p.vis) continue;
-      p.far = d > 85;
+      // detail level: 2 = near (full body + face), 1 = light, 0 = far impostor
+      p.lod = d > 85 ? 0 : (d < 32 ? 2 : 1);
+      p.far = p.lod === 0;
       if (p.far) {
         C.Q.setFromAxisAngle(C.Y, p.yaw);
         C.M.compose(C.V.set(p.x, p.y, p.z), C.Q, C.S.set(p.k, p.k, p.k));
@@ -920,7 +1217,7 @@ GHG3.actors = {
       rig.root.scale.setScalar(p.k);
       this._acApply(rig, C.ang);
       rig.root.updateMatrixWorld(true);
-      const J = ['root', 'hips', 'torso', 'neck', 'shL', 'shR', 'elL', 'elR', 'wrL', 'wrR', 'hipL', 'hipR', 'knL', 'knR', 'anL', 'anR'];
+      const J = C.J;
       for (let j = 0; j < 16; j++) p.m.set(rig[J[j]].matrixWorld.elements, j * 16);
     }
     // pass 2: pack visible instances
@@ -931,8 +1228,8 @@ GHG3.actors = {
       let n = 0;
       for (const p of C.people) {
         if (!p.vis || !p.due) continue;
-        if (!!M.far !== !!p.far) continue;
-        if (!M.far && p.due < 2) continue;
+        if (M.lod !== p.lod) continue;
+        if (M.lod > 0 && p.due < 2) continue;
         if (pt.when && !pt.when(p)) continue;
         let lc = p.lc[pt.k];
         if (!lc) lc = p.lc[pt.k] = this._lc(pt.col(p));
