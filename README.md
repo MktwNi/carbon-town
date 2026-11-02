@@ -6,7 +6,7 @@
 ผู้เรียนเดินสำรวจเมืองเอง เจอฟอง **?** ก็ไขปริศนาตามหาแหล่งปล่อยก๊าซเรือนกระจก 19 จุด
 โดยมีทีมมาสคอต GCC คือ **น้องทวน** (ยึดหลักฐาน) **น้องกล้า** (ความสอดคล้อง) และ **น้องส่อง** (ความโปร่งใส) คอยอธิบายและถามคำถามแบบผู้ทวนสอบ
 
-**เล่นออนไลน์:** _(ใส่ลิงก์ GitHub Pages หลัง deploy ครั้งแรก เช่น `https://<ชื่อผู้ใช้>.github.io/ghg-town-3d/`)_
+**เล่นออนไลน์:** <https://mktwni.github.io/carbon-town/>
 
 ## วิธีเล่น
 
@@ -53,8 +53,9 @@ npm run serve    # ทดลองเปิดดูที่ http://localhost:8
 
 ## เผยแพร่ (GitHub Pages)
 
-ทุกครั้งที่ push ขึ้น branch `main` เว็บจะ deploy ให้อัตโนมัติผ่าน GitHub Actions (`.github/workflows/deploy-pages.yml`)
-ครั้งแรกต้องเปิด **Settings → Pages → Source: GitHub Actions** ก่อน ขั้นตอนทั้งหมดอยู่ใน [`DEPLOY.md`](DEPLOY.md) ซึ่งให้ Claude Code ทำแทนได้
+เว็บจริงอยู่ที่ <https://mktwni.github.io/carbon-town/> (repository <https://github.com/MktwNi/carbon-town>)
+ทุกครั้งที่ push ขึ้น branch `main` เว็บจะอัปเดตเองในราว 1 นาที (GitHub Pages ตั้งค่าเป็น **Deploy from a branch → `main` / root** และมีไฟล์ว่าง `.nojekyll` ให้เสิร์ฟไฟล์ตามเดิม)
+ถ้าอยากเปลี่ยนไป deploy ด้วย GitHub Actions (เผยแพร่เฉพาะ `index.html` `js/` `assets/`) ดูวิธีที่หัวไฟล์ `src/tools/deploy-pages.yml` ส่วนขั้นตอนตั้งค่าครั้งแรกอยู่ใน [`DEPLOY.md`](DEPLOY.md)
 
 > เว็บบน GitHub Pages เปิดดูได้ทุกคนที่มีลิงก์ ถ้าใช้บัญชี GitHub ฟรี repository ต้องเป็น public ด้วย
 
