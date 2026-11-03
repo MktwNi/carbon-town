@@ -128,35 +128,55 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
 .ghg-sw[data-on="true"]{background:#0B7D43}
 .ghg-sw[data-on="true"]::after{transform:translateX(16px)}
 .ghg-qwrap{position:absolute;inset:0;z-index:4;display:flex;justify-content:center;align-items:flex-start;padding:var(--g-top) 16px 16px;box-sizing:border-box;background:linear-gradient(180deg,rgba(10,22,16,.12),rgba(10,22,16,.34));-webkit-backdrop-filter:blur(2.5px);backdrop-filter:blur(2.5px)}
-.ghg-quiz{position:relative;width:min(780px,100%);max-height:100%;display:flex;flex-direction:column;box-sizing:border-box;background:#FFFFFF;border-radius:24px;box-shadow:0 30px 80px rgba(10,22,16,.34),0 2px 10px rgba(10,22,16,.1);overflow:hidden}
-.ghg-quiz-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:20px 22px 20px;box-sizing:border-box}
+.ghg-quiz{position:relative;width:min(860px,100%);max-height:100%;display:flex;flex-direction:column;box-sizing:border-box;background:#FFFFFF;border-radius:24px;box-shadow:0 30px 80px rgba(10,22,16,.34),0 2px 10px rgba(10,22,16,.1);overflow:hidden}
+.ghg-quiz-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding:22px 26px 22px;box-sizing:border-box}
 .ghg-quiz-head{display:flex;align-items:center;gap:12px}
-.ghg-quiz-badge{flex:0 0 auto;width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600}
+.ghg-quiz-badge{flex:0 0 auto;width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600}
 .ghg-quiz-ttl{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px}
-.ghg-quiz-ttl>span{font-size:12.5px;line-height:1.45;color:#55625A}
-.ghg-quiz-ttl h3{margin:0;font-size:19px;line-height:1.3;font-weight:500;color:#14201A}
+.ghg-quiz-ttl>span{font-size:13.5px;line-height:1.45;color:#55625A}
+.ghg-quiz-ttl h3{margin:0;font-size:21px;line-height:1.3;font-weight:500;color:#14201A}
 .ghg-quiz-meta{display:flex;flex-wrap:wrap;gap:6px}
-.ghg-quiz-scene{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border-radius:14px;background:#F3F6F4;color:#3A463F}
-.ghg-quiz-scene p{margin:0;font-size:14px;line-height:1.6;color:#2E3B33}
-.ghg-quiz-q{margin:4px 0 0;font-size:22px;line-height:1.45;font-weight:600;color:#14201A}
+.ghg-quiz-meta .g-chip,.ghg-quiz-more .g-chip{padding:4px 11px;font-size:13px}
+.ghg-quiz-scene{display:flex;gap:16px;align-items:flex-start;padding:14px;border-radius:18px;background:#F3F6F4;color:#3A463F}
+.ghg-quiz-scene p{margin:0;font-size:16.5px;line-height:1.65;color:#14201A}
+.ghg-quiz-scene-lbl{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;line-height:1.3;color:#0B7D43}
+.ghg-quiz-q{margin:4px 0 0;font-size:24px;line-height:1.45;font-weight:600;color:#14201A}
 .ghg-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ghg-opt{display:flex;align-items:center;gap:12px;min-height:66px;padding:10px 14px;border:1.5px solid rgba(20,32,26,.14);border-radius:16px;background:#FFFFFF;color:#14201A;text-align:left;font-size:15.5px;font-weight:500;line-height:1.45;cursor:pointer;box-sizing:border-box;transition:transform .12s,box-shadow .15s,border-color .15s,background .15s,opacity .15s}
+.ghg-opt{display:flex;align-items:center;gap:12px;min-height:70px;padding:12px 16px;border:1.5px solid rgba(20,32,26,.14);border-radius:16px;background:#FFFFFF;color:#14201A;text-align:left;font-size:17px;font-weight:500;line-height:1.45;cursor:pointer;box-sizing:border-box;transition:transform .12s,box-shadow .15s,border-color .15s,background .15s,opacity .15s}
 .ghg-opt:hover:not(:disabled){border-color:#0B7D43;background:#F5FBF7;box-shadow:0 8px 20px rgba(11,125,67,.15);transform:translateY(-1px)}
 .ghg-opt:active:not(:disabled){transform:translateY(0)}
 .ghg-opt:disabled{cursor:default}
-.ghg-opt-k{flex:0 0 auto;width:36px;height:36px;border-radius:12px;background:#EEF2F0;color:#2E3B33;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}
+.ghg-opt-k{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:#EEF2F0;color:#2E3B33;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600}
 .ghg-opt-t{flex:1 1 auto}
 .ghg-opt[data-st="ok"]{border-color:#15803D;background:#E9F6EE}
 .ghg-opt[data-st="ok"] .ghg-opt-k{background:#15803D;color:#FFFFFF}
 .ghg-opt[data-st="bad"]{border-color:#B42318;background:#FDEDEB}
 .ghg-opt[data-st="bad"] .ghg-opt-k{background:#B42318;color:#FFFFFF}
 .ghg-opt[data-st="dim"]{opacity:.5}
-.ghg-quiz-tip{display:flex;align-items:center;gap:9px;margin:0;font-size:13px;line-height:1.5;color:#4A574F}
-.ghg-quiz-res{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:18px}
-.ghg-quiz-tabs{display:flex;flex-wrap:wrap;gap:6px}
-.ghg-quiz-tabs>button{display:flex;align-items:center;gap:6px;min-height:42px;padding:3px 13px 3px 4px;border:1.5px solid;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer}
-.ghg-quiz-foot{flex:0 0 auto;padding:12px 22px 16px;border-top:1px solid rgba(20,32,26,.08);background:#FFFFFF}
-.ghg-quiz-foot .g-btn{width:100%;min-height:54px;font-size:16px}
+.ghg-quiz-tip{display:flex;align-items:center;gap:9px;margin:0;font-size:14px;line-height:1.5;color:#4A574F}
+.ghg-quiz-res{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border-radius:18px}
+.ghg-quiz-more{display:flex;flex-direction:column;gap:12px;container-type:inline-size}
+.ghg-quiz-tabs{display:flex;gap:4px;padding:4px;border-radius:16px;background:rgba(20,32,26,.06);overflow-x:auto;scrollbar-width:none}
+.ghg-quiz-tabs::-webkit-scrollbar{display:none}
+.ghg-quiz-tabs>button{flex:1 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;min-height:48px;padding:6px 12px;border:0;border-radius:12px;background:transparent;color:#4A574F;font-size:14px;font-weight:600;line-height:1.3;white-space:nowrap;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
+.ghg-quiz-tabs>button::before{content:"";flex:0 0 auto;width:18px;height:18px;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+.ghg-quiz-tabs>button:hover{background:rgba(255,255,255,.65);color:#14201A}
+.ghg-quiz-tabs>button[aria-selected="true"]{background:#FFFFFF;color:#0B7D43;box-shadow:0 1px 2px rgba(10,22,16,.1),0 4px 12px rgba(10,22,16,.08)}
+.ghg-quiz-tabs>[data-k="calc"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='3' width='14' height='18' rx='2.5'/%3E%3Cpath d='M8.5 7.5h7'/%3E%3Cpath stroke-width='2.6' d='M8.75 12h.01M12 12h.01M15.25 12h.01M8.75 16h.01M12 16h.01M15.25 16h.01'/%3E%3C/svg%3E")}
+.ghg-quiz-tabs>[data-k="data"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5z'/%3E%3Cpath d='M13.5 3.5V8h4M9 12h5.5M9 15.5h5.5'/%3E%3C/svg%3E")}
+.ghg-quiz-tabs>[data-k="verify"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z'/%3E%3Cpath d='M8.5 12l2.5 2.5 4.5-5'/%3E%3C/svg%3E")}
+.ghg-quiz-tabs>[data-k="reduce"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19c0-8 5.5-13.5 14-14 0 8.5-5.5 14-14 14z'/%3E%3Cpath d='M5 19l7-7'/%3E%3C/svg%3E")}
+.ghg-quiz-tabs>[data-k="ref"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 4.6a2 2 0 0 1 3.4 0l7.4 12.9a2 2 0 0 1-1.7 3H4.6a2 2 0 0 1-1.7-3z'/%3E%3Cpath d='M12 9.5v4.2'/%3E%3Cpath stroke-width='2.6' d='M12 17.2h.01'/%3E%3C/svg%3E")}
+.ghg-quiz-tabs>[data-k="media"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='3'/%3E%3Cpath d='M10.5 9.5v5l4-2.5z'/%3E%3C/svg%3E")}
+@container (max-width:700px){
+  .ghg-quiz-tabs{gap:2px;padding:3px;border-radius:14px}
+  .ghg-quiz-tabs>button{flex:1 1 0;min-width:0;flex-direction:column;gap:3px;min-height:56px;padding:6px 2px;border-radius:11px;font-size:11.5px;line-height:1.25;white-space:normal;text-align:center}
+}
+.ghg-quiz-host{display:flex;align-items:center;gap:10px;margin:0;font-size:14px;line-height:1.5}
+.ghg-quiz-host strong{font-weight:600}
+.ghg-quiz-host i{font-style:normal;opacity:.8}
+.ghg-quiz-foot{flex:0 0 auto;padding:12px 26px 18px;border-top:1px solid rgba(20,32,26,.08);background:#FFFFFF}
+.ghg-quiz-foot .g-btn{width:100%;min-height:56px;font-size:17px}
 /* v1.0 site-visit film */
 .ghg-film{position:absolute;inset:0;z-index:60;overflow:hidden;pointer-events:none;--fm-bar:min(9vh,88px)}
 .ghg-fm-live{position:absolute;inset:0}
@@ -218,13 +238,15 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
 .ghg-fm-ctl .ghg-fm-ico{width:42px;padding:0;justify-content:center}
 .ghg-fm-ctl kbd{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.16);color:#FFFFFF}
 .g-root[data-film="1"] .ghg-stage>:not(canvas):not(.ghg-film){visibility:hidden!important}
-.ghg-quiz-photo{position:relative;flex:0 0 auto;width:132px;aspect-ratio:16/9;padding:0;border:0;border-radius:10px;overflow:hidden;background:#0E1612;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.ghg-quiz-photo{position:relative;flex:0 0 auto;width:236px;aspect-ratio:16/9;padding:0;border:0;border-radius:12px;overflow:hidden;background:#0E1612;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .ghg-quiz-photo img{display:block;width:100%;height:100%;object-fit:cover}
 .ghg-quiz-photo span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.45))}
 .ghg-quiz-photo span i,.ghg-filmbtn i{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#FFB703;color:#14201A;font-style:normal;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.ghg-quiz-scene-t{display:flex;flex-direction:column;gap:8px;min-width:0}
-.ghg-filmbtn{align-self:flex-start;display:flex;align-items:center;gap:8px;min-height:38px;padding:4px 14px 4px 5px;border:0;border-radius:999px;background:#14201A;color:#FFFFFF;font-size:13px;font-weight:600;cursor:pointer}
-.ghg-filmbtn i{width:28px;height:28px;box-shadow:none}
+.ghg-quiz-photo span i{width:46px;height:46px}
+.ghg-quiz-photo span i svg{width:20px;height:20px;margin-left:2px}
+.ghg-quiz-scene-t{display:flex;flex-direction:column;gap:8px;min-width:0;padding-top:2px}
+.ghg-filmbtn{align-self:flex-start;display:flex;align-items:center;gap:8px;min-height:42px;padding:4px 16px 4px 5px;border:0;border-radius:999px;background:#14201A;color:#FFFFFF;font-size:14px;font-weight:600;cursor:pointer}
+.ghg-filmbtn i{width:32px;height:32px;box-shadow:none}
 .ghg-bk-ph{flex:0 0 auto;width:54px;height:31px;border-radius:8px;object-fit:cover;box-shadow:0 0 0 2px var(--bk,#15803D)}
 .ghg-media{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E1612}
 .ghg-media iframe,.ghg-media video{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -244,7 +266,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
   .ghg-fm-saved{font-size:12.5px}
   .ghg-fm-ctl{right:8px}
   .ghg-fm-ctl button{min-height:38px;padding:5px 12px;font-size:13px}
-  .ghg-quiz-photo{width:104px}
+  .ghg-quiz-scene{flex-direction:column;gap:12px;padding:12px}
+  .ghg-quiz-photo{width:100%;aspect-ratio:2/1}
+  .ghg-quiz-scene p{font-size:15.5px}
 }
 .ghg-introbg{-webkit-backdrop-filter:blur(7px) saturate(1.2);backdrop-filter:blur(7px) saturate(1.2)}
 .ghg-wl{display:inline}
@@ -309,7 +333,11 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
   .ghg-quiz{border-radius:20px}
   .ghg-quiz-scroll{padding:16px 14px 16px;gap:12px}
   .ghg-quiz-foot{padding:10px 14px 12px}
-  .ghg-quiz-q{font-size:19px}
+  .ghg-quiz-q{font-size:20px}
+  .ghg-quiz-badge{width:44px;height:44px;border-radius:14px;font-size:20px}
+  .ghg-quiz-ttl h3{font-size:19px}
+  .ghg-opt{font-size:16px}
+  .ghg-quiz-host{gap:8px;font-size:12.5px}
 }
 @media (prefers-reduced-motion: reduce){.ghg-anim,.g-pop,.g-wob,.g-bob,.g-bob2,.g-bob3,.g-glow,.g-fig{animation:none!important}.g-conf{display:none!important}.g-spk{animation:none!important;opacity:.9}}
 </style>
@@ -967,11 +995,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
             <sc-if value="{{card.hasPhoto}}" hint-placeholder-val="{{ false }}">
               <button type="button" class="ghg-quiz-photo" onClick="{{filmReplay}}" title="ดูวิดีโอสำรวจหน้างานอีกครั้ง"><img src="{{card.photo}}" alt="ภาพหลักฐานจากวิดีโอสำรวจหน้างาน จุดที่ {{card.n}}"><span><i><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"></path></svg></i></span></button>
             </sc-if>
-            <sc-if value="{{card.noPhoto}}" hint-placeholder-val="{{ true }}">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 2px" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="2.8"></circle></svg>
-            </sc-if>
             <div class="ghg-quiz-scene-t">
-              <p><strong>สิ่งที่เห็น </strong>{{card.scene}}</p>
+              <span class="ghg-quiz-scene-lbl"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path><circle cx="12" cy="12" r="2.8"></circle></svg>สิ่งที่เห็น</span>
+              <p>{{card.scene}}</p>
               <sc-if value="{{card.canFilm}}" hint-placeholder-val="{{ true }}">
                 <button type="button" class="ghg-filmbtn" onClick="{{filmReplay}}"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"></path></svg></i>{{card.filmLbl}}</button>
               </sc-if>
@@ -998,53 +1024,48 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
             <div class="ghg-quiz-res" style="background: {{card.fbBg}}; color: {{card.fbFg}}">
               <span class="g-av" aria-hidden="true" style="width: 52px; height: 52px; background-color: {{card.fbPic.bg}}; background-image: {{card.fbPic.img}}; background-size: {{card.fbPic.size}}; background-position: {{card.fbPic.pos}}; box-shadow: 0 0 0 2.5px {{card.fbIcon}}"></span>
               <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
-                <strong class="g-h" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 18px; font-weight: 600">
+                <strong class="g-h" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 20px; font-weight: 600">
                   <sc-if value="{{cardOk}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
                   <sc-if value="{{cardBad}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
-                  {{card.fbTitle}}<span style="font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 13.5px; font-weight: 600; opacity: .85">· {{card.fbSub}}</span>
+                  {{card.fbTitle}}<span style="font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 15px; font-weight: 600; opacity: .85">· {{card.fbSub}}</span>
                 </strong>
-                <span style="font-size: 13px; font-weight: 600; opacity: .92">{{card.fbName}}: “{{card.fbLine}}”</span>
-                <span style="font-size: 14px; line-height: 1.65">{{card.why}}</span>
+                <span style="font-size: 14px; font-weight: 600; opacity: .92">{{card.fbName}}: “{{card.fbLine}}”</span>
+                <span style="font-size: 15.5px; line-height: 1.65">{{card.why}}</span>
               </div>
             </div>
 
+            <div class="ghg-quiz-more">
             <div role="tablist" aria-label="รายละเอียดเฉลย" class="ghg-quiz-tabs">
               <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="5">
-                <button type="button" role="tab" onClick="{{tb.pick}}" aria-selected="{{tb.on}}" style="border-color: {{tb.bd}}; background: {{tb.bg}}; color: {{tb.fg}}">
-                  <span class="g-av" aria-hidden="true" style="width: 28px; height: 28px; background-color: {{tb.pic.bg}}; background-image: {{tb.pic.img}}; background-size: {{tb.pic.size}}; background-position: {{tb.pic.pos}}"></span>
-                  {{tb.label}}
-                </button>
+                <button type="button" role="tab" onClick="{{tb.pick}}" aria-selected="{{tb.on}}" data-k="{{tb.key}}">{{tb.label}}</button>
               </sc-for>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; background: {{host.soft}}">
-              <span class="g-av" aria-hidden="true" style="width: 40px; height: 40px; background-color: #FFFFFF; background-image: {{host.pic.img}}; background-size: {{host.pic.size}}; background-position: {{host.pic.pos}}"></span>
-              <div style="display: flex; flex-direction: column; gap: 0; min-width: 0">
-                <strong class="g-h" style="font-size: 14.5px; font-weight: 500; color: {{host.ink}}">{{host.label}}</strong>
-                <span style="font-size: 12px; color: {{host.ink}}">{{host.motto}}</span>
-              </div>
-            </div>
+            <p class="ghg-quiz-host" style="color: {{host.ink}}">
+              <span class="g-av" aria-hidden="true" style="width: 34px; height: 34px; background-color: {{host.soft}}; background-image: {{host.pic.img}}; background-size: {{host.pic.size}}; background-position: {{host.pic.pos}}"></span>
+              <span><strong>{{host.name}}</strong> · {{host.principle}} <i>“{{host.motto}}”</i></span>
+            </p>
           <sc-if value="{{tabCalc}}" hint-placeholder-val="{{ true }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 10px">
               <div style="display: flex; flex-direction: column; gap: 6px">
-                <span style="font-size: 13px; font-weight: 600; color: #2E3B33">สูตร</span>
-                <div class="g-mono" style="padding: 10px 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; background: #FFFFFF; font-size: 13px; line-height: 1.65">{{card.formula}}</div>
+                <span style="font-size: 14px; font-weight: 600; color: #2E3B33">สูตร</span>
+                <div class="g-mono" style="padding: 10px 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; background: #FFFFFF; font-size: 14px; line-height: 1.65">{{card.formula}}</div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 6px">
-                <span style="font-size: 13px; font-weight: 600; color: #2E3B33">ตัวอย่างการคำนวณ</span>
+                <span style="font-size: 14px; font-weight: 600; color: #2E3B33">ตัวอย่างการคำนวณ</span>
                 <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px">
-                  <sc-for list="{{card.ex}}" as="el" hint-placeholder-count="2"><div class="g-mono" style="font-size: 12.5px; line-height: 1.6; color: #2E3B33">{{el.t}}</div></sc-for>
-                  <div class="g-h" style="margin-top: 2px; padding-top: 8px; border-top: 1px dashed rgba(25,38,30,.25); font-size: 19px; font-weight: 600; color: {{card.resultInk}}">= {{card.result}}</div>
-                  <sc-if value="{{card.hasExtra}}" hint-placeholder-val="{{ false }}"><div style="padding: 8px 10px; border-radius: 11px; background: #F2F5F3; font-size: 12.5px; line-height: 1.6; color: #2E3B33">{{card.extra}}</div></sc-if>
+                  <sc-for list="{{card.ex}}" as="el" hint-placeholder-count="2"><div class="g-mono" style="font-size: 13.5px; line-height: 1.6; color: #2E3B33">{{el.t}}</div></sc-for>
+                  <div class="g-h" style="margin-top: 2px; padding-top: 8px; border-top: 1px dashed rgba(25,38,30,.25); font-size: 21px; font-weight: 600; color: {{card.resultInk}}">= {{card.result}}</div>
+                  <sc-if value="{{card.hasExtra}}" hint-placeholder-val="{{ false }}"><div style="padding: 8px 10px; border-radius: 11px; background: #F2F5F3; font-size: 13.5px; line-height: 1.6; color: #2E3B33">{{card.extra}}</div></sc-if>
                 </div>
               </div>
-              <p style="margin: 0; padding: 10px 12px; border-radius: 13px; background: #F2F5F3; font-size: 13px; line-height: 1.6; color: #2E3B33">{{card.owner}}</p>
+              <p style="margin: 0; padding: 10px 12px; border-radius: 13px; background: #F2F5F3; font-size: 14px; line-height: 1.6; color: #2E3B33">{{card.owner}}</p>
             </div>
           </sc-if>
           <sc-if value="{{tabData}}" hint-placeholder-val="{{ false }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 13px; font-weight: 600; color: #2E3B33">ข้อมูลกิจกรรมและหลักฐานที่ต้องเก็บ</span>
+              <span style="font-size: 14px; font-weight: 600; color: #2E3B33">ข้อมูลกิจกรรมและหลักฐานที่ต้องเก็บ</span>
               <sc-for list="{{card.data}}" as="dl" hint-placeholder-count="2">
-                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; font-size: 13.5px; line-height: 1.6; color: #2E3B33">
+                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border: 1px solid rgba(25,38,30,.12); border-radius: 13px; font-size: 15px; line-height: 1.6; color: #2E3B33">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0A7C99" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20z"></path><path d="M14 3.5V8h4M9.5 12h5M9.5 15.5h5"></path></svg>
                   <span>{{dl.t}}</span>
                 </div>
@@ -1053,9 +1074,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
           </sc-if>
           <sc-if value="{{tabVerify}}" hint-placeholder-val="{{ false }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 13px; font-weight: 600; color: #2E3B33">ผู้ทวนสอบจะตรวจอะไรที่จุดนี้</span>
+              <span style="font-size: 14px; font-weight: 600; color: #2E3B33">ผู้ทวนสอบจะตรวจอะไรที่จุดนี้</span>
               <sc-for list="{{card.verify}}" as="vf" hint-placeholder-count="3">
-                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #E8EFEA; font-size: 13.5px; line-height: 1.6; color: #1F3A2B">
+                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #E8EFEA; font-size: 15px; line-height: 1.6; color: #1F3A2B">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0B7D43" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
                   <span>{{vf.t}}</span>
                 </div>
@@ -1064,9 +1085,9 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
           </sc-if>
           <sc-if value="{{tabReduce}}" hint-placeholder-val="{{ false }}">
             <div role="tabpanel" style="display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 13px; font-weight: 600; color: #2E3B33">แนวทางลดการปล่อย</span>
+              <span style="font-size: 14px; font-weight: 600; color: #2E3B33">แนวทางลดการปล่อย</span>
               <sc-for list="{{card.reduce}}" as="rd" hint-placeholder-count="3">
-                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #E6F4E2; font-size: 13.5px; line-height: 1.6; color: #1E4A19">
+                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #E6F4E2; font-size: 15px; line-height: 1.6; color: #1E4A19">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2E7A26" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M5 19c0-8 5.5-13.5 14-14 0 8.5-5.5 14-14 14z"></path><path d="M5 19l7-7"></path></svg>
                   <span>{{rd.t}}</span>
                 </div>
@@ -1079,23 +1100,27 @@ kbd{display:inline-block;min-width:18px;padding:1px 6px;border:1px solid rgba(20
                 <sc-if value="{{media.yt}}" hint-placeholder-val="{{ true }}"><iframe src="{{media.src}}" title="{{media.title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe></sc-if>
                 <sc-if value="{{media.file}}" hint-placeholder-val="{{ false }}"><video src="{{media.src}}" controls playsinline preload="metadata"></video></sc-if>
               </div>
-              <sc-if value="{{media.hasNote}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #4A574F">{{media.note}}</p></sc-if>
+              <sc-if value="{{media.hasNote}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #4A574F">{{media.note}}</p></sc-if>
             </div>
           </sc-if>
           <sc-if value="{{tabRef}}" hint-placeholder-val="{{ false }}">
-            <div role="tabpanel" style="display: flex; flex-direction: column; gap: 10px">
-              <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid #F2D58E; border-radius: 13px; background: #FFF5D9">
-                <span style="font-size: 13px; font-weight: 600; color: #6B4A00">ข้อควรระวัง</span>
-                <sc-for list="{{card.caution}}" as="cl" hint-placeholder-count="1"><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #533A04">{{cl.t}}</p></sc-for>
-              </div>
-              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <div role="tabpanel" style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 14px; font-weight: 600; color: #2E3B33">ต้องระวังอะไรที่จุดนี้</span>
+              <sc-for list="{{card.caution}}" as="cl" hint-placeholder-count="1">
+                <div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 11px; border-radius: 13px; background: #FFF5D9; font-size: 15px; line-height: 1.6; color: #533A04">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 3px" aria-hidden="true" focusable="false"><path d="M10.3 4.6a2 2 0 0 1 3.4 0l7.4 12.9a2 2 0 0 1-1.7 3H4.6a2 2 0 0 1-1.7-3z"></path><path d="M12 9.5v4.2M12 17.2h.01"></path></svg>
+                  <span>{{cl.t}}</span>
+                </div>
+              </sc-for>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
                 <span class="g-chip" style="background: #EEF2F0; color: #2E3B33">{{card.cat}}</span>
                 <sc-if value="{{card.hasIpcc}}" hint-placeholder-val="{{ true }}"><span class="g-chip g-mono" style="border: 1px solid rgba(25,38,30,.16); color: #2E3B33">{{card.ipcc}}</span></sc-if>
                 <span class="g-chip" style="background: {{card.soft}}; color: {{card.ink}}">{{card.isoName}}</span>
               </div>
-              <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #4A574F">ที่มาของค่า: {{card.src}}</p>
+              <p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #4A574F">ที่มาของค่า: {{card.src}}</p>
             </div>
           </sc-if>
+            </div>
           </sc-if>
         </div>
         <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
@@ -2333,18 +2358,18 @@ class Component extends DCLogic {
       fbTitle: correct ? 'ถูกต้อง' : 'ยังไม่ถูก',
       fbSub: correct ? 'ได้ 1 คะแนน' : ('คำตอบที่ถูกคือข้อ ' + (keys[b.ans] || '')),
       fbBg: correct ? '#E3F3E6' : '#FBE8E3', fbFg: correct ? '#14532D' : '#7A1E12', fbIcon: correct ? '#15803D' : '#B42318',
-      fbPic: pic(fbWho, fbLine ? fbLine.mood : 'neutral', 1.38, { bg: '#FFFFFF' }),
+      fbPic: pic(fbWho, fbLine ? fbLine.mood : 'neutral', 1.22, { bg: '#FFFFFF', fy: 0 }),
       fbName: TEAM[fbWho].name,
       fbLine: fbLine ? fbLine.t : '',
       why: b.why || '', owner: b.owner || '', formula: b.formula || '',
       ex: list(b.ex), result: b.result || '', hasExtra: !!b.extra, extra: b.extra || '',
       data: list(b.data), verify: list(b.verify), reduce: list(b.reduce), caution: list(b.caution),
       src: b.src || '', cat: b.cat || '', ipcc: b.ipcc || '', hasIpcc: !!b.ipcc,
-      photo: photoOf(b.id), hasPhoto: !!photoOf(b.id), noPhoto: !photoOf(b.id),
+      photo: photoOf(b.id), hasPhoto: !!photoOf(b.id),
       canFilm: canFilm, filmLbl: photoOf(b.id) ? 'ดูวิดีโอสำรวจอีกครั้ง' : 'ดูวิดีโอสำรวจหน้างาน'
     };
     const TH = Object.assign({ calc: 'owl', data: 'firefly', verify: 'owl', reduce: 'sapling', caution: 'firefly' }, (C && C.tabHost) || {});
-    const TABS = [['calc', 'วิธีคำนวณ', 'calc', 'explain'], ['data', 'หลักฐาน', 'data', 'askdocs'], ['verify', 'มุมผู้ทวนสอบ', 'verify', 'inspect'], ['reduce', 'แนวทางลด', 'reduce', 'explain'], ['ref', 'ข้อควรระวัง', 'caution', 'curious']];
+    const TABS = [['calc', 'วิธีคำนวณ', 'calc', 'explain'], ['data', 'หลักฐาน', 'data', 'askdocs'], ['verify', 'มุมผู้ทวน⁠สอบ', 'verify', 'inspect'], ['reduce', 'แนวทางลด', 'reduce', 'explain'], ['ref', 'ข้อควรระวัง', 'caution', 'curious']];
     // v1.0: optional real-world clip per stop (js/media.js → window.GHGTownMedia)
     const MEDIA = window.GHGTownMedia || {};
     const md = cur ? (MEDIA[cur.id] || MEDIA[String(cur.id)] || null) : null;
@@ -2362,22 +2387,14 @@ class Component extends DCLogic {
     }
     const media = mediaV || { yt: false, file: false, src: '', title: '', note: '', hasNote: false };
     const tab = st.tab === 'media' && !mediaV ? 'calc' : (st.tab || 'calc');
-    const tabs = TABS.map((p) => {
-      const on = tab === p[0];
-      return {
-        key: p[0], label: p[1], on: on,
-        bg: on ? '#0B7D43' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0B7D43', bd: on ? '#0B7D43' : 'rgba(25,38,30,.2)',
-        pic: pic(TH[p[2]], p[3], 1.38, { bg: on ? '#FFFFFF' : TEAM[this._uWho(TH[p[2]])].soft, raw: true }),
-        pick: () => this.setState({ tab: p[0] })
-      };
-    });
+    // tab icons come from CSS (.ghg-quiz-tabs>[data-k=...]); the tab's mascot speaks in the host line under the tabs
+    const tabs = TABS.map((p) => ({ key: p[0], label: p[1], on: tab === p[0], pick: () => this.setState({ tab: p[0] }) }));
     const tabDef = TABS.find((p) => p[0] === tab) || TABS[0];
     const hostWho = this._uWho(TH[tabDef[2]]);
     const host = {
-      label: tabDef[1] + ' · ' + TEAM[hostWho].name,
-      motto: TEAM[hostWho].principle + ' — “' + TEAM[hostWho].motto + '”',
+      name: TEAM[hostWho].name, principle: TEAM[hostWho].principle, motto: TEAM[hostWho].motto,
       soft: TEAM[hostWho].soft, ink: TEAM[hostWho].ink,
-      pic: pic(hostWho, tabDef[3], 1.38, { raw: true })
+      pic: pic(hostWho, tabDef[3], 1.22, { raw: true, fy: 0 })
     };
 
     // ---------- compass to the hint beacon (engine: bearing in degrees, clockwise = right)
@@ -2958,7 +2975,7 @@ class Component extends DCLogic {
       opts: opts,
       answered: answered,
       notAnswered: !answered,
-      askPic: pic('owl', 'curious', 1.38),
+      askPic: pic('owl', 'curious', 1.22, { fy: 0 }),
       cardOk: answered && correct,
       cardBad: answered && !correct,
       tabs: tabs,

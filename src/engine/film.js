@@ -360,7 +360,7 @@ GHG3.film = {
       const src = E.canvas;
       const W = src.width, H = src.height;
       if (!W || !H) return;
-      const cw = 320, ch = 180;
+      const cw = 480, ch = 270;
       let sw = W, sh = Math.round(W * ch / cw);
       if (sh > H) { sh = H; sw = Math.round(H * cw / ch); }
       const cv = E.snapCv || (E.snapCv = document.createElement('canvas'));
