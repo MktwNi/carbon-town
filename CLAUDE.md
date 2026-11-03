@@ -13,7 +13,7 @@ A static website (no backend, no framework, no bundler). `index.html` loads, in 
 | Content (data) | `js/content.js` | Edit directly; no build. Plain JS that sets `window.GHGTownContent`. |
 | Media (data) | `js/media.js` | Optional real-world clip per stop (`window.GHGTownMedia = { 6: { video, title, credit } }`, YouTube link or a file path). Adds a "วิดีโอจริง" tab to that stop's card. |
 | UI source | `src/ui/Main.dc.html` | Template + logic. Also the source of the Claude Design version: keep its `/_blob/...` URLs, `ENGINE_BLOB` / `CONTENT_BLOB` placeholders and `support.js` line as they are. |
-| Engine source | `src/engine/*.js` | 13 modules; concatenation order is `ENGINE_ORDER` in `src/tools/build.mjs` (v0.8 added `audio.js`, v1.0 `film.js`; a new module must also go in the `MIXIN` list there). |
+| Engine source | `src/engine/*.js` | 15 modules; concatenation order is `ENGINE_ORDER` in `src/tools/build.mjs` (v0.8 added `audio.js`, v1.0 `film.js`, v1.1 `warehouse.js` and `post.js`; a new module must also go in the `MIXIN` list there). |
 | **Generated** | `js/app.js`, `js/ghg3-engine.min.js`, `js/dc-lite.js` | Never hand-edit. Run `npm install` once, then `npm run build`, and commit them with the sources. |
 | Vendor | `js/three.min.js` | three.js **r149** (MIT). Do not upgrade: the engine targets r149. |
 | Static | `assets/`, `index.html` | Mascot sprite sheets (5×5 poses each), icons, link-preview cover. |
@@ -29,7 +29,7 @@ v0.8 runtime notes:
 
 v0.9 notes:
 - UI: full-screen 3D view in map mode (the page `<header>` only shows in the summary-table view). In-game top bar = status card (`.ghg-status`, opens the riddle book) + fast travel + one menu (`moreOpen`: modes, weather, sound, labels, table, help). Theme: Prompt headings, glass panels (`.g-glass` / `.g-float`), primary `#0B7D43`; the certificate keeps its own dark green / cream.
-- Crowd LOD in `actors.js`: `p.lod` 2 = near (< 32 m, `_acNearParts`: lofted bodies `_acLoftGeo`, faces `_acNFace`, skull-following hair `_acNHairCap`, styles in `p.hs`), 1 = light parts, 0 = 3-box impostor. Every crowd mesh carries `lod`.
+- Crowd LOD in `actors.js`: `p.lod` 2 = near (< 48 m since v1.1, `_acNearParts`: lofted bodies `_acLoftGeo`, faces `_acNFace`, skull-following hair `_acNHairCap`, styles in `p.hs`), 1 = light parts (medium-smooth `'mid'` kit since v1.1), 0 = rounded impostor beyond 110 m. Every crowd mesh carries `lod`.
 - City: tree canopies `_wBlob` (welded lumpy spheres, baked shading), contact shading on grounded `box()` sides (`o.ao`, opt out with `noAO`), vehicle greenhouse `cabin()` in `_wVehGeo`.
 - Smoothness: `core._loop` steps with the rAF timestamp and an eased `dtS`; shaders are pre-compiled at boot; `tune.js` lowers / restores the pixel ratio around ~48 fps; mouse look is queued in `E.lookQ` and eased in `_tickPlayer`.
 
@@ -38,6 +38,11 @@ v1.0 notes:
 - Gas puffs: one `type: 'gas'` emitter per gas per stop (none for scope 2), own particle pool `E.partsG`; pale while the gas is the answer (`E.gasHide`), the gas colour once solved.
 - Question card: answer tabs are one segmented bar whose icons come from CSS masks (`.ghg-quiz-tabs>[data-k=...]`); the tab's mascot speaks in `.ghg-quiz-host` under it. `.ghg-quiz-more` is a size container: below 700 px the tabs stack icon-over-label. Avatars in the card use `pic(..., 1.22, { fy: 0 })` so heads are not clipped.
 - Thai narration: UI `_uSay` (Web Speech API, best Thai voice via `_uTtsVoice`, `_uSayText` spells out formulas and units). It reads film cues (`_uFilmCue`), the speaking mascot's line and the question; the film holds its close-up while it is still speaking (`E.narrOn`). Menu switches: `filmAuto`, `narr` (saved with the progress).
+
+v1.1 notes:
+- Rice-mill warehouse bay (`warehouse.js`, called from `complexes._bMill`): `_whWindows` (south-wall windows: bright day panes inside, glass outside), `_whBuild` (epoxy floor, racks `_whRack`, goods `_whLoad` / `_whCarton` / `_whPallet`, conveyor `_whConveyor`, decals, contact shadows) and `_whForkliftRun` (stop 10's diesel forklift and its cycle; the exhaust emitter is what the film tracks). Canvas textures and buckets (`whCarton`, `whWood`, `whRack`, `whPaint`, `whSack`, `whEpoxy`) are made once in `_whInit`; `_whFlush` merges the contact shadows and window light spill after the mill is built.
+- Indoor light (`sky.js`): `E.spots` = two shadow-casting downlights placed on the interior lamps nearest the camera (their shadow maps only update while inside; skipped at the lowest quality step); inside, `E.inK` eases the hemisphere light and the environment (`E.envK`, rebuilt PMREM) down and the exposure up. Interior lamp lists (`_interior({ lights })`) drive both.
+- Look ("realistic, a touch cartoon"): `core._boot` swaps three's `CustomToneMapping` for ACES + a little saturation / warmth / soft blacks (applies to every material, phones too). `post.js`: `core._loop` calls `_postRender` (frame to screen, then a full-size depth-only pass of opaque objects within 140 m, half-size AO + depth-aware blur, and a final pass multiplying AO and a light ink line on the near side of silhouettes, faded by 70 m). AO ignores steps under ~3.5 cm (tile joints) and off-screen samples. Transparent / sprite / alpha-tested objects are moved to layer 2 (`_postLayers`) so they stay out of the depth pass; shadow cameras also see layer 2. WebGL2 desktops only; `tune.js` turns it off at the two lowest steps.
 
 Deployment (current): repository <https://github.com/MktwNi/carbon-town> (public), GitHub Pages source **"Deploy from a branch" → `main` / root**,
 with an empty `.nojekyll` so files are served as-is. Every push to `main` redeploys in about a minute; live site <https://mktwni.github.io/carbon-town/>.
@@ -98,6 +103,7 @@ The GitHub CLI is installed at `~/.local/bin/gh` (not on PATH); its token has no
 4. "เดินทางด่วน" lands next to a riddle; reload the page → the intro offers "เล่นต่อจากเดิม" with the same score.
 5. At phone width (375 px) the top bar does not overlap and the minimap is visible.
 6. First arrival at an unsolved stop plays the site-visit film (letterbox, AR tag, subtitles); "ข้ามวิดีโอ" / Space skips it; the card then shows the evidence photo and "ดูวิดีโอสำรวจอีกครั้ง" replays it.
+7. Inside the rice mill (stop 10): racks, conveyor and the forklift cycle (drive, lift, set the pallet on the east rack, back away); lamps cast shadows on the floor; no WebGL warnings in the console.
 
 ## Troubleshooting
 

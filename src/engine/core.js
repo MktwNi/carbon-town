@@ -46,7 +46,19 @@ GHG3.core = {
     };
     renderer.setPixelRatio(Math.min(window.__GHG_TEST ? 1 : 1.5, window.devicePixelRatio || 1));
     renderer.outputEncoding = T.sRGBEncoding;
-    renderer.toneMapping = T.ACESFilmicToneMapping;
+    // v1.1 look: ACES, then a little more colour, warm light and soft blacks ("realistic, a touch cartoon")
+    const TMC = T.ShaderChunk.tonemapping_pars_fragment, TMK = 'vec3 CustomToneMapping( vec3 color ) { return color; }';
+    if (TMC && TMC.indexOf(TMK) >= 0) {
+      T.ShaderChunk.tonemapping_pars_fragment = TMC.replace(TMK, [
+        'vec3 CustomToneMapping( vec3 color ) {',
+        '  vec3 c = ACESFilmicToneMapping( color );',
+        '  float l = dot( c, vec3( 0.2126, 0.7152, 0.0722 ) );',
+        '  c = mix( vec3( l ), c, 1.1 ) * vec3( 1.018, 1.0, 0.975 );',
+        '  return saturate( c * 0.985 + 0.004 );',
+        '}'
+      ].join('\n'));
+      renderer.toneMapping = T.CustomToneMapping;
+    } else renderer.toneMapping = T.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = T.PCFSoftShadowMap;
@@ -91,6 +103,7 @@ GHG3.core = {
       setTimeout(() => this._redrawText(), 2600);
     }
     if (typeof this._afterBoot === 'function') this._afterBoot();
+    if (typeof this._initPost === 'function') this._initPost();
     // compile every shader up front, so nothing hitches the first time it comes into view
     try { renderer.compile(scene, cam); } catch (err) { /* compiled lazily instead */ }
     E.raf = requestAnimationFrame((t) => this._loop(t));
@@ -110,7 +123,7 @@ GHG3.core = {
     E.dtS = E.dtS ? E.dtS + (dt - E.dtS) * 0.3 : dt;
     if (!E.w) return;
     this._step(E.dtS);
-    E.renderer.render(E.scene, E.cam);
+    if (E.post) this._postRender(); else E.renderer.render(E.scene, E.cam);
     // site-visit film photo: read the frame right after it is drawn
     if (E.snapReq != null && typeof this._fmSnap === 'function') this._fmSnap();
   },

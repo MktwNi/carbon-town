@@ -29,6 +29,8 @@ GHG3.tune = {
     if (level === E.tuneLevel) return;
     E.tuneLevel = level;
     E.renderer.setPixelRatio(E.tuneSteps[level]);
+    // soft contact shading (post.js) goes first when the machine struggles
+    if (E.post) E.post.on = level < Math.max(1, n - 2);
     E.w = 0; this._resize();
     const want = level >= Math.max(1, n - 2) ? 1024 : 2048;
     const sh = E.sun.shadow;

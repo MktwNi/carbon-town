@@ -67,7 +67,26 @@ GHG3.sky = {
       E.scene.add(L);
       E.plights.push(L);
     }
-    E.wx = { cur: Object.assign({}, this._skyPresets().day), from: null, to: null, t: 1, name: 'day', envT: 0 };
+    // v1.1: the two interior lamps nearest the camera become shadow-casting downlights (real cast shadows indoors).
+    // They always exist, so shaders never recompile; their shadow maps only render while you are inside.
+    E.spots = [];
+    for (let i = 0; i < 2; i++) {
+      const S = new T.SpotLight(0xfff1dc, 0, 24, 1.0, 0.8, 1.2);
+      S.castShadow = true;
+      S.shadow.mapSize.set(1024, 1024);
+      S.shadow.bias = -0.0005;
+      S.shadow.normalBias = 0.035;
+      S.shadow.camera.near = 0.4;
+      S.shadow.camera.far = 26;
+      S.shadow.autoUpdate = false;
+      S.position.set(0, -100, 0);
+      S.target.position.set(0, -110, 0);
+      E.scene.add(S);
+      E.scene.add(S.target);
+      E.spots.push(S);
+    }
+    E.inK = 0;
+    E.wx ={ cur: Object.assign({}, this._skyPresets().day), from: null, to: null, t: 1, name: 'day', envT: 0 };
     this._applySky(E.wx.cur, true);
   },
 
@@ -163,7 +182,9 @@ GHG3.sky = {
     const E = this._E;
     const T = E.T;
     const pos = E.envGeo.attributes.position, col = E.envGeo.attributes.color;
-    const top = this._lcol(p.top), mid = this._lcol(p.mid), bot = this._lcol(p.hg);
+    // indoors the sky light reaching walls and goods is weaker (E.envK eases toward 0.5 inside)
+    const k = E.envK == null ? 1 : E.envK;
+    const top = this._lcol(p.top).multiplyScalar(k), mid = this._lcol(p.mid).multiplyScalar(k), bot = this._lcol(p.hg).multiplyScalar(k);
     const c = new T.Color();
     for (let i = 0; i < pos.count; i++) {
       const h = pos.getY(i) / 100;
@@ -224,12 +245,22 @@ GHG3.sky = {
     E.sun.target.position.set(fx, 0, fz);
     E.sun.position.set(fx + E.sunDir.x * 700, E.sunDir.y * 700, fz + E.sunDir.z * 700);
     E.sun.target.updateMatrixWorld();
+    // indoors: ease the sky light down (hemisphere + environment) and the exposure up, so lamp shadows read
+    const inside = E.insideObj;
+    const inT = inside && inside.lights ? 1 : 0;
+    E.inK += (inT - E.inK) * Math.min(1, dt * 2.2);
+    if (Math.abs(E.inK - inT) < 0.002) E.inK = inT;
+    const cur = E.wx.cur;
+    E.hemi.intensity = cur.hI * (1 - 0.35 * E.inK);
+    E.renderer.toneMappingExposure = cur.exp * (1 + 0.12 * E.inK);
+    const envK = 1 - 0.35 * E.inK;
+    if (E.envK == null) E.envK = 1;
+    if (Math.abs(envK - E.envK) > 0.1 || (envK !== E.envK && E.inK === inT)) { E.envK = envK; this._rebuildEnv(cur); }
     // point lights
     E.plT = (E.plT || 0) - dt;
     if (E.plT > 0) return;
     E.plT = 0.35;
     const cp = E.cam.position;
-    const inside = E.insideObj;
     let cand = [];
     if (inside && inside.lights) {
       cand = inside.lights.map((l) => ({ x: l[0], y: l[1], z: l[2], color: l[3] || '#FFF2DC', k: l[4] || 1.4, d: l[5] || 22, ind: true, d2: (l[0] - cp.x) * (l[0] - cp.x) + (l[2] - cp.z) * (l[2] - cp.z) }));
@@ -242,13 +273,32 @@ GHG3.sky = {
       }
       cand.sort((a, b) => a.d2 - b.d2);
     }
+    // the nearest interior lamps cast shadows (skipped at the lowest quality step), the rest stay point lights
+    const lowQ = E.tuneSteps && E.tuneLevel >= E.tuneSteps.length - 1 && E.tuneSteps.length > 2;
+    let ci = 0;
+    for (const S of E.spots) {
+      const c = inside && inside.lights && !lowQ ? cand[ci] : null;
+      if (c) {
+        ci++;
+        S.position.set(c.x, c.y, c.z);
+        S.target.position.set(c.x, c.y - 10, c.z);
+        S.target.updateMatrixWorld();
+        S.color.copy(this._lcol(c.color));
+        S.intensity = c.k * (0.8 + 0.5 * (E.nightK || 0)) + 0.7;
+        S.distance = Math.max(c.d, c.y + 8);
+        S.shadow.autoUpdate = true;
+      } else {
+        S.intensity = 0;
+        S.shadow.autoUpdate = false;
+      }
+    }
     for (let i = 0; i < E.plights.length; i++) {
       const L = E.plights[i];
-      const c = cand[i];
+      const c = cand[ci + i];
       if (c) {
         L.position.set(c.x, c.y, c.z);
         L.color.copy(this._lcol(c.color));
-        L.intensity = c.ind ? c.k * (0.55 + 0.45 * (E.nightK || 0)) + 0.6 : c.k;
+        L.intensity = c.ind ? c.k * (0.28 + 0.45 * (E.nightK || 0)) + 0.3 : c.k;
         L.distance = c.d;
       } else L.intensity = 0;
     }

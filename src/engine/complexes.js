@@ -859,50 +859,6 @@ GHG3.complexes = {
   },
 
   // ================================================================ RICE MILL (stops 9, 10, 11)
-  _cxForklift() {
-    const E = this._E;
-    const T = E.T;
-    const g = new T.Group();
-    const YL = '#E8B41F', DK = '#2A2D30';
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0.25, 0.05, 1.15, 0.75, 1.9, YL);
-      this.box(A, 0, 0.22, -1.12, 1.15, 1.0, 0.5, DK);
-      this.box(A, 0, 1.0, -0.4, 1.0, 0.45, 0.85, YL);
-      this.box(A, 0, 1.0, 0.25, 0.55, 0.12, 0.5, '#1E1E1E');
-      this.box(A, 0, 1.12, 0.03, 0.5, 0.55, 0.1, '#1E1E1E');
-      for (const sx of [-0.5, 0.5]) { this.box(A, sx, 1.0, 0.72, 0.07, 1.25, 0.07, DK); this.box(A, sx, 1.0, -0.62, 0.07, 1.25, 0.07, DK); }
-      this.box(A, 0, 2.22, 0.05, 1.1, 0.06, 1.48, DK);
-      for (let k = 0; k < 4; k++) this.box(A, 0, 2.2, -0.5 + k * 0.36, 1.0, 0.03, 0.05, DK);
-      this.cylR(A, 0, 1.45, 0.6, 0.025, 0.5, DK, -0.6, 0, 0, 6);
-      this.cylR(A, 0, 1.66, 0.52, 0.16, 0.03, DK, -0.9, 0, 0, 14);
-      for (const sx of [-0.56, 0.56]) { this.cylR(A, sx, 0.34, 0.62, 0.34, 0.26, '#1B1B1B', 0, 0, Math.PI / 2, 14); this.cylR(A, sx, 0.27, -0.78, 0.27, 0.22, '#1B1B1B', 0, 0, Math.PI / 2, 12); }
-      for (const sx of [-0.33, 0.33]) this.box(A, sx, 0.15, 1.1, 0.1, 2.55, 0.12, DK);
-      this.box(A, 0, 2.6, 1.1, 0.76, 0.1, 0.12, DK);
-      this.cylR(A, 0.42, 1.95, -0.85, 0.04, 0.55, '#555555', 0, 0, 0, 6);
-      this.box(A, 0, 1.24, 0.08, 0.42, 0.56, 0.28, '#2F6EA8');
-      this.sph(A, 0, 1.97, 0.1, 0.12, 0.15, 0.12, '#C98F66', 10);
-      this.sph(A, 0, 2.06, 0.1, 0.15, 0.1, 0.15, '#F4F4F0', 10);
-      this.box(A, 0, 0.98, 0.33, 0.4, 0.18, 0.4, '#3A4552');
-      for (const sx of [-0.22, 0.22]) this.boxR(A, sx, 1.42, 0.34, 0.09, 0.42, 0.09, '#2F6EA8', -1.0, 0, 0);
-      this.box(A, 0, 0.3, 1.0, 0.02, 0.4, 0.02, '#F7C51E');
-    }, { parent: g });
-    const car = new T.Group();
-    car.position.set(0, 0.12, 1.2);
-    g.add(car);
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0, 0, 0.82, 0.95, 0.08, DK);
-      for (const sx of [-0.25, 0.25]) { this.box(A, sx, 0, 0.6, 0.1, 0.05, 1.15, '#3B3F43'); this.box(A, sx, 0, 0.04, 0.1, 0.45, 0.05, '#3B3F43'); }
-    }, { parent: car });
-    const load = new T.Group();
-    load.position.set(0, 0.05, 0.62);
-    car.add(load);
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0, 0, 1.1, 0.13, 1.1, '#A88454');
-      for (let l = 0; l < 3; l++) for (let k = 0; k < 2; k++) this.box(A, (k - 0.5) * 0.52, 0.13 + l * 0.2, 0, 0.5, 0.19, 1.0, '#F2F0E8');
-    }, { parent: load });
-    return { g: g, car: car, load: load };
-  },
-
   _cxHiredTruck() {
     const E = this._E;
     const T = E.T;
@@ -1006,7 +962,17 @@ GHG3.complexes = {
       this._cxWall('metal', axis, c, a0, a1, 1.4, EAVE - 1.4, WT, WALLM, gaps.map((g) => [g[0], g[1], g[2] - 1.4]), { noCol: true });
     };
     wall2('x', MZ1 - WT / 2, MX0, MX1, [[-326, -318, 6.2], [-363, -361, 2.4]]);
-    wall2('x', MZ0 + WT / 2, MX0, MX1, []);
+    // south wall: 3 windows per portal-frame bay over the warehouse end (frames 7..10), sill 2.6 m, head 7.2 m
+    const WIN = [];
+    for (const k of [7, 8, 9]) {
+      const xa = MX0 + 0.3 + k * ((MX1 - MX0 - 0.6) / 10) + 0.3, xb = MX0 + 0.3 + (k + 1) * ((MX1 - MX0 - 0.6) / 10) - 0.3;
+      const ww = (xb - xa - 0.5) / 3;
+      for (let i = 0; i < 3; i++) WIN.push([xa + i * (ww + 0.25), xa + i * (ww + 0.25) + ww]);
+    }
+    this._cxWall('concrete', 'x', MZ0 + WT / 2, MX0, MX1, 0, 1.4, WT + 0.04, '#C3BEB4', []);
+    this._cxWall('metal', 'x', MZ0 + WT / 2, MX0, MX1, 1.4, 1.2, WT, WALLM, [], { noCol: true });
+    this._cxWall('metal', 'x', MZ0 + WT / 2, MX0, MX1, 2.6, EAVE - 2.6, WT, WALLM, WIN.map((w) => [w[0], w[1], 4.6]), { noCol: true });
+    this._whWindows(MZ0 + WT / 2, WT, WIN, 2.6, 7.2);
     wall2('z', MX0 + WT / 2, MZ0, MZ1, []);
     wall2('z', MX1 - WT / 2, MZ0, MZ1, []);
     this.gable('metal', MXC, EAVE, MZC, MX1 - MX0, MZ1 - MZ0, RISE, ROOF, { both: true, wall: 'metal', wallCol: WALLM, oh: 0.9 });
@@ -1068,7 +1034,6 @@ GHG3.complexes = {
     const lineX = (x0, x1, z, col) => this.box('paint', (x0 + x1) / 2, 0.12, z, x1 - x0, 0.012, 0.12, col);
     lineX(-386, -314, -311.9, '#F2C21B'); lineX(-386, -314, -306.1, '#F2C21B');
     lineX(-327.5, -312.4, -322.7, '#F2C21B'); lineX(-327.5, -312.4, -318.3, '#F2C21B');
-    for (let k = 0; k < 7; k++) this.box('paint', -326.5 + k * 2.1, 0.12, -320.5, 1.1, 0.012, 0.12, '#FFFFFF');
 
     // ---------- milling line
     // intake/cleaning zone (west)
@@ -1209,46 +1174,13 @@ GHG3.complexes = {
     this.box('flat', -328.9, 0.55, -320.7, 1.8, 0.12, 0.7, '#3A3F44');
     for (const lx of [-329.6, -328.2]) this.box('flat', lx, 0.12, -320.7, 0.08, 0.43, 0.6, '#5E666C');
     this._col(-332.05, -322.25, -328.0, -319.25);
-    // pallet rack at the lane end
-    for (const rx of [-312.05, -308.65]) for (const rz of [-321.95, -319.05]) this.box('flat', rx, 0.12, rz, 0.09, 3.3, 0.09, '#E36B2C');
-    for (const ly of [1.3, 2.6]) for (const rx of [-312.05, -308.65]) this.box('flat', rx, ly, -320.5, 0.12, 0.12, 3.0, '#2F5E9C');
-    this.box('wood', -310.35, 2.72, -320.5, 1.1, 0.13, 1.1, '#A88454');
-    for (let l = 0; l < 3; l++) for (let k = 0; k < 2; k++) this.box('flat', -310.35, 2.85 + l * 0.2, -320.5 + (k - 0.5) * 0.52, 1.0, 0.19, 0.5, '#F2F0E8');
-    this._col(-312.2, -322.1, -308.5, -318.9);
-    // sack stacks
-    for (let i = 0; i < 8; i++) this._cxSacks(-331.3 + i * 2.75, -331.6, 6 + ((R() * 4) | 0), R, false);
-    for (let i = 0; i < 4; i++) this._cxSacks(-320.3 + i * 2.75, -328.9, 4 + ((R() * 4) | 0), R, false);
-    this._col(-332.6, -332.6, -309.0, -327.9);
-    for (let i = 0; i < 6; i++) this._cxSacks(-310.9, -316.7 + i * 2.55, 5 + ((R() * 5) | 0), R, true);
-    this._col(-312.0, -318.0, -309.0, -301.3);
     // forklift warning sign on a stand
     this.cyl('flat', -326.8, 0.12, -317.4, 0.04, 1.65, '#5E666C', 6);
     this.box('flat', -326.8, 0.12, -317.4, 0.4, 0.06, 0.4, '#5E666C');
     this._sign('ระวังรถโฟล์คลิฟต์', 1.6, 0.55, '#F7C51E', '#1A1A1A', [-326.8, 1.95, -317.33], 0, { border: '#1A1A1A', size: 0.5 });
     this._col(-327.05, -317.65, -326.55, -317.15);
-    // the forklift (stop 10)
-    const FL = this._cxForklift();
-    FL.g.position.set(-326.5, 0.12, -320.5);
-    FL.g.rotation.y = Math.PI / 2;
-    this._addDyn(FL.g);
-    const flEx = this._emitter({ type: 'exhaust', pos: [-327.35, 2.35, -320.92], rate: 3, size: 0.32, rise: 0.7, spread: 0.08, life: 1.6, color: '#6B6B6B' });
-    const xA = -326.5, xB = -314.4, CYC = 22;
-    this._anim((dt, t) => {
-      const u = t % CYC;
-      let x = xA, lift = 0.12, has = true;
-      if (u < 2) { x = xA; }
-      else if (u < 8) { x = xA + (xB - xA) * this._sm((u - 2) / 6); lift = 0.12 + 0.13 * this._sm((u - 2) / 1); }
-      else if (u < 11) { x = xB; lift = 0.25 + (1.42 - 0.25) * this._sm((u - 8) / 3); }
-      else if (u < 12) { x = xB; lift = 1.42; has = u < 11.4; }
-      else if (u < 14) { x = xB; has = false; lift = 1.42 + (0.12 - 1.42) * this._sm((u - 12) / 2); }
-      else if (u < 20) { has = false; x = xB + (xA - xB) * this._sm((u - 14) / 6); }
-      else { has = u > 21; }
-      FL.g.position.x = x;
-      FL.car.position.y = lift;
-      FL.load.visible = has;
-      flEx.pos[0] = x - 0.85; flEx.pos[1] = 2.35; flEx.pos[2] = -320.92;
-      flEx.rate = (u > 2 && u < 8) || (u > 14 && u < 20) ? 6 : 2.5;
-    });
+    // racks, conveyor, epoxy floor and the forklift with its cycle (stop 10): warehouse.js
+    const WHL = this._whBuild(R);
 
     // ---------- intake canopy + pit + external elevator + hired truck (stop 11)
     this.box('metal', -381, 6.8, -291.85, 14.4, 0.1, 11.7, '#7C98B4', { skip: 'ny' });
@@ -1502,6 +1434,8 @@ GHG3.complexes = {
 
     // ---------- interiors + anchors
     for (const x of [-381, -367, -353, -339, -325, -312]) LAMPS.push([x, 8.0, -316, '#FFF1D6', 1.6, 28]);
+    for (const l of WHL) LAMPS.push(l);
+    this._whFlush();
     this._interior({ name: 'mill', rect: [MX0 + WT, MZ0 + WT, MX1 - WT, MZ1 - WT], helmet: true, label: 'ภายในโรงสีข้าว', lights: LAMPS });
     this._interior({ name: 'boiler', rect: [BX0, BZ0 + 0.3, BX1 - 0.3, BZ1 - 0.3], helmet: true, label: 'ห้องหม้อไอน้ำแกลบ',
       lights: [[-303, 6.8, -318, '#FFE6C4', 1.3, 16], [-296, 6.8, -318, '#FFE6C4', 1.2, 16], [-296, 6.8, -326, '#FFE6C4', 1.2, 16], [-303.75, 1.3, -320.3, '#FF8A3D', 1.8, 7]] });

@@ -764,27 +764,27 @@ GHG3.actors = {
     const bk = (fn) => this._bake((A) => fn(A));
     const legBottom = Object.assign({}, cw, { shorts: false, skirt: false });
     return [
-      { k: 'head', j: ['neck'], geo: bk((A) => this._acHead(A, cw, 'lo')), col: (p) => p.c.skin },
-      { k: 'hair', j: ['neck'], geo: bk((A) => this._acHairShort(A, cw, 'lo')), col: (p) => p.c.hair, when: (p) => !p.c.hairLong && !p.c.hat },
-      { k: 'hairL', j: ['neck'], geo: bk((A) => this._acHairLong(A, cw, 'lo')), col: (p) => p.c.hair, when: (p) => p.c.hairLong },
-      { k: 'torso', j: ['torso'], geo: bk((A) => this._acTorso(A, cw, 'lo')), col: (p) => p.c.top },
-      { k: 'pelvis', j: ['hips'], geo: bk((A) => this._acPelvis(A, cw, 'lo')), col: (p) => p.c.bottom },
-      { k: 'uarm', j: ['shL', 'shR'], geo: bk((A) => this._acUpperArm(A, Object.assign({}, cw, { longSleeve: true }), 'lo')), col: (p) => p.c.sleeve, when: (p) => p.c.longSleeve || p.c.coat },
-      { k: 'uarmS', j: ['shL', 'shR'], geo: bk((A) => this._acSleeve(A, cw, 'lo')), col: (p) => p.c.sleeve, when: (p) => !p.c.longSleeve && !p.c.coat },
-      { k: 'uarmB', j: ['shL', 'shR'], geo: bk((A) => this._acArmBare(A, cw, 'lo')), col: (p) => p.c.skin, when: (p) => !p.c.longSleeve && !p.c.coat },
-      { k: 'farm', j: ['elL', 'elR'], geo: bk((A) => this._acForearm(A, cw, 'lo')), col: (p) => p.c.fore },
+      { k: 'head', j: ['neck'], geo: bk((A) => this._acHead(A, cw, 'mid')), col: (p) => p.c.skin },
+      { k: 'hair', j: ['neck'], geo: bk((A) => this._acHairShort(A, cw, 'mid')), col: (p) => p.c.hair, when: (p) => !p.c.hairLong && !p.c.hat },
+      { k: 'hairL', j: ['neck'], geo: bk((A) => this._acHairLong(A, cw, 'mid')), col: (p) => p.c.hair, when: (p) => p.c.hairLong },
+      { k: 'torso', j: ['torso'], geo: bk((A) => this._acTorso(A, cw, 'mid')), col: (p) => p.c.top },
+      { k: 'pelvis', j: ['hips'], geo: bk((A) => this._acPelvis(A, cw, 'mid')), col: (p) => p.c.bottom },
+      { k: 'uarm', j: ['shL', 'shR'], geo: bk((A) => this._acUpperArm(A, Object.assign({}, cw, { longSleeve: true }), 'mid')), col: (p) => p.c.sleeve, when: (p) => p.c.longSleeve || p.c.coat },
+      { k: 'uarmS', j: ['shL', 'shR'], geo: bk((A) => this._acSleeve(A, cw, 'mid')), col: (p) => p.c.sleeve, when: (p) => !p.c.longSleeve && !p.c.coat },
+      { k: 'uarmB', j: ['shL', 'shR'], geo: bk((A) => this._acArmBare(A, cw, 'mid')), col: (p) => p.c.skin, when: (p) => !p.c.longSleeve && !p.c.coat },
+      { k: 'farm', j: ['elL', 'elR'], geo: bk((A) => this._acForearm(A, cw, 'mid')), col: (p) => p.c.fore },
       { k: 'hand', j: ['wrL', 'wrR'], geo: bk((A) => this._acHand(A, cw, 'lo', 'L')), col: (p) => p.c.skin },
-      { k: 'thigh', j: ['hipL', 'hipR'], geo: bk((A) => this._acThigh(A, legBottom, 'lo')), col: (p) => (p.c.skirt ? p.c.skin : p.c.bottom), when: (p) => !p.c.shorts },
-      { k: 'thighS', j: ['hipL', 'hipR'], geo: bk((A) => this._acShorts(A, cw, 'lo')), col: (p) => p.c.bottom, when: (p) => p.c.shorts },
-      { k: 'thighB', j: ['hipL', 'hipR'], geo: bk((A) => this._acThighBare(A, cw, 'lo')), col: (p) => p.c.skin, when: (p) => p.c.shorts },
-      { k: 'shin', j: ['knL', 'knR'], geo: bk((A) => this._acShin(A, legBottom, 'lo')), col: (p) => p.c.shin },
-      { k: 'shoe', j: ['anL', 'anR'], geo: bk((A) => this._acShoe(A, cw, 'lo')), col: (p) => p.c.shoe },
-      { k: 'skirt', j: ['hips'], geo: bk((A) => this._acSkirt(A, cw, 'lo')), col: (p) => p.c.bottom, when: (p) => p.c.skirt },
-      { k: 'hat', j: ['neck'], geo: bk((A) => this._acHat(A, 'lo')), col: () => '#FFFFFF', when: (p) => p.c.hat },
+      { k: 'thigh', j: ['hipL', 'hipR'], geo: bk((A) => this._acThigh(A, legBottom, 'mid')), col: (p) => (p.c.skirt ? p.c.skin : p.c.bottom), when: (p) => !p.c.shorts },
+      { k: 'thighS', j: ['hipL', 'hipR'], geo: bk((A) => this._acShorts(A, cw, 'mid')), col: (p) => p.c.bottom, when: (p) => p.c.shorts },
+      { k: 'thighB', j: ['hipL', 'hipR'], geo: bk((A) => this._acThighBare(A, cw, 'mid')), col: (p) => p.c.skin, when: (p) => p.c.shorts },
+      { k: 'shin', j: ['knL', 'knR'], geo: bk((A) => this._acShin(A, legBottom, 'mid')), col: (p) => p.c.shin },
+      { k: 'shoe', j: ['anL', 'anR'], geo: bk((A) => this._acShoe(A, cw, 'mid')), col: (p) => p.c.shoe },
+      { k: 'skirt', j: ['hips'], geo: bk((A) => this._acSkirt(A, cw, 'mid')), col: (p) => p.c.bottom, when: (p) => p.c.skirt },
+      { k: 'hat', j: ['neck'], geo: bk((A) => this._acHat(A, 'mid')), col: () => '#FFFFFF', when: (p) => p.c.hat },
       { k: 'helmet', j: ['neck'], geo: bk((A) => this._acHelmet(A, 'lo', '#FFFFFF')), col: (p) => p.c.helmet || '#F4F4F0', when: (p) => !!p.c.helmet },
-      { k: 'coat', j: ['torso'], geo: bk((A) => this._acCoat(A, 'lo')), col: () => '#FFFFFF', when: (p) => p.c.coat },
+      { k: 'coat', j: ['torso'], geo: bk((A) => this._acCoat(A, 'mid')), col: () => '#FFFFFF', when: (p) => p.c.coat },
       { k: 'apron', j: ['torso'], geo: bk((A) => this._acApron(A, 'lo', '#FFFFFF')), col: (p) => p.c.apron || '#FFFFFF', when: (p) => !!p.c.apron },
-      { k: 'umb', j: ['root'], geo: bk((A) => this._acUmbrella(A, 'lo', '#FFFFFF')), col: (p) => p.c.umb, when: (p) => p.umbOn }
+      { k: 'umb', j: ['root'], geo: bk((A) => this._acUmbrella(A, 'mid', '#FFFFFF')), col: (p) => p.c.umb, when: (p) => p.umbOn }
     ];
   },
 
@@ -1103,7 +1103,7 @@ GHG3.actors = {
       E.scene.add(im);
       return { pt: pt, im: im, lod: 1 };
     });
-    // near LOD (people within ~32 m): smooth bodies, faces and hair; skin / cloth / hair get their own sheen
+    // near LOD (people within ~48 m): smooth bodies, faces and hair; skin / cloth / hair get their own sheen
     const MATS = {
       skin: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.56, metalness: 0 }),
       cloth: new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, metalness: 0 }),
@@ -1123,12 +1123,12 @@ GHG3.actors = {
       E.scene.add(im);
       return { pt: pt, im: im, lod: 2 };
     });
-    // far LOD: 3-box impostor in root space (people beyond ~85 m are a few pixels tall)
+    // far LOD: rounded 3-part impostor in root space (people beyond ~110 m are a few pixels tall)
     const imp = [
-      { k: 'fLeg', geo: this._bake((A) => { const K = this._acKit(A, 'lo'); K.B(0.05, 0.43, 0, 0.12, 0.84, 0.15, '#FFFFFF'); K.B(-0.05, 0.43, 0, 0.12, 0.84, 0.15, '#FFFFFF'); }), col: (p) => (p.c.skirt || p.c.shorts ? p.c.skin : p.c.bottom) },
-      { k: 'fTop', geo: this._bake((A) => { const K = this._acKit(A, 'lo'); K.B(0, 1.2, 0, 0.36, 0.56, 0.21, '#FFFFFF'); K.B(0, 0.95, 0, 0.32, 0.16, 0.2, '#FFFFFF'); }), col: (p) => p.c.top },
-      { k: 'fHead', geo: this._bake((A) => { const K = this._acKit(A, 'lo'); K.S(0, 1.6, 0, 0.09, 0.115, 0.1, '#FFFFFF'); }), col: (p) => (p.c.hat ? '#D9C48E' : (p.c.helmet || p.c.hair)) },
-      { k: 'fUmb', geo: this._bake((A) => this._acUmbrella(A, 'lo', '#FFFFFF')), col: (p) => p.c.umb, when: (p) => p.umbOn }
+      { k: 'fLeg', geo: this._bake((A) => { const K = this._acKit(A, 'mid'); K.C(0.055, 0.43, 0, 0.065, 0.84, 0.075, 0.75, '#FFFFFF'); K.C(-0.055, 0.43, 0, 0.065, 0.84, 0.075, 0.75, '#FFFFFF'); }), col: (p) => (p.c.skirt || p.c.shorts ? p.c.skin : p.c.bottom) },
+      { k: 'fTop', geo: this._bake((A) => { const K = this._acKit(A, 'mid'); K.C(0, 1.18, 0, 0.19, 0.6, 0.11, 0.85, '#FFFFFF'); K.S(0, 1.46, 0, 0.19, 0.06, 0.11, '#FFFFFF'); K.S(0, 0.92, 0, 0.16, 0.08, 0.1, '#FFFFFF'); }), col: (p) => p.c.top },
+      { k: 'fHead', geo: this._bake((A) => { const K = this._acKit(A, 'mid'); K.S(0, 1.6, 0, 0.09, 0.115, 0.1, '#FFFFFF'); }), col: (p) => (p.c.hat ? '#D9C48E' : (p.c.helmet || p.c.hair)) },
+      { k: 'fUmb', geo: this._bake((A) => this._acUmbrella(A, 'mid', '#FFFFFF')), col: (p) => p.c.umb, when: (p) => p.umbOn }
     ].map((pt) => {
       const im = new T.InstancedMesh(pt.geo, E.mats.flat, cap);
       im.frustumCulled = false; im.castShadow = true; im.receiveShadow = true;
@@ -1196,7 +1196,7 @@ GHG3.actors = {
       p.vis = d < 430;
       if (!p.vis) continue;
       // detail level: 2 = near (full body + face), 1 = light, 0 = far impostor
-      p.lod = d > 85 ? 0 : (d < 32 ? 2 : 1);
+      p.lod = d > 110 ? 0 : (d < 48 ? 2 : 1);
       p.far = p.lod === 0;
       if (p.far) {
         C.Q.setFromAxisAngle(C.Y, p.yaw);
