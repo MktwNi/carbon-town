@@ -1696,7 +1696,9 @@ Object.assign(GHG3.world, {
     // entrance canopy (porte-cochere) + steps
     this.box('concrete', bcx, 4.4, 53.5, 22, 0.5, 11, '#E9E4DA', { bot: 'flat' });
     for (const px of [bcx - 10, bcx + 10]) for (const pz of [49, 57.5]) { this.box('plaster', px, 0.05, pz, 0.7, 4.35, 0.7, WH); this._col(px - 0.45, pz - 0.45, px + 0.45, pz + 0.45); }
-    for (let k = 0; k < 3; k++) this.box('concrete', bcx, 0, 58.2 - k * 0.6, 14, 0.15 * (k + 1), 0.6 + k * 0.6, '#D7D1C5');
+    // entrance podium at floor level 0.5 under the portico, three steps up from the drive
+    this.box('concrete', bcx, 0, 61.0, 22, 0.5, 6.0, '#D7D1C5');
+    for (let k = 0; k < 3; k++) this.box('concrete', bcx, 0, 57.8 - k * 0.4, 14, 0.375 - k * 0.125, 0.4, '#D7D1C5');
     this.box('glass', bcx, 0.5, bz0 - 5.05, 4.0, 3.2, 0.1, '#5E7A8A');
     this.box('flat', bcx, 3.7, bz0 - 5.1, 4.4, 0.3, 0.14, '#7A5233');
     this._sign('สำนักงานเทศบาลเมืองคาร์บอน', 19, 1.05, '#7A2E1F', '#F8D776', [bcx, 4.65, 47.95], Math.PI, { border: GOLD });
@@ -1722,52 +1724,24 @@ Object.assign(GHG3.world, {
     for (const p of [[-150, 24], [-128, 24], [-70, 26], [-150, 110], [-140, 100], [-100, 110], [-30, 100], [-30, 150], [-30, 190], [-150, 192]]) E.treeSpots.push({ x: p[0], z: p[1], s: 0.9 + R() * 0.3, kind: this._wPick(R, ['rain', 'mango', 'rain', 'golden']) });
     for (let k = 0; k < 10; k++) E.treeSpots.push({ x: -118 + k * 7, z: 61.5, s: 0.35, kind: 'bush' });
 
-    // ---- STOP 3: purchased electricity — pole-mounted transformer + meter/MDB cabinet
+    // ---- STOP 3: purchased electricity — two-pole platform transformer, kWh meter on the pole, MDB at the wall (civic.js)
     const tx = -114, tz = 56;
-    for (const px of [tx - 2, tx + 2]) { this.cyl('concrete', px, 0, tz, 0.2, 10.5, '#BDB8AE', 10); this._col(px - 0.3, tz - 0.3, px + 0.3, tz + 0.3); }
-    this.box('shiny', tx, 4.6, tz, 5.2, 0.18, 1.2, '#7F878C');
-    this.box('shiny', tx, 9.3, tz, 5.6, 0.16, 0.16, '#6B6F70');
-    this.cyl('flat', tx, 4.78, tz, 0.75, 1.55, '#8C989B', 16);
-    this.box('flat', tx, 4.95, tz, 1.9, 1.0, 0.25, '#7A8689');
-    for (const s of [-0.45, 0, 0.45]) { this.cyl('flat', tx + s, 6.33, tz, 0.07, 0.55, '#C9C1B4', 8); E.wWire.push(tx + s, 6.88, tz, tx + s * 2.2, 9.42, tz); }
-    for (const s of [-2.2, 0, 2.2]) this.cyl('flat', tx + s, 9.46, tz, 0.07, 0.3, '#C9C1B4', 8);
-    // service cable to the cabinet + building
-    E.wWire.push(tx + 0.6, 4.9, tz + 0.2, tx + 4, 3.0, tz + 4);
-    E.wWire.push(tx + 4, 3.0, tz + 4, tx + 4, 1.9, bz0 - 0.4);
-    this.box('flat', tx + 4, 0.5, bz0 - 0.55, 2.2, 2.2, 0.6, '#C5CAC7');
-    this.box('flat', tx + 3.55, 1.6, bz0 - 0.9, 0.5, 0.6, 0.12, '#EDEFEF');
-    this.box('glow', tx + 3.55, 1.8, bz0 - 0.97, 0.3, 0.15, 0.02, '#9FE3B5');
-    this.box('flat', tx + 4.6, 1.2, bz0 - 0.88, 0.6, 0.9, 0.06, '#2F5F8F');
-    this._col(tx + 2.8, bz0 - 1.0, tx + 5.2, bz0);
-    this._sign('มิเตอร์ไฟฟ้า · ตู้ MDB', 2.4, 0.42, '#1F4D36', '#FFFFFF', [tx + 4, 2.95, bz0 - 0.86], Math.PI, {});
-    // wires from the street poles to the transformer
-    E.wWire.push(tx - 2.2, 9.42, tz, tx - 6, 9.6, 13.6, tx + 2.2, 9.42, tz, tx - 2, 9.6, 13.6);
+    this._cvTransformer(tx, tz, bz0);
     const v3 = [-113, 41], l3 = [-114, 5.0, 57];
     this._stopAnchor(3, { view: v3, look: l3, guide: this._wGuideAt(v3, l3, 1.5), pin: [tx, 11.2, tz], emit: [tx, 6.6, tz], gas: ['CO2'], spread: 2.5, route: [[-105, 12], [-105, 30], v3], inside: null, district: 'civic' });
 
     // ---- STOP 2: septic tank (west side of the building)
     const sx = -127, sz = 73;
-    this.box('concrete', sx, 0, sz, 6, 0.3, 10, '#B9B3A7');
-    for (const dz of [-3, 0, 3]) { this.cyl('flat', sx, 0.3, sz + dz, 0.55, 0.06, '#5D6366', 16); this.cyl('flat', sx, 0.36, sz + dz, 0.12, 0.04, '#3D4245', 8); }
-    this._col(sx - 3, sz - 5, sx + 3, sz + 5);
-    this.cyl('flat', -120.6, 0, 77, 0.07, 3.6, '#E6E8E8', 10);
-    this.box('flat', -120.6, 3.55, 77, 0.32, 0.12, 0.12, '#E6E8E8');
-    this.tube('flat', [[-120.6, 0.25, 77], [-122.5, 0.25, 77], [-124, 0.2, 76]], 0.06, '#E6E8E8', 8);
+    this._cvSeptic(sx, sz, bx0);
+    this._col(sx - 2.5, sz - 4.7, sx + 2.5, sz + 4.7);
     this.cyl('shiny', -131.5, 0, 66.5, 0.04, 1.3, '#8C949A', 6);
     this._sign('บ่อเกรอะ (Septic Tank)', 1.7, 0.42, '#FFFFFF', '#1F3A5F', [-131.5, 1.5, 66.45], Math.PI, { border: '#1F3A5F' });
     const v2 = [-131, 60], l2 = [-126.5, 0.4, 73];
-    this._stopAnchor(2, { view: v2, look: l2, guide: this._wGuideAt(v2, l2, -1.5), pin: [sx, 3.2, sz], emit: [-120.6, 3.7, 77], gas: ['CH4'], spread: 1.3, route: [[-105, 12], [-105, 30], [-131, 46], v2], inside: null, district: 'civic' });
+    this._stopAnchor(2, { view: v2, look: l2, guide: this._wGuideAt(v2, l2, -1.5), pin: [sx, 3.2, sz], emit: [bx0 - 0.12, 3.6, sz + 4], gas: ['CH4'], spread: 1.3, route: [[-105, 12], [-105, 30], [-131, 46], v2], inside: null, district: 'civic' });
 
     // ---- STOP 4: staff motorbike parking (covered shed, west strip)
     const mx0 = -158, mx1 = -146, mz0 = 58, mz1 = 92;
-    this.plane('concrete', (mx0 + mx1) / 2, 0.07, (mz0 + mz1) / 2, mx1 - mx0, mz1 - mz0, '#BDB7AC');
-    for (let z = mz0; z <= mz1 + 0.1; z += 6.8) for (const x of [mx0 + 0.3, mx1 - 0.3]) { this.box('shiny', x, 0, z, 0.16, 2.8, 0.16, '#7F878C'); this._col(x - 0.2, z - 0.2, x + 0.2, z + 0.2); }
-    this._wQ('metal', [mx0 - 0.6, 3.0, mz1 + 0.5], [mx1 + 0.6, 2.6, mz1 + 0.5], [mx1 + 0.6, 2.6, mz0 - 0.5], [mx0 - 0.6, 3.0, mz0 - 0.5], '#4F7DA8', true);
-    this._sign('ที่จอดรถจักรยานยนต์ พนักงาน', 5.2, 0.6, '#1565C0', '#FFFFFF', [mx1 + 0.1, 2.25, mz0 + 2.4], Math.PI / 2, {});
-    for (let z = mz0 + 1.2; z < mz1 - 0.8; z += 1.15) for (const x of [mx0 + 2.1, mx1 - 2.1]) {
-      if (R() < 0.12) continue;
-      E.parkSpots.push({ x: x, z: z, yaw: x < (mx0 + mx1) / 2 ? Math.PI / 2 : -Math.PI / 2, kind: 'moto', color: this._wPick(R, ['#C62828', '#1565C0', '#212121', '#ECEFF1', '#2E7D32', '#F9A825', '#6A1B9A']) });
-    }
+    this._cvMotoShed(mx0, mx1, mz0, mz1, R);
     this._col(mx0 + 0.6, mz0 + 0.6, mx0 + 3.6, mz1 - 0.6);
     this._col(mx1 - 3.6, mz0 + 0.6, mx1 - 0.6, mz1 - 0.6);
     const v4 = [-139, 72], l4 = [-151.5, 0.9, 75];
@@ -1775,30 +1749,15 @@ Object.assign(GHG3.world, {
 
     // ---- STOP 5: CO2 fire extinguishers under the entrance canopy
     const ex = bcx + 5.2, ez = bz0 - 5.75;
-    this.box('flat', ex, 0.55, ez, 2.2, 0.08, 0.5, '#B71C1C');
-    for (const dx of [-0.65, 0.1]) {
-      // CO2 extinguisher: tall red cylinder + black horn
-      this.cyl('shiny', ex + dx, 0.63, ez, 0.12, 0.85, '#D32F2F', 14);
-      this.sph('shiny', ex + dx, 1.48, ez, 0.12, 0.08, 0.12, '#D32F2F', 12);
-      this.box('flat', ex + dx, 1.55, ez, 0.08, 0.14, 0.08, '#1E1E1E');
-      this.tube('flat', [[ex + dx + 0.04, 1.6, ez], [ex + dx + 0.14, 1.45, ez + 0.08], [ex + dx + 0.16, 1.05, ez + 0.12]], 0.025, '#1E1E1E', 6);
-      this._gput('flat', 'cone12', ex + dx + 0.16, 0.92, ez + 0.12, 0.09, 0.28, 0.09, Math.PI, 0, 0, '#1E1E1E');
-    }
-    // dry-chemical extinguisher for contrast (shorter, gauge + hose)
-    this.cyl('shiny', ex + 0.75, 0.63, ez, 0.11, 0.6, '#E53935', 14);
-    this.sph('shiny', ex + 0.75, 1.23, ez, 0.11, 0.07, 0.11, '#E53935', 12);
-    this.cylR('flat', ex + 0.75, 1.33, ez + 0.1, 0.05, 0.02, '#F2F2F2', Math.PI / 2, 0, 0, 10);
-    this.tube('flat', [[ex + 0.82, 1.3, ez], [ex + 0.9, 1.0, ez + 0.06], [ex + 0.88, 0.8, ez + 0.1]], 0.02, '#1E1E1E', 6);
-    this.box('flat', ex, 1.95, ez + 0.05, 2.2, 0.55, 0.04, '#FFFFFF');
-    this._sign('ถังดับเพลิง CO₂ · ผงเคมีแห้ง', 2.1, 0.5, '#B71C1C', '#FFFFFF', [ex, 2.25, ez - 0.25], Math.PI, {});
-    this._col(ex - 1.2, ez - 0.4, ex + 1.2, ez + 0.4);
+    this._cvExtinguishers(ex, ez, 0.5);
     const v5 = [bcx + 1.5, 55.2], l5 = [ex, 1.1, ez];
-    this._stopAnchor(5, { view: v5, look: l5, guide: this._wGuideAt(v5, l5, -1.3, 1.4), pin: [ex, 3.4, ez], emit: [ex - 0.3, 1.6, ez], gas: ['CO2'], spread: 0.9, route: [[-92, 12], [-92, 26], [-92, 45], v5], inside: null, district: 'civic' });
+    this._stopAnchor(5, { view: v5, look: l5, guide: this._wGuideAt(v5, l5, -1.3, 1.4), pin: [ex, 3.4, ez], emit: [ex - 0.25, 1.15, ez - 0.1], gas: ['CO2'], spread: 0.9, route: [[-92, 12], [-92, 26], [-92, 45], v5], inside: null, district: 'civic' });
     // staff + visitors
     E.crowdSpots.push({ x: bcx - 3, z: 52, yaw: Math.PI, mode: 'chat', outfit: 'office' });
     E.crowdSpots.push({ x: bcx - 2, z: 51.2, yaw: 0, mode: 'chat', outfit: 'office' });
     E.crowdSpots.push({ x: -150, z: 66, yaw: Math.PI / 2, mode: 'stand', outfit: 'office' });
     E.walkLoops.push({ pts: [[-105, 14.5], [-105, 46], [-70, 46], [-70, 14.5]], closed: true });
+    this._cvFlush();
   },
 
   // ------------------------------------------------------------- school (stop 8)
@@ -1901,7 +1860,19 @@ Object.assign(GHG3.world, {
       this.sph('flat', kx, 1.22, z, 0.38, 0.14, 0.38, '#26282A', 14);
       this.box('flat', kx - 0.45, 1.25, z + 0.25, 0.05, 0.05, 0.5, '#5C3A21');
       this.cyl('glow', kx, 1.19, z, 0.18, 0.02, '#4F8BFF', 12);
+      // pot or wok contents, burner valve, steam
+      if (k === 1) { this.cyl('shiny', kx, 1.2, z, 0.3, 0.42, '#C9CED2', 20); this.cyl('flat', kx, 1.6, z, 0.29, 0.02, '#E8D9A8', 20); }
+      else this.sph('flat', kx, 1.27, z, 0.3, 0.05, 0.3, k ? '#C88A3A' : '#7DB24E', 14);
+      this.cylR('flat', kx - 0.66, 0.85, z, 0.035, 0.08, '#E0A21B', 0, 0, Math.PI / 2, 10);
+      this._emitter({ type: 'steam', pos: [kx, 1.7, z], rate: 2, size: 0.5, rise: 0.8, spread: 0.12, life: 1.6, color: '#F4F4F2' });
     }
+    // prep sink, plate stack and utensil rail on the kitchen line
+    this.box('shiny', kx, 1.0, kz1 - 0.9, 1.1, 0.04, 1.2, '#D6DADD');
+    this.box('flat', kx, 0.86, kz1 - 0.9, 0.9, 0.15, 0.9, '#9AA1A6');
+    this.cyl('shiny', kx - 0.4, 1.04, kz1 - 0.9, 0.02, 0.3, '#C9CED2', 8);
+    for (let k = 0; k < 8; k++) this.cyl('flat', kx + 0.25, 1.0 + k * 0.025, kz0 + 0.5, 0.13, 0.02, '#F7F7F2', 16);
+    this.box('shiny', kx + 0.68, 1.75, kc, 0.04, 0.04, kl - 1, '#C9CED2');
+    for (let k = 0; k < 6; k++) this.cylR('shiny', kx + 0.66, 1.55, kz0 + 1 + k * 1.6, 0.012, 0.36, '#C9CED2', 0, 0, 0, 6);
     this.box('shiny', kx + 0.2, 3.35, kc, 1.2, 0.45, kl + 0.4, '#AEB4B8', { bot: 'shiny' });
     this.box('shiny', kx + 0.2, 3.8, kz1 - 0.5, 0.45, 1.0, 0.45, '#AEB4B8');
     this._col(kx - 0.75, kz0 - 0.2, kx + 0.75, kz1 + 0.2);
@@ -1912,14 +1883,25 @@ Object.assign(GHG3.world, {
     this.box('concrete', ccx, 0, ccz, cx1 - cx0 + 0.6, 0.18, cz1 - cz0 + 0.6, '#C9C2B4');
     this._wFence([[cx0, cz0], [cx1, cz0], [cx1, cz1], [cx0, cz1]], 2.0, true, null);
     this.box('flat', ccx, 2.1, ccz, cx1 - cx0 + 0.4, 0.08, cz1 - cz0 + 0.4, '#8C949A');
+    // 48 kg cylinders: glossy body, wrap-round label, foot ring, handle collar, regulator + flexible hose to the header
+    this._plInit();
     for (let k = 0; k < 6; k++) {
-      const z = cz0 + 1.2 + (k % 3) * 1.8, x = ccx - 1.3 + ((k / 3) | 0) * 2.6;
-      this.cyl('shiny', x, 0.18, z, 0.19, 1.12, '#3E6FA8', 14);
-      this.sph('shiny', x, 1.3, z, 0.19, 0.12, 0.19, '#3E6FA8', 12);
-      this.cyl('flat', x, 1.38, z, 0.12, 0.16, '#C9CED2', 10);
-      this.cyl('flat', x, 1.5, z, 0.04, 0.1, '#D4A64A', 6);
-      this.tube('flat', [[x, 1.58, z], [ccx + (x < ccx ? -1.3 : 1.3), 1.75, z]], 0.02, '#1E1E1E', 6);
+      const z = cz0 + 1.2 + (k % 3) * 1.8, x = ccx - 1.3 + ((k / 3) | 0) * 2.6, side = x < ccx ? -1 : 1;
+      this.cyl('whPaint', x, 0.18, z, 0.2, 0.12, '#2F3A44', 18);
+      this.cyl('whPaint', x, 0.3, z, 0.19, 1.0, '#3E6FA8', 20);
+      this.cyl('plLabL', x, 0.62, z, 0.193, 0.26, '#FFFFFF', 20);
+      this.sph('whPaint', x, 1.3, z, 0.19, 0.12, 0.19, '#3E6FA8', 18);
+      this.cyl('whPaint', x, 1.36, z, 0.13, 0.17, '#C9CED2', 16);
+      this.cyl('shiny', x, 1.5, z, 0.04, 0.08, '#D4A64A', 8);
+      this.cyl('whPaint', x + side * 0.06, 1.56, z, 0.05, 0.06, '#E0A21B', 10);
+      this.tube('flat', [[x + side * 0.06, 1.62, z], [x + side * 0.4, 1.7, z], [ccx + side * 1.3, 1.75, z]], 0.018, '#1E1E1E', 6);
     }
+    this._plGauge(ccx - 1.3, 2.0, cz1 - 0.55, Math.PI, 0.09);
+    this._plValve(ccx - 1.3, 1.75, cz1 - 0.95, 'z', 0.035);
+    this.box('whPaint', cx0 + 0.15, 1.2, cz1 - 0.05, 0.16, 0.22, 0.08, '#F4F4F2');
+    this.box('glow', cx0 + 0.15, 1.36, cz1 - 0.005, 0.03, 0.03, 0.01, '#5CFF7A');
+    this._sign('ไวไฟ · ห้ามใช้ไฟ', 1.4, 0.34, '#F7C51E', '#C62828', [ccx, 2.45, cz1 + 0.05], 0, { size: 0.6, border: '#C62828', both: true });
+    this._plFlushDials(E.pl.screenMat);
     for (const dx of [-1.3, 1.3]) this.tube('shiny', [[ccx + dx, 1.75, cz0 + 0.6], [ccx + dx, 1.75, cz1 - 0.6]], 0.04, '#B87333', 8);
     this.tube('shiny', [[ccx - 1.3, 1.75, cz1 - 0.6], [ccx - 1.3, 1.75, cz1 + 0.8], [hx1 + 0.6, 1.75, kz0 - 0.8], [kx + 0.5, 1.75, kz0 - 0.4], [kx + 0.5, 1.1, kz0 + 0.5]], 0.035, '#B87333', 8);
     this._sign('ถังแก๊ส LPG 48 kg · ห้ามสูบบุหรี่', 3.4, 0.5, '#C62828', '#FFFFFF', [cx0 - 0.08, 2.5, ccz], -Math.PI / 2, { both: true });
@@ -1929,16 +1911,20 @@ Object.assign(GHG3.world, {
 
   // ------------------------------------------------------------- substation (stop 12) + transmission line
   _wInsul(A, x, y, z, h, col) {
-    // porcelain post insulator with sheds, base at y
-    this.cyl(A, x, y, z, 0.14, h, col, 7);
-    for (let s = 0.15; s < h - 0.05; s += 0.27) this.cyl(A, x, y + s, z, 0.27, 0.05, col, 8);
+    // porcelain post insulator: core, alternating large / small sheds, galvanised end caps; base at y
+    this.cyl(A, x, y, z, 0.12, h, col, 8);
+    let k = 0;
+    for (let s = 0.18; s < h - 0.12; s += 0.13, k++) this.cyl(A, x, y + s, z, k % 2 ? 0.2 : 0.26, 0.035, col, 10);
+    this.cyl('shiny', x, y, z, 0.17, 0.07, '#A7AEB2', 10);
+    this.cyl('shiny', x, y + h - 0.07, z, 0.15, 0.07, '#A7AEB2', 10);
   },
   _wSubstation() {
     const E = this._E;
     const R = this._rng(9753);
     const STEEL = '#9AA3A8', POR = '#7A4E3A';
     const fx0 = 175, fx1 = 345, fz0 = -420, fz1 = -255;
-    this.plane('concrete', (fx0 + fx1) / 2, 0.07, (fz0 + fz1) / 2, fx1 - fx0, fz1 - fz0, '#A9A6A0');
+    this._cvInit();
+    this.plane('cvGravel', (fx0 + fx1) / 2, 0.07, (fz0 + fz1) / 2, fx1 - fx0, fz1 - fz0, '#ABA9A3');
     this.plane('concrete', 260, 0.11, -237, 10, 36, '#C7C2B8');
     this.plane('concrete', 250, 0.11, -300, 8, 90, '#C7C2B8');
     this._wFence([[fx0, fz0], [fx1, fz0], [fx1, fz1], [fx0, fz1]], 2.6, true, [[260, fz1, 4.2]]);
@@ -1977,7 +1963,7 @@ Object.assign(GHG3.world, {
     }
     // busbars (tubes) between the gantry rows
     for (const s of [-1.6, 0, 1.6]) this.tube('shiny', [[200, 9.0, -382 + s], [320, 9.0, -382 + s]], 0.09, '#C9CFD3', 8);
-    for (const x of [200, 230, 260, 290, 320]) { this.cyl('concrete', x, 0, -382, 0.3, 1.0, '#C9C4BA', 8); this.box('shiny', x, 1.0, -382, 0.35, 5.6, 0.35, STEEL); this._wInsul('flat', x, 6.6, -382, 2.3, POR); this._col(x - 0.4, -382.4, x + 0.4, -381.6); }
+    for (const x of [200, 230, 260, 290, 320]) { this.cyl('concrete', x, 0, -382, 0.3, 1.0, '#C9C4BA', 8); this.box('shiny', x, 1.0, -382, 0.35, 5.6, 0.35, STEEL); this._wInsul('whPaint', x, 6.6, -382, 2.3, POR); this._col(x - 0.4, -382.4, x + 0.4, -381.6); }
     // three bays: disconnector -> SF6 live-tank breaker -> CT -> transformer
     const bays = [218, 260, 302];
     for (const bx of bays) {
@@ -1985,57 +1971,42 @@ Object.assign(GHG3.world, {
         const x = bx + s;
         // disconnector
         this.box('shiny', x, 0, -360, 0.35, 3.2, 0.35, STEEL);
-        this._wInsul('flat', x, 3.2, -361, 2.0, POR);
-        this._wInsul('flat', x, 3.2, -359, 2.0, POR);
+        this._wInsul('whPaint', x, 3.2, -361, 2.0, POR);
+        this._wInsul('whPaint', x, 3.2, -359, 2.0, POR);
         this.box('shiny', x, 5.3, -360, 0.12, 0.12, 2.4, '#C9CFD3');
-        // SF6 circuit breaker pole
-        this.box('concrete', x, 0, -340, 1.0, 0.35, 1.0, '#C9C4BA');
-        this.box('shiny', x, 0.35, -340, 0.4, 2.6, 0.4, STEEL);
-        this.box('shiny', x, 0.35, -339.3, 0.9, 1.1, 0.6, '#B7BEC2');
-        this.cylR('flat', x, 1.15, -338.98, 0.1, 0.03, '#F2F2F2', Math.PI / 2, 0, 0, 12);
-        this.box('glow', x + 0.02, 1.16, -338.96, 0.02, 0.08, 0.01, '#2ECC71');
-        this._wInsul('flat', x, 2.95, -340, 1.9, POR);
-        this.cylR('shiny', x, 5.15, -340, 0.26, 1.7, '#AEB6BB', Math.PI / 2, 0, 0, 12);
-        this._wInsul('flat', x, 5.4, -340.8, 0.9, POR);
+        // SF6 live-tank circuit breaker pole with its gas-density monitor (civic.js)
+        this._cvBreakerPole(x, -340);
         // current transformer
         this.box('shiny', x, 0, -324, 0.35, 2.4, 0.35, STEEL);
         this.cyl('flat', x, 2.4, -324, 0.32, 1.4, '#8C9396', 12);
-        this._wInsul('flat', x, 3.8, -324, 1.2, POR);
+        this._wInsul('whPaint', x, 3.8, -324, 1.2, POR);
         // conductors
-        E.wWire.push(x, 9.0, -366, x, 5.45, -361, x, 5.45, -359, x, 6.3, -341, x, 6.3, -339, x, 5.0, -324, x, 5.0, -324, x + (bx === 260 ? 0 : 0), 4.6, -306);
+        E.wWire.push(x, 9.0, -366, x, 5.45, -361, x, 5.45, -359, x, 5.3, -340.88, x, 5.3, -339.12, x, 5.0, -324, x, 5.0, -324, x + (bx === 260 ? 0 : 0), 4.6, -306);
       }
+      this._cvMechBox(bx, -340);
       this._col(bx - 3.4, -341, bx + 3.4, -338.6);
       this._col(bx - 3.4, -361.5, bx + 3.4, -358.5);
       this._col(bx - 3.4, -324.5, bx + 3.4, -323.5);
     }
-    // power transformers (two) with radiators, conservator, bushings + fire wall
-    for (const tx of [230, 290]) {
-      const tz = -300;
-      this.box('concrete', tx, 0, tz, 11, 0.35, 8, '#C9C4BA');
-      this.box('flat', tx, 0.35, tz, 7, 4.2, 4.2, '#7D8B81');
-      for (let k = 0; k < 9; k++) for (const s of [-1, 1]) this.box('flat', tx - 3.2 + k * 0.8, 0.8, tz + s * 2.75, 0.1, 3.2, 1.3, '#6F7C73');
-      this.cylR('flat', tx - 1.2, 5.6, tz + 1.2, 0.55, 3.6, '#7D8B81', 0, 0, Math.PI / 2, 14);
-      for (const s of [-1.6, -0.2, 1.2]) this.box('flat', tx + s, 4.55, tz + 1.2, 0.12, 0.6, 0.12, '#5E6B63');
-      for (const s of [-1.6, 0, 1.6]) this._wInsul('flat', tx + s, 4.55, tz - 0.8, 2.4, POR);
-      for (const s of [-1.2, 0, 1.2]) this._wInsul('flat', tx + s + 0.3, 4.55, tz + 0.2, 1.0, '#8C9396');
-      this.box('flat', tx + 3.8, 0.35, tz - 1.0, 0.8, 1.6, 1.2, '#9AA3A8');
-      this._col(tx - 5.5, tz - 4, tx + 5.5, tz + 4);
-    }
+    // power transformers (two) on oil-pit plinths, the path between them at x 250 (civic.js) + fire wall
+    this._cvPowerXfmr(230, -300, 1, 1);
+    this._cvPowerXfmr(290, -300, 2, -1);
     this.box('concrete', 260, 0, -300, 0.4, 7, 10, '#CFCAC0');
     this._col(259.7, -305, 260.3, -295);
-    // 22 kV switchgear kiosk + cable trench
+    // 22 kV gas-insulated switchgear kiosk: door leaves, louvres, sign
     this.box('flat', 318, 0, -272, 14, 3.4, 5, '#D7DBD8', { topCol: '#B9BDBA' });
+    this.box('flat', 318, 3.4, -272, 14.4, 0.12, 5.4, '#B9BDBA');
+    for (let k = 0; k < 7; k++) {
+      const x = 312 + k * 2;
+      this.box('flat', x - 0.99, 0.1, -269.48, 0.02, 3.1, 0.02, '#9AA09C');
+      this.box('shiny', x + 0.7, 1.4, -269.47, 0.04, 0.24, 0.04, '#D0D5D8');
+      for (let j = 0; j < 4; j++) this.box('flat', x, 0.3 + j * 0.09, -269.485, 1.2, 0.03, 0.02, '#8C928E');
+    }
+    this._sign('สวิตช์เกียร์ 22 kV (ฉนวนก๊าซ SF₆)', 5.0, 0.42, '#1F3A5F', '#FFFFFF', [318, 2.85, -269.46], 0, { size: 0.5 });
     this._col(311, -274.5, 325, -269.5);
-    // SF6 top-up: technician with a cylinder cart at the middle bay
+    // SF6 top-up: technician weighing the cylinder at the middle bay, hose to the gas port by the density monitor
     const cx = 263.2, cz = -336.6;
-    this.box('shiny', cx, 0.05, cz, 0.6, 0.05, 0.5, '#5F666B');
-    this.box('shiny', cx, 0.05, cz - 0.22, 0.06, 1.5, 0.06, '#5F666B');
-    for (const s of [-0.28, 0.28]) this.cylR('flat', cx + s, 0.16, cz + 0.12, 0.16, 0.06, '#1E1E1E', 0, 0, Math.PI / 2, 12);
-    this.cyl('shiny', cx, 0.12, cz, 0.18, 1.25, '#4D7D5A', 14);
-    this.sph('shiny', cx, 1.37, cz, 0.18, 0.11, 0.18, '#4D7D5A', 12);
-    this.box('flat', cx, 1.46, cz, 0.12, 0.14, 0.12, '#C9CED2');
-    this.cylR('flat', cx + 0.12, 1.52, cz, 0.06, 0.02, '#FFFFFF', 0, 0, Math.PI / 2, 10);
-    this.tube('flat', [[cx, 1.52, cz], [cx - 0.9, 1.3, cz - 0.6], [cx - 2.3, 0.95, cz - 1.9], [260.45, 1.1, -339.0]], 0.025, '#1E1E1E', 6);
+    this._cvSF6Cart(cx, cz, [260.13, 2.45, -339.76]);
     E.crowdSpots.push({ x: cx - 0.9, z: cz - 1.2, yaw: Math.atan2(260 - (cx - 0.9), -340 - (cz - 1.2)), mode: 'work', outfit: 'worker' });
     E.crowdSpots.push({ x: 160, z: -235, yaw: 0, mode: 'stand', outfit: 'worker' });
     this._sign('เติมก๊าซ SF₆ · ตรวจวัดการรั่ว', 3.2, 0.55, '#1F3A5F', '#FFFFFF', [cx + 1.9, 1.5, cz + 0.4], Math.atan2(255.5 - (cx + 1.9), -326 - (cz + 0.4)), { both: true });
@@ -2043,6 +2014,7 @@ Object.assign(GHG3.world, {
     const v12 = [255.6, -326.2], l12 = [260, 3.6, -340];
     this._stopAnchor(12, { view: v12, look: l12, guide: this._wGuideAt(v12, l12, -1.5, 1.6), pin: [260, 8.0, -340], emit: [260, 5.2, -340], gas: ['SF6'], spread: 1.6, route: [[260, -217.5], [260, -240], [260, -258], [250, -280], [250, -318], v12], inside: null, district: 'industry' });
     for (const p of [[150, -300], [150, -340], [150, -380], [150, -420], [370, -300], [370, -360], [370, -420], [200, -440], [320, -440]]) E.treeSpots.push({ x: p[0], z: p[1], s: 0.8 + R() * 0.4, kind: this._wPick(R, ['rain', 'teak', 'mango']) });
+    this._cvFlush();
     // transmission line toward the power plant (north-west)
     this._wPylons();
   },
@@ -2449,13 +2421,36 @@ Object.assign(GHG3.world, {
           this.box(A, 0, 2.35, -1.3, W - 0.3, 0.12, 2.4, '#F2F2F2');
         }
       } else if (kind === 'moto' || kind === 'motoP') {
-        this.box(A, 0, 0.35, 0, 0.3, 0.25, 1.35, color);
-        this.box(A, 0, 0.55, -0.25, 0.34, 0.25, 0.8, color);
-        this.box(A, 0, 0.82, -0.3, 0.28, 0.1, 0.62, '#1E1E1E');
-        this.boxR(A, 0, 0.75, 0.62, 0.22, 0.7, 0.12, color, -0.35, 0, 0);
-        this.box(A, 0, 1.05, 0.75, 0.62, 0.05, 0.05, '#2B2B2B');
-        this.box(A, 0, 0.98, 0.84, 0.18, 0.12, 0.06, '#F4F6F7');
-        for (const z of [-0.62, 0.66]) this.cylR(A, 0, 0.28, z, 0.28, 0.1, TY, 0, 0, Math.PI / 2, 8);
+        // underbone step-through (v1.2): tyres, alloy rims, fork, handlebar cowl with headlight + mirrors, leg shield,
+        // frame tunnel, engine, swingarm, shocks, exhaust, rounded tail under the seat, tail light + plate
+        const BK2 = '#26292C', MET = '#9AA0A5', CHR = '#C9CED2';
+        for (const z of [-0.62, 0.62]) {
+          this.cylR(A, 0, 0.29, z, 0.29, 0.085, TY, 0, 0, Math.PI / 2, 12);
+          this.cylR(A, 0, 0.29, z, 0.2, 0.092, MET, 0, 0, Math.PI / 2, 8);
+          this.cylR(A, 0, 0.29, z, 0.06, 0.14, CHR, 0, 0, Math.PI / 2, 6);
+        }
+        for (const s of [-1, 1]) this.boxR(A, s * 0.075, 0.585, 0.535, 0.04, 0.62, 0.04, CHR, -0.28, 0, 0);
+        this.boxR(A, 0, 0.61, 0.66, 0.12, 0.025, 0.36, color, 0.1, 0, 0);
+        this.sph(A, 0, 0.98, 0.47, 0.17, 0.1, 0.16, color, 8);
+        this.box(A, 0, 0.93, 0.61, 0.16, 0.08, 0.03, '#F4F6F7');
+        this.box(A, 0, 0.99, 0.43, 0.66, 0.03, 0.03, BK2);
+        for (const s of [-1, 1]) { this.boxR(A, s * 0.245, 1.14, 0.42, 0.015, 0.24, 0.015, BK2, 0, 0, -s * 0.2); this.box(A, s * 0.28, 1.24, 0.41, 0.11, 0.07, 0.02, BK2); }
+        this.boxR(A, 0, 0.7, 0.4, 0.34, 0.55, 0.1, color, -0.3, 0, 0);
+        this.boxR(A, 0, 0.615, 0.18, 0.18, 0.14, 0.52, color, -0.69, 0, 0);
+        this.box(A, 0, 0.3, 0.0, 0.52, 0.025, 0.04, BK2);
+        this.box(A, 0, 0.12, 0.0, 0.22, 0.24, 0.32, '#3A3E42');
+        this.boxR(A, 0, 0.32, 0.17, 0.16, 0.12, 0.16, '#55595D', 0.5, 0, 0);
+        this.box(A, -0.12, 0.18, -0.02, 0.04, 0.16, 0.2, MET);
+        for (const s of [-1, 1]) { this.box(A, s * 0.09, 0.25, -0.33, 0.035, 0.05, 0.6, BK2); this.boxR(A, s * 0.11, 0.48, -0.515, 0.04, 0.34, 0.04, CHR, 0.35, 0, 0); }
+        this.sph(A, 0, 0.68, -0.42, 0.16, 0.13, 0.44, color, 8);
+        this.box(A, 0, 0.42, -0.3, 0.24, 0.2, 0.45, color);
+        this.sph(A, 0, 0.82, -0.32, 0.14, 0.055, 0.36, '#1E1E1E', 8);
+        this.box(A, 0, 0.66, -0.86, 0.16, 0.07, 0.04, '#B3261E');
+        this.box(A, 0, 0.44, -0.88, 0.2, 0.12, 0.012, '#F4F4F0');
+        this.boxR(A, 0, 0.56, -0.74, 0.12, 0.025, 0.32, BK2, -0.35, 0, 0);
+        this.tube(A, [[0.08, 0.2, 0.12], [0.14, 0.2, -0.2]], 0.022, '#3A3E42', 6);
+        this.cylR(A, 0.15, 0.27, -0.5, 0.05, 0.42, '#2B2E31', Math.PI / 2 + 0.12, 0, 0, 8);
+        this.box(A, 0.2, 0.22, -0.48, 0.02, 0.07, 0.3, CHR);
         if (kind === 'moto') rider(A, 0.95, -0.22);
         else this.box(A, 0, 0.2, -0.35, 0.06, 0.35, 0.06, '#3B3F42');
       } else if (kind === 'tuk') {

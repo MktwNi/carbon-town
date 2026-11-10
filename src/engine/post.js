@@ -22,7 +22,6 @@ GHG3.post = {
     P.depthRT.depthTexture = new T.DepthTexture(2, 2, T.FloatType);
     P.aoRT = rt(false);
     P.blurRT = rt(false);
-    P.blank = new T.MeshBasicMaterial({ colorWrite: false });
     P.cam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     P.dcam = new T.PerspectiveCamera();
     const quad = new T.PlaneGeometry(2, 2);
@@ -32,7 +31,7 @@ GHG3.post = {
     P.aoMat = new T.ShaderMaterial({
       uniforms: {
         tDepth: { value: P.depthRT.depthTexture }, projInv: { value: new T.Matrix4() }, proj: { value: new T.Matrix4() },
-        res: { value: new T.Vector2(1, 1) }, radius: { value: 1.05 }, intensity: { value: 4.2 }, bias: { value: 0.004 }, fadeFar: { value: 80 }
+        res: { value: new T.Vector2(1, 1) }, radius: { value: 1.05 }, intensity: { value: 2.3 }, bias: { value: 0.004 }, fadeFar: { value: 80 }
       },
       vertexShader: vs,
       fragmentShader: [
@@ -59,10 +58,10 @@ GHG3.post = {
         '    if (su.x < 0.0 || su.x > 1.0 || su.y < 0.0 || su.y > 1.0) continue;',
         '    vec3 v = vpos(su) - P;',
         '    float vv = dot(v, v);',
-        '    float fall = max(0.0, 1.0 - vv / (radius * radius * 3.0));',
-        '    sum += max(0.0, dot(v, N) - b - 0.035) / (vv + 0.06) * fall;',
+        '    float fall = max(0.0, 1.0 - vv / (radius * radius)); fall *= fall;',
+        '    sum += min(1.0, max(0.0, dot(v, N) - b - 0.035) / (sqrt(vv) + 0.02)) * fall;',
         '  }',
-        '  float ao = clamp(1.0 - intensity * sum * 0.05, 0.0, 1.0);',
+        '  float ao = clamp(1.0 - intensity * sum / 12.0, 0.0, 1.0);',
         '  ao = mix(pow(ao, 1.3), 1.0, smoothstep(fadeFar * 0.55, fadeFar, dist));',
         '  gl_FragColor = vec4(vec3(ao), 1.0);',
         '}'
@@ -143,6 +142,16 @@ GHG3.post = {
     P.blurMat.uniforms.texel.value.set(1 / hw, 1 / hh);
     P.compMat.uniforms.texelD.value.set(1 / w, 1 / h);
   },
+  _postTwin(m) {
+    const P = this._E.post;
+    const tw = P.twins || (P.twins = new Map());
+    let t = tw.get(m);
+    if (!t) {
+      t = new this._E.T.MeshBasicMaterial({ colorWrite: false, side: m.side, polygonOffset: !!m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor || 0, polygonOffsetUnits: m.polygonOffsetUnits || 0 });
+      tw.set(m, t);
+    }
+    return t;
+  },
   // main frame + AO + ink (called from core._loop)
   _postRender() {
     const E = this._E;
@@ -161,11 +170,18 @@ GHG3.post = {
     R.shadowMap.autoUpdate = false;
     const bg = E.scene.background;
     E.scene.background = null;
-    E.scene.overrideMaterial = P.blank;
+    // depth twins keep each material's side and polygon offset, so stacked floor layers resolve as in the frame
+    const sw = P.sw || (P.sw = []);
+    sw.length = 0;
+    E.scene.traverse((o) => {
+      if (!o.isMesh || !o.visible || !(o.layers.mask & 1) || Array.isArray(o.material)) return;
+      sw.push(o, o.material);
+      o.material = this._postTwin(o.material);
+    });
     R.setRenderTarget(P.depthRT);
     R.clear();
     R.render(E.scene, C);
-    E.scene.overrideMaterial = null;
+    for (let i = 0; i < sw.length; i += 2) sw[i].material = sw[i + 1];
     E.scene.background = bg;
     R.shadowMap.autoUpdate = smU;
     const U = P.aoMat.uniforms;

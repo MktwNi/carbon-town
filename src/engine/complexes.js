@@ -247,6 +247,7 @@ GHG3.complexes = {
   _bMinimart() {
     const E = this._cxE();
     const T = E.T;
+    this._plInit();
     const R = this._rng(5101);
     const pick = (a) => a[(R() * a.length) | 0];
     const G = this._newAcc('flat');
@@ -340,7 +341,7 @@ GHG3.complexes = {
         const y = 0.38 + s * 0.36;
         this.box('shiny', x0 + dW / 2, y, cz + 0.48, dW - 0.08, 0.025, 0.72, '#C9CED2');
         const kd = pick(BOTTLES);
-        for (let k = 0; k < 6; k++) this.cyl('flat', x0 + 0.17 + k * 0.212, y + 0.025, cz + 0.6, 0.038, kd.h, kd.c, 6);
+        for (let k = 0; k < 6; k++) this.cyl('plBottle', x0 + 0.17 + k * 0.212, y + 0.025, cz + 0.6, 0.038, kd.h, kd.c, 12);
       }
       this.box('flat', x0, 0.34, cz + cd - 0.03, 0.07, ch - 0.62, 0.06, '#1E2226');
       this._cxGlass(G, 'x', cz + cd - 0.02, x0 + 0.04, x0 + dW - 0.04, 0.36, ch - 0.66);
@@ -362,7 +363,7 @@ GHG3.complexes = {
       let x = mx0 + 0.1;
       while (x < mx1 - 0.3) {
         const w = 0.16 + R() * 0.3, h = 0.09 + R() * 0.17;
-        this.box('flat', x + w / 2, y + 0.03, cz + 0.18 + dp / 2, w - 0.03, h, dp * 0.78, pick(DAIRY), { skip: 'ny' });
+        this.box('plGoods', x + w / 2, y + 0.03, cz + 0.18 + dp / 2, w - 0.03, h, dp * 0.78, pick(DAIRY), { skip: 'ny' });
         x += w;
       }
     }
@@ -391,7 +392,7 @@ GHG3.complexes = {
       let z = -34.5;
       while (z < -28.75) {
         const w = 0.11 + R() * 0.22, h = 0.09 + R() * 0.18;
-        this.box('flat', ex - 0.3, y + 0.025, z + w / 2, 0.32, h, w - 0.02, pick(GOODS), { skip: 'px ny' });
+        this.box('plGoods', ex - 0.3, y + 0.025, z + w / 2, 0.32, h, w - 0.02, pick(GOODS), { skip: 'px ny' });
         z += w;
       }
     }
@@ -412,21 +413,21 @@ GHG3.complexes = {
           let z = zc - GL / 2 + 0.05;
           while (z < zc + GL / 2 - 0.2) {
             const w = 0.11 + R() * 0.24, h = 0.09 + R() * 0.2;
-            this.box('flat', gx + sd * 0.25, y + 0.025, z + w / 2, 0.32, h, w - 0.02, pick(GOODS), { skip: (sd > 0 ? 'nx' : 'px') + ' ny' });
+            this.box('plGoods', gx + sd * 0.25, y + 0.025, z + w / 2, 0.32, h, w - 0.02, pick(GOODS), { skip: (sd > 0 ? 'nx' : 'px') + ' ny' });
             z += w;
           }
         }
         let z2 = zc - GL / 2 + 0.05;
         while (z2 < zc + GL / 2 - 0.2) {
           const w = 0.2 + R() * 0.4;
-          this.box('flat', gx + sd * 0.22, 1.48, z2 + w / 2, 0.36, 0.1 + R() * 0.16, w - 0.03, pick(GOODS));
+          this.box('plGoods', gx + sd * 0.22, 1.48, z2 + w / 2, 0.36, 0.1 + R() * 0.16, w - 0.03, pick(GOODS));
           z2 += w;
         }
       }
       for (const e of [-1, 1]) {
         const ez = zc + e * (GL / 2 + 0.26);
         this.box('flat', gx, 0.12, ez, 0.9, 1.05, 0.5, '#E5E9EC');
-        for (let k = 0; k < 3; k++) this.box('flat', gx - 0.3 + k * 0.3, 1.17, ez, 0.26, 0.2 + R() * 0.14, 0.36, pick(GOODS));
+        for (let k = 0; k < 3; k++) this.box('plGoods', gx - 0.3 + k * 0.3, 1.17, ez, 0.26, 0.2 + R() * 0.14, 0.36, pick(GOODS));
         this.box('flat', gx, 1.62, ez, 0.86, 0.3, 0.04, YEL);
         this.box('flat', gx, 1.17, ez, 0.04, 0.45, 0.04, '#9EA6AC');
       }
@@ -441,7 +442,7 @@ GHG3.complexes = {
       this.box('flat', fx, 0.52, fz + D / 2 - 0.04, W, 0.46, 0.08, '#F1F3F4');
       this.box('flat', fx - W / 2 + 0.04, 0.52, fz, 0.08, 0.46, D - 0.16, '#F1F3F4');
       this.box('flat', fx + W / 2 - 0.04, 0.52, fz, 0.08, 0.46, D - 0.16, '#F1F3F4');
-      for (let k = 0; k < 10; k++) this.box('flat', fx - 0.68 + (k % 5) * 0.34, 0.52, fz - 0.17 + ((k / 5) | 0) * 0.34, 0.3, 0.12 + R() * 0.16, 0.3, pick(ICE), { skip: 'ny' });
+      for (let k = 0; k < 10; k++) this.box('plGoods', fx - 0.68 + (k % 5) * 0.34, 0.52, fz - 0.17 + ((k / 5) | 0) * 0.34, 0.3, 0.12 + R() * 0.16, 0.3, pick(ICE), { skip: 'ny' });
       this._face(G, [fx, 0.99, fz], [1, 0, 0], [0, 0, -1], W / 2 - 0.06, D / 2 - 0.06, '#FFFFFF', { both: true });
       this.box('glow', fx, 0.24, fz + D / 2 + 0.006, W - 0.24, 0.2, 0.01, '#E94B6A');
       this._col(fx - W / 2 - 0.06, fz - D / 2 - 0.06, fx + W / 2 + 0.06, fz + D / 2 + 0.06);
@@ -456,15 +457,25 @@ GHG3.complexes = {
     this.box('flat', -603.9, 1.07, -28.2, 0.34, 0.08, 0.42, '#2B2F33');
     this.box('flat', -605.55, 1.05, -27.8, 0.4, 1.4, 3.8, '#2A2E33');
     this.box('glow', -605.34, 1.1, -27.8, 0.01, 1.3, 3.7, '#F6E7C8');
-    for (let s = 0; s < 4; s++) for (let k = 0; k < 14; k++) this.box('flat', -605.42, 1.16 + s * 0.32, -29.55 + k * 0.25, 0.08, 0.14, 0.2, pick(['#C62828', '#1565C0', '#F9A825', '#2E7D32', '#FFFFFF']));
+    for (let s = 0; s < 4; s++) for (let k = 0; k < 14; k++) this.box('plGoods', -605.42, 1.16 + s * 0.32, -29.55 + k * 0.25, 0.08, 0.14, 0.2, pick(['#C62828', '#1565C0', '#F9A825', '#2E7D32', '#FFFFFF']));
     this.box('flat', -604.1, 1.07, -25.75, 0.5, 0.66, 0.45, '#3A2E2A');
     this.box('glow', -603.84, 1.45, -25.75, 0.01, 0.16, 0.24, '#7CFF9E');
     this.box('glow', -604.1, 1.07, -29.7, 0.55, 0.38, 0.7, '#F2A65A');
     this._col(-605.8, -30.25, -603.5, -25.35);
 
     // ---------- split ACs, ceiling LED panels, posters
-    for (const ax of [-601.5, -596.5]) { this.box('flat', ax, 2.78, cz + 0.13, 1.0, 0.32, 0.24, '#F4F5F6'); this.box('flat', ax, 2.8, cz + 0.26, 0.9, 0.04, 0.02, '#BFC5CA'); }
-    for (const az of [-36.0, -31.0]) { this.box('flat', IX0 + 0.13, 2.85, az, 0.24, 0.32, 1.0, '#F4F5F6'); this.box('flat', IX0 + 0.26, 2.87, az, 0.02, 0.04, 0.9, '#BFC5CA'); }
+    // split ACs (indoor units of the refrigerant system): rounded casing, louvre, display
+    const ac = (x, z, ry) => {
+      const c = Math.cos(ry), sn = Math.sin(ry);
+      const at = (lx, lz) => [x + lx * c + lz * sn, z - lx * sn + lz * c];
+      this.box('shiny', x, 2.62, z, 1.0, 0.32, 0.22, '#F6F7F8', { ry: ry });
+      const f = at(0, 0.11); this.cylR('shiny', f[0], 2.86, f[1], 0.1, 1.0, '#F6F7F8', 0, ry, Math.PI / 2, 16);
+      const l = at(0, 0.13); this.boxR('flat', l[0], 2.66, l[1], 0.9, 0.035, 0.08, '#BFC5CA', -0.5, ry, 0);
+      const d = at(0.36, 0.12); this.box('glow', d[0], 2.78, d[1], 0.06, 0.025, 0.01, '#5CC8FF', { ry: ry });
+      const p = at(0.42, -0.08); this.tube('flat', [[p[0], 2.7, p[1]], [p[0], 3.5, p[1]]], 0.03, '#EDEDED', 6);
+    };
+    for (const ax of [-601.5, -596.5]) ac(ax, cz + 0.13, 0);
+    for (const az of [-36.0, -31.0]) ac(IX0 + 0.13, az, Math.PI / 2);
     for (const z of [-36.5, -32.5, -28.5]) for (const x of [-603, -599, -595, -591, -587]) this.box('glow', x, 3.57, z, 1.2, 0.03, 0.3, '#F5F9FF');
     for (let k = 0; k < 2; k++) this.box('flat', IX0 + 0.01, 2.0, -38.0 + k * 9.5, 0.02, 0.9, 1.6, pick(['#E94B6A', '#2E8BE6', '#43A047', '#FB8C00']));
 
@@ -682,57 +693,8 @@ GHG3.complexes = {
     // open door leaves
     for (const lz of [109, 115]) { this.box('shiny', 176.6, 0.14, lz, 2.8, 3.42, 0.06, '#7F8A90'); this.box('flat', 175.4, 1.4, lz + (lz < 112 ? -0.06 : 0.06), 0.06, 0.25, 0.05, '#2B2F33'); this._col(175.15, lz - 0.06, 178, lz + 0.06); }
     this._sign('ห้องเครื่องกำเนิดไฟฟ้าสำรอง', 4.2, 0.5, GRN, '#FFFFFF', [177.82, 3.9, 112], -Math.PI / 2, { size: 0.6 });
-    // genset on skid, long axis north-south so the door gives a side view
-    const GC = '#2F5D3A', GC2 = '#284F32', GX = 185.6;
-    this.box('flat', GX, 0.14, 111.6, 2.2, 0.26, 6.8, '#2C3134');
-    for (const mz2 of [109.0, 111.6, 114.2]) for (const mx2 of [GX - 0.9, GX + 0.9]) this.box('flat', mx2, 0.4, mz2, 0.25, 0.1, 0.25, '#1E1E1E');
-    this.cylR('flat', GX, 1.28, 114.15, 0.78, 1.75, GC, Math.PI / 2, 0, 0, 20);
-    this.cylR('shiny', GX, 1.28, 115.05, 0.5, 0.1, '#A0A7AC', Math.PI / 2, 0, 0, 16);
-    for (let k = 0; k < 5; k++) this.cylR('flat', GX, 1.28, 113.45 + k * 0.33, 0.8, 0.05, GC2, Math.PI / 2, 0, 0, 20);
-    this.box('flat', GX, 2.06, 114.15, 0.8, 0.35, 0.9, GC2);
-    this.box('flat', GX, 0.4, 111.65, 1.36, 1.4, 3.0, GC);
-    this.box('flat', GX, 1.8, 111.65, 0.9, 0.42, 2.8, GC2);
-    for (let k = 0; k < 6; k++) this.box('flat', GX, 2.22, 110.45 + k * 0.48, 0.7, 0.08, 0.32, '#1F3A26');
-    for (let k = 0; k < 6; k++) this.box('flat', GX - 0.69, 1.05, 110.45 + k * 0.48, 0.04, 0.5, 0.3, '#3B6B48');
-    this.cylR('shiny', GX + 0.68, 2.0, 111.65, 0.11, 2.6, '#8A8F93', Math.PI / 2, 0, 0, 10);
-    this.cylR('flat', GX + 0.68, 2.3, 110.1, 0.28, 0.5, '#5C6166', 0, 0, Math.PI / 2, 12);
-    this.box('flat', GX, 0.4, 108.85, 2.1, 2.4, 0.7, GC2);
-    this.box('flat', GX, 0.6, 108.48, 1.8, 1.95, 0.04, '#15181A');
-    this.cylR('flat', GX, 1.55, 108.45, 0.82, 0.05, '#2A2E31', Math.PI / 2, 0, 0, 20);
-    this.box('flat', GX - 0.72, 0.66, 113.0, 0.06, 0.5, 0.9, '#E0A21B');
-    this.box('glow', GX - 0.76, 1.0, 113.0, 0.01, 0.22, 0.36, '#9EF5B0');
-    for (let j = 0; j < 3; j++) this.box('glow', GX - 0.76, 0.78, 112.75 + j * 0.25, 0.01, 0.06, 0.06, ['#5CFF7A', '#FFD54F', '#FF5A4A'][j]);
-    this.box('flat', GX - 0.55, 0.4, 109.9, 0.35, 0.3, 0.55, '#1E1E1E');
-    this._col(GX - 1.2, 108.35, GX + 1.2, 115.2);
-    // exhaust: manifold -> roof -> silencer -> stack
-    this.tube('shiny', [[GX + 0.68, 2.3, 110.0], [GX + 0.68, 3.3, 110.0], [GX + 0.7, 4.0, 110.0], [GX + 0.7, 4.75, 110.0]], 0.14, '#8A8F93', 10);
-    this.cylR('shiny', GX + 0.7, 5.05, 111.4, 0.38, 2.7, '#9AA0A5', Math.PI / 2, 0, 0, 16);
-    for (const sz of [110.5, 112.3]) this.box('flat', GX + 0.7, gh + 0.28, sz, 0.6, 0.5, 0.12, '#5C6166');
-    this.cyl('shiny', GX + 0.7, 5.05, 112.6, 0.14, 2.3, '#8A8F93', 10);
-    this.cone('flat', GX + 0.7, 7.35, 112.6, 0.28, 0.18, '#5C6166', 10);
-    this._emitter({ type: 'exhaust', pos: [GX + 0.7, 7.5, 112.6], rate: 4, size: 0.9, rise: 1.4, spread: 0.25, life: 3.5, color: '#7A7C7E' });
-    // ATS / MDB cabinets on the east wall (facing west), cable tray, fuel-log board
-    for (let k = 0; k < 4; k++) {
-      const z = 107.5 + k * 1.95;
-      this.box('flat', gx1 - gt - 0.3, 0.14, z, 0.6, 2.2, 1.88, '#B8BEC2');
-      this.box('flat', gx1 - gt - 0.61, 0.3, z, 0.02, 1.9, 0.02, '#8C949A');
-      for (let j = 0; j < 3; j++) this.box('glow', gx1 - gt - 0.61, 1.8, z - 0.5 + j * 0.25, 0.01, 0.08, 0.08, ['#5CFF7A', '#FF5A4A', '#FFD54F'][j]);
-      this.box('glow', gx1 - gt - 0.61, 1.35, z + 0.35, 0.01, 0.2, 0.36, '#8FE3FF');
-    }
-    this._col(gx1 - gt - 0.65, 106.5, gx1 - gt, 116.5);
-    this.box('flat', 188.5, 3.45, 114.6, 5.8, 0.08, 0.45, '#9AA1A6');
-    this.box('flat', GX + 0.2, 2.3, 114.6, 0.3, 1.2, 0.3, '#3E4449');
-    this._sign('บันทึกการเติมน้ำมันดีเซล', 1.7, 0.42, '#FFFFFF', '#1F2937', [gx1 - gt - 0.02, 2.85, 111.3], -Math.PI / 2, { size: 0.5 });
-    // diesel day tank (south-east corner, visible from the door) + fuel lines
-    for (const lx of [188.75, 189.4]) for (const lz of [115.75, 117.35]) this.box('flat', lx, 0.14, lz, 0.08, 0.5, 0.08, '#4A5258');
-    this.box('flat', 189.07, 0.64, 116.55, 0.9, 1.05, 1.9, '#6A7B85');
-    this.box('glow', 188.61, 0.78, 116.0, 0.01, 0.82, 0.05, '#7AD2FF');
-    this.cyl('flat', 189.1, 1.69, 117.0, 0.09, 0.14, '#C62828', 10);
-    this._sign('ถังน้ำมันดีเซล (Day Tank)', 1.25, 0.3, '#F7C51E', '#1F2937', [188.6, 1.92, 116.55], -Math.PI / 2, { size: 0.55 });
-    this.tube('flat', [[188.6, 0.75, 116.0], [187.8, 0.32, 115.6], [GX + 0.7, 0.32, 113.0]], 0.025, '#3A3A3A', 6);
-    this._col(188.55, 115.5, 189.65, 117.6);
-    this.cyl('flat', 178.5, 0.5, 108.2, 0.09, 0.62, '#C62828', 10);
-    this.cylR('flat', 178.55, 1.15, 108.35, 0.025, 0.25, '#222222', 0.6, 0, 0, 6);
+    // genset, exhaust, switchboards, day tank, floor and signs inside: plant.js
+    this._plGenRoom(gx0 + gt, gx1 - gt, gz0 + gt, gz1 - gt, 0.14, gh, 185.6);
     this._cxCeil(this._cxLin('genCeil', '#EEF0F0', E.tex.concrete, 1), gx0 + gt, gz0 + gt, gx1 - gt, gz1 - gt, gh - 0.005, '#FFFFFF', 4);
     for (const p of [[181.5, 109], [185, 112], [188.5, 115], [181.5, 115]]) this.box('glow', p[0], 4.05, p[1], 1.25, 0.04, 0.12, '#F2F7FF');
     this._interior({ name: 'genroom', rect: [gx0 + gt, gz0 + gt, gx1 - gt, gz1 - gt], helmet: false, label: 'ห้องเครื่องกำเนิดไฟฟ้าสำรอง',
@@ -750,12 +712,17 @@ GHG3.complexes = {
     this.box('metal', 206, 3.2, 105, 12.8, 0.08, 10.8, '#8FA6B8', { skip: 'ny' });
     this._cxCeil(this._cxLin('sheet', '#CBD3D8', E.tex.metal, 0.3), 199.6, 99.6, 212.4, 110.4, 3.195, '#FFFFFF', 2.2);
     this._col(199.9, 100.1, 212.1, 110.1);
+    this._plInit();
+    // glossy cylinder with a wrap-round label, rounded shoulder and a brass valve
     const cylinder = (x, z, body, shoulder) => {
-      this.cyl('flat', x, 0.15, z, 0.115, 1.25, body, 12);
-      if (body === '#E9ECEE') this.cyl('flat', x, 1.0, z, 0.119, 0.14, '#2E7D32', 12);
-      this.sph('flat', x, 1.4, z, 0.115, 0.1, 0.115, shoulder, 12);
-      this.cyl('flat', x, 1.48, z, 0.035, 0.12, '#5E666C', 8);
-      this.box('shiny', x, 1.6, z, 0.07, 0.07, 0.07, '#B8BEC2');
+      const o2 = body === '#E9ECEE';
+      this.cyl('whPaint', x, 0.15, z, 0.115, 1.25, body, 18);
+      this.cyl(o2 ? 'plLabO' : 'plLabN', x, 0.62, z, 0.118, 0.24, '#FFFFFF', 18);
+      if (o2) this.cyl('whPaint', x, 1.0, z, 0.119, 0.14, '#2E7D32', 18);
+      this.sph('whPaint', x, 1.4, z, 0.115, 0.1, 0.115, shoulder, 16);
+      this.cyl('shiny', x, 1.48, z, 0.035, 0.12, '#C9A227', 10);
+      this.box('shiny', x, 1.6, z, 0.07, 0.07, 0.07, '#C9A227');
+      this.cylR('flat', x + 0.06, 1.64, z, 0.03, 0.02, '#1E1E1E', 0, 0, Math.PI / 2, 10);
     };
     const N2O = '#2F64B3', O2B = '#E9ECEE';
     for (let i = 0; i < 5; i++) { cylinder(201.2 + i * 0.62, 101.05, N2O, '#1F4E94'); this.tube('flat', [[201.2 + i * 0.62, 1.64, 101.05], [201.2 + i * 0.62, 1.78, 100.7], [201.3 + i * 0.62, 1.78, 100.62]], 0.012, '#B87333', 5); }
@@ -764,10 +731,10 @@ GHG3.complexes = {
     this.tube('flat', [[206.7, 1.78, 100.6], [211.0, 1.78, 100.6]], 0.03, '#B87333', 8);
     for (const rx of [202.45, 209.55]) this.box('shiny', rx, 1.0, 101.25, 3.5, 0.04, 0.04, '#7D868C');
     this.box('flat', 206, 1.1, 100.58, 1.5, 1.2, 0.24, '#C9CED2');
-    for (let k = 0; k < 3; k++) {
-      this.cylR('flat', 205.55 + k * 0.45, 2.0, 100.74, 0.11, 0.04, '#F4F4F4', Math.PI / 2, 0, 0, 16);
-      this.box('flat', 205.55 + k * 0.45, 2.0, 100.77, 0.012, 0.09, 0.01, '#1A1A1A');
-    }
+    for (let k = 0; k < 3; k++) this._plGauge(205.55 + k * 0.45, 2.02, 100.78, 0, 0.11);
+    // restraint chains across both banks, regulator heads on the header
+    for (const b0 of [[200.95, 203.95], [208.05, 211.05]]) for (const cy of [0.7, 1.18]) this.box('flat', (b0[0] + b0[1]) / 2, cy, 101.2, b0[1] - b0[0], 0.025, 0.02, '#3A3F44');
+    for (const rx of [205.3, 206.7]) { this.cyl('shiny', rx, 1.62, 100.66, 0.07, 0.3, '#C9CED2', 12); this.cylR('flat', rx, 1.86, 100.74, 0.045, 0.06, '#1E1E1E', Math.PI / 2, 0, 0, 12); }
     this.box('glow', 206, 1.45, 100.71, 0.5, 0.1, 0.01, '#5CFF7A');
     // pipes (N₂O blue-tagged, O₂) up and across a small rack into the tower (OR)
     this.tube('flat', [[205.8, 2.2, 100.5], [205.8, 3.0, 100.5], [205.8, 3.0, 94.35]], 0.04, '#B87333', 8);
@@ -786,6 +753,10 @@ GHG3.complexes = {
     this._sign('O₂ · ออกซิเจน', 2.8, 0.48, '#FFFFFF', '#1A6B3A', [209.55, 2.43, 100.47], 0, { size: 0.56, border: '#1A6B3A' });
     this._sign('ห้องจ่ายก๊าซทางการแพทย์', 3.0, 0.5, GRN, '#FFFFFF', [199.86, 2.85, 102.3], -Math.PI / 2, { size: 0.56 });
     this._sign('N₂O → ห้องผ่าตัด', 2.4, 0.44, N2O, '#FFFFFF', [204.4, 3.65, 94.08], 0, { size: 0.58 });
+    this._sign('ห้ามใช้น้ำมันและจาระบี', 1.9, 0.36, '#FFFFFF', '#C62828', [209.55, 2.0, 100.47], 0, { size: 0.55, border: '#C62828' });
+    this._sign('ห้ามสูบบุหรี่', 1.2, 0.36, '#C62828', '#FFFFFF', [202.45, 2.0, 100.47], 0, { size: 0.6 });
+    this._sign('ก๊าซอัด ไม่ติดไฟ · 2.2', 1.6, 0.3, '#2E7D32', '#FFFFFF', [206.0, 2.95, 100.47], 0, { size: 0.55 });
+    this._plFlushDials(E.pl.screenMat);
     // bulk liquid-oxygen tank (VIE) + vaporisers
     this._cxFence(F, 'z', 216, 100, 111, 0.06, 2.4, 2.75);
     this._cxFence(F, 'z', 228, 100, 111, 0.06, 2.4, 2.75);
@@ -859,53 +830,6 @@ GHG3.complexes = {
   },
 
   // ================================================================ RICE MILL (stops 9, 10, 11)
-  _cxHiredTruck() {
-    const E = this._E;
-    const T = E.T;
-    const g = new T.Group();
-    const CAB = '#2E8B57', CH = '#2A2D30', BED = '#9C6B3C';
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0.72, 3.1, 1.0, 0.3, 9.0, CH);
-      this.box(A, 0, 1.02, 1.85, 1.0, 0.33, 6.6, CH);
-      this.box(A, 0, 0.95, 6.6, 2.45, 1.9, 2.3, CAB);
-      this.box(A, 0, 2.85, 6.5, 2.38, 0.42, 1.95, CAB);
-      this.box(A, 0, 3.27, 6.55, 1.6, 0.18, 1.3, '#F1F2F3');
-      this.box(A, 0, 1.95, 7.76, 2.2, 0.8, 0.04, '#25313A');
-      for (const sx of [-1.235, 1.235]) { this.box(A, sx, 1.95, 6.95, 0.03, 0.72, 0.95, '#25313A'); this.box(A, sx, 1.0, 6.6, 0.03, 0.08, 2.2, '#F7C51E'); }
-      this.box(A, 0, 0.5, 7.85, 2.5, 0.36, 0.2, '#C9CED2');
-      this.box(A, 0, 0.98, 7.77, 1.6, 0.62, 0.04, '#1E2226');
-      for (const sx of [-0.95, 0.95]) this.box(A, sx, 0.82, 7.81, 0.34, 0.2, 0.04, '#FFF6D8');
-      this.cylR(A, 1.16, 0.88, 4.3, 0.32, 1.1, '#9AA1A6', Math.PI / 2, 0, 0, 12);
-      this.cyl(A, 1.0, 1.25, 5.2, 0.07, 2.4, '#55595C', 8);
-      for (const z of [6.6, 1.3, 0]) for (const sx of [-1, 1]) {
-        const dual = z < 2;
-        this.cylR(A, sx * (dual ? 1.0 : 1.07), 0.52, z, 0.52, dual ? 0.62 : 0.32, '#1A1A1A', 0, 0, Math.PI / 2, 16);
-        this.cylR(A, sx * (dual ? 1.32 : 1.24), 0.52, z, 0.27, 0.02, '#B8BEC2', 0, 0, Math.PI / 2, 12);
-      }
-      for (const sx of [-1.15, 1.15]) this.box(A, sx, 0.25, -0.9, 0.3, 0.55, 0.03, '#1E1E1E');
-      this.box(A, 0, 0.55, -1.55, 2.3, 0.14, 0.12, '#C9CED2');
-      for (const sx of [-0.85, 0.85]) this.box(A, sx, 0.62, -1.62, 0.22, 0.12, 0.02, '#D32F2F');
-    }, { parent: g });
-    const bed = new T.Group();
-    bed.position.set(0, 1.35, -1.5);
-    g.add(bed);
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0, 3.35, 2.45, 0.18, 6.7, BED);
-      for (const sx of [-1.18, 1.18]) this.box(A, sx, 0.18, 3.35, 0.1, 0.95, 6.7, BED);
-      this.box(A, 0, 0.18, 6.65, 2.45, 1.3, 0.1, BED);
-      for (let k = 0; k < 6; k++) for (const sx of [-1.24, 1.24]) this.box(A, sx, 0.18, 0.6 + k * 1.1, 0.05, 0.95, 0.08, '#6E4A28');
-      this.box(A, 0, -0.12, 3.35, 1.1, 0.12, 6.4, '#3A3F44');
-    }, { parent: bed });
-    const load = new T.Group();
-    load.position.set(0, 0.18, 0);
-    bed.add(load);
-    this._bakeMesh((A) => {
-      this.box(A, 0, 0, 3.35, 2.26, 0.6, 6.5, '#D8B45C');
-      this.sph(A, 0, 0.6, 3.5, 1.05, 0.34, 2.9, '#D8B45C', 12);
-    }, { parent: load });
-    return { g: g, bed: bed, load: load };
-  },
-
   _bMill() {
     const E = this._cxE();
     const T = E.T;
@@ -1197,19 +1121,20 @@ GHG3.complexes = {
     for (const ex of [-384.15, -377.85]) this.box('flat', ex, 0.05, -291, 0.15, 0.18, 3.3, '#F2C21B');
     this.box('flat', -381, 0.05, -292.68, 6.45, 0.18, 0.15, '#F2C21B');
     this._cxElevator(-376.5, -296.9, 14.6, '#3E6E94');
-    const TR = this._cxHiredTruck();
+    const TR = this._cvTipper();
     TR.g.position.set(-381, 0.05, -287.9);
     this._addDyn(TR.g);
     this._col(-382.4, -289.55, -379.6, -279.85);
-    this._sign('รถรับจ้าง', 1.0, 0.36, '#F7C51E', '#1F2937', [-379.72, 1.75, -281.3], Math.PI / 2, { size: 0.62, round: true });
-    this._sign('รถรับจ้าง', 1.0, 0.36, '#F7C51E', '#1F2937', [-382.28, 1.75, -281.3], -Math.PI / 2, { size: 0.62, round: true });
+    // contractor's name on both cab doors (the mill does not own this truck)
+    this._sign('รถรับจ้าง\nหจก.รุ่งเรืองขนส่ง', 0.95, 0.5, '#F7C51E', '#1F2937', [-381 + 1.228, 1.67, -287.9 + 6.72], Math.PI / 2, { size: 0.36, sub: 0.72, round: true });
+    this._sign('รถรับจ้าง\nหจก.รุ่งเรืองขนส่ง', 0.95, 0.5, '#F7C51E', '#1F2937', [-381 - 1.228, 1.67, -287.9 + 6.72], -Math.PI / 2, { size: 0.36, sub: 0.72, round: true });
     const streamMat = new T.MeshStandardMaterial({ color: this._lcol('#D9B35B'), roughness: 0.9 });
     const stream = new T.Mesh(new T.BoxGeometry(1.5, 1.45, 0.3), streamMat);
     stream.position.set(-381, 0.75, -289.75);
     stream.castShadow = true;
     this._addDyn(stream);
     const dust = this._emitter({ type: 'dust', pos: [-381, 0.3, -290.3], rate: 0, size: 0.9, rise: 0.8, spread: 1.2, life: 2.2, color: '#D6C08A' });
-    const trEx = this._emitter({ type: 'exhaust', pos: [-380.0, 3.7, -282.7], rate: 3, size: 0.4, rise: 1.0, spread: 0.1, life: 2.2, color: '#6E6E6E' });
+    const trEx = this._emitter({ type: 'exhaust', pos: [-379.68, 3.78, -282.6], rate: 3, size: 0.4, rise: 1.0, spread: 0.1, life: 2.2, color: '#6E6E6E' });
     this._anim((dt, t) => {
       const u = t % 26;
       let a = 0;
@@ -1217,6 +1142,7 @@ GHG3.complexes = {
       else if (u < 16) a = 0.66;
       else if (u < 22) a = (1 - this._sm((u - 16) / 6)) * 0.66;
       TR.bed.rotation.x = -a;
+      TR.upd();
       const pouring = u > 4.2 && u < 16.5;
       stream.visible = pouring;
       dust.rate = pouring ? 6 : 0;
@@ -1242,94 +1168,8 @@ GHG3.complexes = {
     this._cxRoofLiner(BLIN, (BX0 + BX1) / 2, BE + 2.4 * (0.3 / 8), (BZ0 + BZ1) / 2, BX1 - BX0 - 0.3, BZ1 - BZ0 - 0.6, 2.4 * (1 - 0.3 / 8), 0.07);
     this._tri(BLIN, [BX1 - 0.32, BE, BZ0 + 0.3], [BX1 - 0.32, BE, BZ1 - 0.3], [BX1 - 0.32, BE + 2.3, (BZ0 + BZ1) / 2], [-1, 0, 0], [0, 0, 7, 0, 3.5, 1.1], '#E1E6EA', false);
     this._sign('ห้องหม้อไอน้ำ (Boiler)', 4.2, 0.62, '#B23A2E', '#FFFFFF', [-299, 5.55, BZ1 + 0.03], 0, { size: 0.58 });
-    // furnace (refractory brick) with flickering fire door
-    this.box('brick', -303.75, 0.12, -324, 4.5, 3.9, 6.0, '#FFFFFF');
-    for (const by of [1.15, 2.6, 3.95]) this.box('flat', -303.75, by, -324, 4.56, 0.1, 6.06, '#2E3236');
-    for (const bx of [-305.95, -301.55]) for (const bz of [-326.95, -321.05]) this.box('flat', bx, 0.12, bz, 0.14, 3.95, 0.14, '#2E3236');
-    this.box('flat', -303.75, 0.62, -320.98, 1.5, 0.1, 0.08, '#2B2B2B');
-    this.box('flat', -303.75, 1.72, -320.98, 1.5, 0.1, 0.08, '#2B2B2B');
-    for (const fx of [-304.45, -303.05]) this.box('flat', fx, 0.62, -320.98, 0.1, 1.2, 0.08, '#2B2B2B');
-    this.box('flat', -303.75, 0.2, -320.97, 1.0, 0.42, 0.06, '#3A3F44');
-    for (const px of [-305.2, -302.3]) this.cyl('glow', px, 2.75, -320.95, 0.06, 0.02, '#FF9A3D', 8);
-    const fireTex = this._canvasTex(128, 128, (g, W, H) => {
-      const gr = g.createLinearGradient(0, H, 0, 0);
-      gr.addColorStop(0, '#FFF6C2'); gr.addColorStop(0.35, '#FFB13B'); gr.addColorStop(0.75, '#F06A22'); gr.addColorStop(1, '#B8320E');
-      g.fillStyle = gr; g.fillRect(0, 0, W, H);
-      const R2 = this._rng(31);
-      for (let k = 0; k < 14; k++) {
-        const x = R2() * W, w = 8 + R2() * 18, h = H * (0.35 + R2() * 0.5);
-        const fg = g.createLinearGradient(0, H, 0, H - h);
-        fg.addColorStop(0, 'rgba(255,250,210,0.9)'); fg.addColorStop(1, 'rgba(255,140,40,0)');
-        g.fillStyle = fg; g.beginPath(); g.moveTo(x - w, H); g.quadraticCurveTo(x - w * 0.3, H - h * 0.6, x, H - h); g.quadraticCurveTo(x + w * 0.3, H - h * 0.6, x + w, H); g.fill();
-      }
-    }, { repeat: true });
-    const fireMat = new T.MeshBasicMaterial({ map: fireTex, color: 0xffffff, toneMapped: false });
-    const fire = new T.Mesh(new T.PlaneGeometry(1.32, 1.0), fireMat);
-    fire.position.set(-303.75, 1.22, -320.96);
-    this._addDyn(fire);
-    const fire2 = new T.Mesh(new T.PlaneGeometry(0.95, 0.22), new T.MeshBasicMaterial({ color: 0xffe08a, toneMapped: false }));
-    fire2.position.set(-303.75, 0.84, -320.955);
-    this._addDyn(fire2);
-    const poolMat = new T.MeshBasicMaterial({ map: E.tex.glow, color: this._lcol('#FF8A3D'), transparent: true, opacity: 0.5, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false });
-    const pool = new T.Mesh(new T.PlaneGeometry(3.2, 2.6).rotateX(-Math.PI / 2), poolMat);
-    pool.position.set(-303.75, 0.135, -319.9);
-    this._addDyn(pool);
-    this._anim((dt, t) => {
-      const f = 0.78 + 0.16 * Math.sin(t * 13.1) * Math.sin(t * 7.3 + 1) + 0.08 * Math.sin(t * 23.7);
-      fireMat.color.setRGB(f, f * 0.92, f * 0.85);
-      fireTex.offset.x = (t * 0.37) % 1;
-      fireTex.offset.y = 0.04 * Math.sin(t * 9.0);
-      poolMat.opacity = 0.32 + 0.22 * f;
-    });
-    // ash door + ash pile + cart
-    this.sph('flat', -302.6, 0.12, -320.1, 0.7, 0.28, 0.5, '#4A4846', 10);
-    this.box('flat', -300.6, 0.32, -319.6, 0.9, 0.45, 0.6, '#5E666C');
-    for (const wx of [-301.0, -300.2]) for (const wz of [-319.92, -319.28]) this.cylR('flat', wx, 0.24, wz, 0.12, 0.06, '#1C1C1C', Math.PI / 2, 0, 0, 10);
-    // boiler shell on saddles + smokebox + fittings
-    this.box('brick', -301.25, 1.6, -324, 0.6, 1.6, 1.6, '#FFFFFF');
-    this.cylR('shiny', -296.75, 2.35, -324, 1.35, 8.6, '#C8CDD1', 0, 0, Math.PI / 2, 24);
-    for (const ex of [-301.08, -292.42]) this.cylR('flat', ex, 2.35, -324, 1.38, 0.1, '#7E868C', 0, 0, Math.PI / 2, 24);
-    for (const sx of [-299.2, -294.3]) this.box('concrete', sx, 0.12, -324, 0.7, 1.3, 2.4, '#BDB8AE');
-    for (const bx of [-299.5, -297, -294.5]) this.cylR('flat', bx, 2.35, -324, 1.37, 0.12, '#9AA1A6', 0, 0, Math.PI / 2, 24);
-    this.cyl('flat', -297.3, 3.62, -324, 0.32, 0.25, '#7E868C', 14);
-    this.box('flat', -291.95, 0.9, -324, 0.9, 2.95, 2.6, '#3B4045');
-    this.cylR('flat', -292.2, 3.15, -322.67, 0.24, 0.05, '#F4F4F4', Math.PI / 2, 0, 0, 16);
-    this.cylR('flat', -292.2, 3.15, -322.69, 0.27, 0.03, '#2B2B2B', Math.PI / 2, 0, 0, 16);
-    this.box('glow', -301.05, 2.55, -322.75, 0.05, 0.6, 0.06, '#73C7F2');
-    this.box('flat', -301.05, 2.2, -322.72, 0.12, 0.08, 0.12, '#3A3F44');
-    this.box('flat', -301.05, 3.2, -322.72, 0.12, 0.08, 0.12, '#3A3F44');
-    // steam header + valves along the north side
-    this.cylR('shiny', -298.5, 4.65, -328.4, 0.17, 11.5, '#B9C0C5', 0, 0, Math.PI / 2, 12);
-    this.tube('shiny', [[-297.3, 3.7, -324], [-297.3, 4.65, -326.2], [-297.3, 4.65, -328.4]], 0.12, '#B9C0C5', 10);
-    for (const vx of [-302.5, -298.5, -294.5]) {
-      this.cyl('flat', vx, 4.85, -328.4, 0.07, 0.35, '#5E666C', 8);
-      this.cylR('flat', vx, 5.25, -328.4, 0.2, 0.03, '#B23A2E', 0, 0, 0, 14);
-    }
-    this.tube('shiny', [[-304.25, 4.65, -328.4], [-307.9, 4.65, -328.4]], 0.15, '#B9C0C5', 10);
-    this.cylR('flat', -296.0, 4.65, -328.05, 0.2, 0.05, '#F4F4F4', Math.PI / 2, 0, 0, 14);
-    // flue duct to the chimney + ID fan outside
-    this.box('flat', -290.1, 3.3, -324, 3.9, 1.0, 1.0, '#4A4F55');
-    this.box('flat', -291.95, 3.85, -324, 0.9, 0.9, 1.0, '#4A4F55');
-    this.box('flat', -285.6, 3.3, -324, 4.8, 1.0, 1.0, '#4A4F55');
-    this.cylR('flat', -285.6, 1.5, -324, 0.95, 0.75, '#3E6E94', Math.PI / 2, 0, 0, 20);
-    this.box('concrete', -285.6, 0, -324, 2.2, 0.55, 1.8, '#BDB8AE');
-    this._cxMotor(-285.6, 1.05, -322.6, 'z', 0.8, 0.32);
-    this._col(-286.8, -325.1, -284.4, -322.0);
-    // softeners, brine tank, feed tank, control panel
-    this.cyl('flat', -291.4, 0.12, -316.2, 0.32, 1.7, '#2E5FA8', 14);
-    this.cyl('flat', -290.5, 0.12, -316.2, 0.32, 1.7, '#2E5FA8', 14);
-    this.cyl('flat', -289.4, 0.12, -315.9, 0.4, 1.1, '#E8EAEC', 14);
-    for (const lx of [-292.2, -289.4]) this.box('flat', lx, 0.12, -318.6, 0.12, 2.0, 0.12, STEEL);
-    this.cylR('flat', -290.8, 2.75, -318.6, 0.65, 2.6, '#C9CED2', 0, 0, Math.PI / 2, 16);
-    this.tube('flat', [[-290.8, 2.2, -318.6], [-291.0, 0.8, -319.6], [-294.2, 0.8, -322.4]], 0.05, '#8E979D', 8);
-    this._col(-292.4, -319.4, -288.3, -315.4);
-    this.box('flat', -307.7, 0.12, -317.4, 0.6, 2.0, 1.6, '#B8BEC2');
-    for (let j = 0; j < 4; j++) this.box('glow', -307.39, 1.55, -317.9 + j * 0.3, 0.01, 0.08, 0.08, ['#5CFF7A', '#5CFF7A', '#FF5A4A', '#FFD54F'][j]);
-    this.box('glow', -307.39, 1.15, -317.0, 0.01, 0.25, 0.4, '#8FE3FF');
-    this._col(-308.0, -318.3, -307.3, -316.5);
-    this._col(-306.15, -327.15, -301.35, -320.85);
-    this._col(-301.6, -325.45, -291.45, -322.55);
-    for (const p of [[-303, -318], [-296, -318], [-296, -326]]) this.box('glow', p[0], 7.0, p[1], 1.25, 0.04, 0.12, '#F2F7FF');
+    // furnace, boiler, pipework, feedwater, control panel, floor and walls inside: plant.js
+    this._plBoilerRoom(BX0 + 0.3, BX1 - 0.3, BZ0 + 0.3, BZ1 - 0.3, BE);
     // husk silo + screw feeder + pneumatic husk line from the mill
     for (let k = 0; k < 6; k++) { const a = (k / 6) * Math.PI * 2; this.box('flat', -298 + Math.cos(a) * 2.6, 0, -341 + Math.sin(a) * 2.6, 0.25, 6.0, 0.25, STEEL); }
     this.cyl('metal', -298, 6, -341, 3.0, 9, '#C9CFD3', 22);
@@ -1451,7 +1291,7 @@ GHG3.complexes = {
     });
     this._stopAnchor(11, {
       view: [-371.5, -282.5], look: [-381, 2.3, -289], guide: [-373.6, -282.4],
-      pin: [-381, 5.9, -287.2], emit: [-380.0, 3.75, -282.7], gas: ['CO2'], spread: 0.9,
+      pin: [-381, 5.9, -287.2], emit: [-379.68, 3.8, -282.6], gas: ['CO2'], spread: 0.9,
       route: [[-326, -217.5], [-326, -250], [-358, -271], [-371.5, -282.5]], inside: null, district: 'industry'
     });
   }

@@ -19,13 +19,13 @@ const VERSION = JSON.parse(readFileSync(p('package.json'), 'utf8')).version.repl
 
 // ------------------------------------------------------------------ engine
 // order matters: later modules may override earlier ones (mascots replaces the guide from actors)
-const ENGINE_ORDER = ['core', 'layout', 'sky', 'terrain', 'actors', 'mascots', 'complexes', 'warehouse', 'rural', 'world', 'play', 'film', 'audio', 'post', 'tune'];
+const ENGINE_ORDER = ['core', 'layout', 'sky', 'terrain', 'actors', 'mascots', 'complexes', 'warehouse', 'plant', 'civic', 'rural', 'world', 'play', 'film', 'audio', 'post', 'tune'];
 const MIXIN = `/* ---- mixin ---- */
 (function () {
   class GHGTownMixin {}
   const seen = {};
   const OVERRIDE = { _initGuide: 'mascots', _tickGuide: 'mascots' };
-  for (const mod of ['core', 'sky', 'terrain', 'actors', 'mascots', 'complexes', 'warehouse', 'rural', 'world', 'play', 'film', 'audio', 'post', 'tune']) {
+  for (const mod of ['core', 'sky', 'terrain', 'actors', 'mascots', 'complexes', 'warehouse', 'plant', 'civic', 'rural', 'world', 'play', 'film', 'audio', 'post', 'tune']) {
     const M = window.GHG3[mod];
     if (!M) continue;
     for (const k of Object.keys(M)) {
